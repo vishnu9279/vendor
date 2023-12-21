@@ -355,7 +355,7 @@ const VendorSignup = () => {
 
   return (
     <>
-      {/* <SmallDevices /> */}
+      <SmallDevices />
       <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
         <div className="p-5 width">
           <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">
@@ -599,7 +599,7 @@ const VendorSignup = () => {
               Already have an account?{" "}
               <span
                 className="font-semibold cursor-pointer underline hover:text-[#5AB344]"
-                onClick={() => navigate("/vendor-register")}
+                onClick={() => navigate("/vendor-signIn")}
               >
                 Sign in
               </span>{" "}

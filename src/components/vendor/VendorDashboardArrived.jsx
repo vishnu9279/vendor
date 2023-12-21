@@ -118,60 +118,7 @@ const VendorDashboardArrived = () => {
             </div>
           </div>
 
-          <aside className="block md:hidden">
-            <div>
-              <p className=" text-lime-400 text-lg font-semiBold">Order List</p>
-            </div>
 
-            <section className="px-4 pl-4">
-              <div className="flex justify-between items-center h-full w-full mb-1">
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                  Carton Corrugated
-                </p>
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                  ₹37/KG
-                </p>
-              </div>
-
-              <div className="flex justify-between items-center h-full w-full mb-1">
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                  Newspaper
-                </p>
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                  ₹18/KG
-                </p>
-              </div>
-
-              <div className="flex justify-between items-center h-full w-full mb-1">
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                  Car Scrap
-                </p>
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                  ₹37/KG
-                </p>
-              </div>
-
-              <div className="flex justify-between items-center h-full w-full mb-1">
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                  Carton Corrugated
-                </p>
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                  ₹51/KG
-                </p>
-              </div>
-            </section>
-
-            <section>
-              <div className="flex justify-between items-center h-full w-full pt-8 px-4">
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                  Total Weight
-                </p>
-                <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold'] leading-[15.18px]">
-                  ₹143/KG
-                </p>
-              </div>
-            </section>
-          </aside>
         </aside>
 
         <div className="flex md:hidden w-full justify-center items-center h-full mb-5">

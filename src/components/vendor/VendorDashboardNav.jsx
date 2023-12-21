@@ -209,7 +209,7 @@ const VendorDashboardNav = ({
                     </li>
                   </Link>
 
-                  <Link to="/about">
+                  <Link >
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -225,7 +225,7 @@ const VendorDashboardNav = ({
                       </span>
                     </li>
                   </Link>
-                  <Link to="/contact-us">
+                  <Link >
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -241,7 +241,7 @@ const VendorDashboardNav = ({
                       </span>
                     </li>
                   </Link>
-                  <Link to="/pricing">
+                  <Link >
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -273,7 +273,7 @@ const VendorDashboardNav = ({
                     </li>
                   </Link>
 
-                  <Link to="/">
+                  <Link to="/Settings">
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "

@@ -2,10 +2,10 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
-
 import VendorDashboard from "./components/vendor/VendorDashboard";
 
 import VendorDashboardOrder from "./components/vendor/VendorDashboardOrder";
+
 
 import Wrapper from "./layout/Wrapper";
 import { useSelector } from "react-redux";
@@ -27,6 +27,7 @@ import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
 import VendorSignIn from "./components/vendor/Vendor_Auth/VendorSignIn";
 import OrderCompleted from "./components/vendor/OrderCompleted";
+import Settings from "./components/vendor/Settings";
 
 function App() {
   const [userId, setUserId] = React.useState("");
@@ -88,6 +89,8 @@ function App() {
               path="/OrderCompleted"
               element={<OrderCompleted />}
             />
+
+            <Route path="/Settings" element={<Settings />} />
 
 
 

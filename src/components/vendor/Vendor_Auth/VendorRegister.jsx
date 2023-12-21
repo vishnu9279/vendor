@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import LabeledInput from "../../auth/LabeledInput";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
+import SmallDevices from "../components/SmallDevices";
+import SignInSmall from "../components/SignInSmall";
 
 const VendorRegister = () => {
 
@@ -80,8 +82,8 @@ const VendorRegister = () => {
 
     return (
         <>
-            {/* <SmallDevices /> */}
-            <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
+            <SignInSmall />
+            <div className="md:flex-row flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
                 <div className="p-5 width">
                     <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">
                         Welcome To <span className="text-[#5AB344]">JunkBazar</span>

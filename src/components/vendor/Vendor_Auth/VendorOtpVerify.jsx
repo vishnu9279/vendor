@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
 import { serverUrl } from "../../../api-config/config";
 import axios from "axios";
+import OtpSmall from "../components/OtpSmall";
 
 const VendorOtpRegister = () => {
 
@@ -101,7 +102,7 @@ const VendorOtpRegister = () => {
 
     return (
         <>
-            {/* <SmallDevices /> */}
+            <OtpSmall />
             <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
                 <div className="p-5 width">
                     <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">

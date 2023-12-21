@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import LabeledInput from "../../auth/LabeledInput";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
+import SignInSmall from "../components/SignInSmall";
 
 const VendorSignIn = () => {
 
@@ -27,7 +28,7 @@ const VendorSignIn = () => {
         setPhoneNumber(value);
         setIsValidPhoneNumber(isValid);
     };
-    const signUpService = async () => {
+    const signInService = async () => {
         const payload = {
             dialCode: "+91",
             phoneNumber: phoneNumber
@@ -80,7 +81,7 @@ const VendorSignIn = () => {
 
     return (
         <>
-            {/* <SmallDevices /> */}
+            <SignInSmall />
             <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
                 <div className="p-5 width">
                     <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">
@@ -132,7 +133,7 @@ const VendorSignIn = () => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                            handleClick={signUpService}
+                            handleClick={signInService}
 
                         />
                         <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">

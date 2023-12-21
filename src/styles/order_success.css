@@ -1,0 +1,19 @@
+@media only screen and (max-width: 800px) {
+  .order_btn {
+    width: 130px;
+    height: 34px;
+    font-size: 11.96px;
+    margin: 4px;
+    padding-top: 2px;
+  }
+  .order_img {
+    width: 200px;
+    height: 165px;
+  }
+  .order_text_1 {
+    font-size: 20px;
+  }
+  .order_text_2 {
+    font-size: 14px;
+  }
+}

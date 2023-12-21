@@ -1,5 +1,4 @@
-import Nav from "../components/header/Nav";
-import Footer from "../components/footer/Footer";
+
 import { useLocation } from "react-router-dom";
 
 const Wrapper = ({ children, token }) => {
@@ -10,7 +9,6 @@ const Wrapper = ({ children, token }) => {
     "/OrderCompleted",
     "/vendor-register",
     "/vendor-otp",
-
     "/login_signup",
     "/signup",
     "/forgotpassword",
@@ -37,9 +35,9 @@ const Wrapper = ({ children, token }) => {
   const _excludePaths = $hiddenPaths.includes(location.pathname);
   return (
     <div>
-      {!_excludePaths && <Nav token={token} />}
+
       {children}
-      {!_excludePaths && <Footer />}
+
     </div>
   );
 };

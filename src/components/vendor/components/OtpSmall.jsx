@@ -5,7 +5,7 @@ import Button from "../../auth/Button";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import scrapBus from '../../../assets/PNG/scrapbus.png'
 const OtpSmall = () => {
 
     const [checked,
@@ -20,7 +20,7 @@ const OtpSmall = () => {
 
     const location = useLocation();
 
-    console.log("phoneNumberObj", location.state.phoneNumber);
+    console.log("phoneNumberObj", location.state.mobile);
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
         const phoneRegex = /^\d{6}$/;
@@ -32,7 +32,7 @@ const OtpSmall = () => {
     const otpVerifyService = async () => {
         const payload = {
             otp: otp,
-            phoneNumber: location.state.phoneNumber
+            phoneNumber: location.state.mobile
         };
 
         try {
@@ -95,23 +95,21 @@ const OtpSmall = () => {
 
 
     return (
-        <div className="small-devices p-5">
-            <div className="shadow-lg">
-                <h2 className="text-center font-semibold text-[16.55px] text-[#5AB344] border-b-2 border-b-[#5AB344] p-5 mt-5">
-                    OTP Verify
-                </h2>
-                <div className="pl-10 pr-10">
-                    <img src={vendor} className="w-full h-[255px] xs:h-[400px]" alt="" />
-                </div>
-                <div>
-                    <h2 className="text-[#303030] text-center text-[32px] mt-2 mb-0">
-                        Welcome, Vendor!
+        <div className="small-devices bg-[#5AB344]">
+
+            <div className="pl-10 pr-10">
+                <img src={scrapBus} className="w-full h-[255px] xs:h-[400px]" alt="" />
+            </div>
+            <div className="bg-white -mt-12 p-10 rounded-t-lg">
+                <div className="mt-5">
+                    <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">
+                        Sign up now
                     </h2>
-                    <p className="text-[#707070] text-center text-[14px]">
-                        OTP Verify
+                    <p className="text-[#707070]  text-[14px]">
+                        Create a new account in four simple steps
                     </p>
                 </div>
-                <form className="p-5">
+                <form className="mt-5">
                     <SignupInput
                         input={{ label: "Enter OTP", name: "enter otp", type: "number" }}
 
@@ -120,21 +118,23 @@ const OtpSmall = () => {
                         maxlength="6"
                         handleChange={handlePhoneNumberChange}
                     />
-
-                    <Button handleClick={otpVerifyService}
-                        label="Verify"
-                        classname="w-full bg-[#5AB344] h-[48px] p-3 font-semibold text-white mt-7 rounded-[27px]"
-                    />
-                    <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400]">
-                        Don't have an account?{" "}
-                        <span className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">
-                            Sign Up
-                        </span>
-                    </p>
+                    <div className="mt-20">
+                        <Button handleClick={otpVerifyService}
+                            label="Verify"
+                            classname="w-full bg-[#5AB344] h-[48px] p-3 font-semibold text-white mt-7 rounded-[27px]"
+                        />
+                        <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400]">
+                            Don't have an account?{" "}
+                            <span className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">
+                                Sign Up
+                            </span>
+                        </p>
+                    </div>
                 </form>
             </div>
-
         </div>
+
+
     );
 };
 

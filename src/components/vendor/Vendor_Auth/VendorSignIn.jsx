@@ -7,7 +7,8 @@ import LabeledInput from "../../auth/LabeledInput";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
 import SignInSmall from "../components/SignInSmall";
-
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
 const VendorSignIn = () => {
 
     const navigate = useNavigate();
@@ -28,10 +29,14 @@ const VendorSignIn = () => {
         setPhoneNumber(value);
         setIsValidPhoneNumber(isValid);
     };
+
+
     const signInService = async () => {
+        console.log("phone number ", phoneNumber.slice(3, 13))
+        const mobile = phoneNumber.slice(3, 13)
         const payload = {
             dialCode: "+91",
-            phoneNumber: phoneNumber
+            phoneNumber: mobile
         };
 
         try {
@@ -48,7 +53,7 @@ const VendorSignIn = () => {
                 });
                 navigate("/vendor-otp", {
                     state: {
-                        phoneNumber
+                        mobile
                     }
                 });
             }
@@ -108,13 +113,20 @@ const VendorSignIn = () => {
                     </div>
                     <form className="mt-11">
                         <p className="text-[#666666] text-[16px]">Phone Number</p>
-                        <LabeledInput className="col-span-2"
+                        {/* <LabeledInput className="col-span-2"
                             type='number'
                             inputMode='numeric'
                             pattern="[0-9]*"
                             maxlength="10"
                             handleChange={handlePhoneNumberChange}
-                        />
+                        /> */}
+                        <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
+                            <PhoneInput
+                                international
+                                defaultCountry="IN"
+                                value={phoneNumber}
+                                onChange={setPhoneNumber} />
+                        </div>
                         {/* <StepThree /> */}
                         <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5">
                             <Input

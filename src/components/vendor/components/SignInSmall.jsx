@@ -5,7 +5,9 @@ import Button from "../../auth/Button";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
 import { useNavigate } from "react-router-dom";
-
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
+import scrapBus from '../../../assets/PNG/scrapbus.png'
 const SignInSmall = () => {
 
   const navigate = useNavigate();
@@ -24,9 +26,11 @@ const SignInSmall = () => {
     setIsValidPhoneNumber(isValid);
   };
   const signInService = async () => {
+    console.log("phone number ", phoneNumber.slice(3, 13))
+    const mobile = phoneNumber.slice(3, 13)
     const payload = {
       dialCode: "+91",
-      phoneNumber: phoneNumber
+      phoneNumber: mobile
     };
 
     try {
@@ -43,7 +47,7 @@ const SignInSmall = () => {
         });
         navigate("/vendor-otp", {
           state: {
-            phoneNumber
+            mobile
           }
         });
       }
@@ -75,47 +79,44 @@ const SignInSmall = () => {
 
 
   return (
-    <div className="small-devices p-5">
-      <div className="shadow-lg">
-        <h2 className="text-center font-semibold text-[16.55px] text-[#5AB344] border-b-2 border-b-[#5AB344] p-5 mt-5">
-          Sign In
-        </h2>
-        <div className="pl-10 pr-10">
-          <img src={vendor} className="w-full h-[255px] xs:h-[400px]" alt="" />
-        </div>
-        <div>
-          <h2 className="text-[#303030] text-center text-[32px] mt-2 mb-0">
-            Welcome, Vendor!
+    <div className="small-devices bg-[#5AB344]">
+      <div className="pl-10 pr-10">
+        <img src={scrapBus} className="w-full h-[255px] xs:h-[400px]" alt="" />
+      </div>
+      <div className="bg-white -mt-12 p-10 rounded-t-lg">
+        <div className="mt-5">
+          <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">
+            Sign In now
           </h2>
-          <p className="text-[#707070] text-center text-[14px]">
-            Sign into your Account
-          </p>
         </div>
-        <form className="p-5">
-          <SignupInput
-            input={{ label: "Phone Number", name: "phoneNumber", type: "number" }}
-            type='number'
-            inputMode='numeric'
-            pattern="[0-9]*"
-            maxlength="10"
-            handleChange={handlePhoneNumberChange}
-          />
+        <form className=" mt-5">
+          <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
+            <PhoneInput
+              international
+              defaultCountry="IN"
+              value={phoneNumber}
+              onChange={setPhoneNumber} />
+          </div>
+          <div className="mt-20">
+            <Button handleClick={signInService}
+              label="Sign In"
+              classname="w-full bg-[#5AB344] h-[48px] p-3 font-semibold text-white mt-7 rounded-[27px]"
+            />
+            <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400]">
+              Don't have an account?{" "}
+              <span onClick={() => navigate("/")}
+                className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">
+                Sign Up
+              </span>
+            </p>
+          </div>
 
-          <Button handleClick={signInService}
-            label="Sign In"
-            classname="w-full bg-[#5AB344] h-[48px] p-3 font-semibold text-white mt-7 rounded-[27px]"
-          />
-          <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400]">
-            Don't have an account?{" "}
-            <span onClick={() => navigate("/")}
-              className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">
-              Sign Up
-            </span>
-          </p>
         </form>
       </div>
 
     </div>
+
+
   );
 };
 

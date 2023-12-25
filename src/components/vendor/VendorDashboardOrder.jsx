@@ -79,7 +79,7 @@ const VendorDashboardOrder = () => {
   const fullname = localStorage.getItem("fullname");
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get("/getUserOrder?page=0&limit=10&orderStatus=0");
+      const response = await axiosInstance.get("/getVendorOrder?page=0&limit=10&orderStatus=0");
       console.log("get User data", response);
       const res = JSON.parse(response.data.data)
       console.log("order data", res);
@@ -134,7 +134,7 @@ const VendorDashboardOrder = () => {
       <aside className="mb-3 pb-8 flex justify-center lg:justify-between bg-white border p-3 md:pr-16 border-neutral-300 rounded-lg lg:rounded-sm mx-3 md:mx-8 h-full ">
         <div className="">
           <div className="md:hidden flex items-center">
-            <Countdown date={Date.now() + count} renderer={renderer} />
+            {/* <Countdown date={Date.now() + count} renderer={renderer} /> */}
           </div>
           <div className="md:hidden flex justify-between items-center w-full p-1 pr-3">
             <p className=" text-neutral-400 text-sm  tracking-wide">
@@ -205,7 +205,7 @@ const VendorDashboardOrder = () => {
 
 
         <div className="md:flex justify-between items-center flex-col hidden">
-          <Countdown date={Date.now() + count} renderer={renderer} />
+          {/* <Countdown date={Date.now() + count} renderer={renderer} /> */}
           <div className="flex justify-end items-end">
             <button
               className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-3  mt-5 cursor-pointer px-7 py-[.65rem] hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"

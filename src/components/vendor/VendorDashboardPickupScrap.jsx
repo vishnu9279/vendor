@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const VendorDashboardPickupScrap = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const orderId = location.state.item
+  const orderId = location.state.orderId
   console.log("order details ", orderId)
   const handlePickup = async () => {
 

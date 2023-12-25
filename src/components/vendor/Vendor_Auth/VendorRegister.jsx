@@ -8,10 +8,14 @@ import Swal from "sweetalert2";
 import axiosInstance from "../../../api-config/axiosInstance";
 import SmallDevices from "../components/SmallDevices";
 import SignInSmall from "../components/SignInSmall";
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
+import SignUpSmall from "../components/SignUp";
 
 const VendorRegister = () => {
 
     const navigate = useNavigate();
+    const [locationData, setLocationData] = useState(null);
 
     const [checked,
         setChecked] = React.useState(true);
@@ -30,9 +34,11 @@ const VendorRegister = () => {
         setIsValidPhoneNumber(isValid);
     };
     const signUpService = async () => {
+        console.log("phone number ", phoneNumber.slice(3, 13))
+        const mobile = phoneNumber.slice(3, 13)
         const payload = {
             dialCode: "+91",
-            phoneNumber: phoneNumber
+            phoneNumber: mobile
         };
 
         try {
@@ -49,7 +55,7 @@ const VendorRegister = () => {
                 });
                 navigate("/vendor-otp", {
                     state: {
-                        phoneNumber
+                        mobile
                     }
                 });
             }
@@ -79,10 +85,61 @@ const VendorRegister = () => {
         }
     };
 
+    const getAddress = () => {
+
+        // Ask for geolocation permission
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log('position', position);
+                    const { latitude, longitude } = position.coords;
+
+                    // Fetch address using Google Geocoding API directly
+                    fetch(
+                        "https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBRQkTWtt_qnnA81GdTJTVDuTdg74OCr5o"
+                    )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log("data", data);
+                            const address = data.results[0].formatted_address;
+                            const country = data.results[0].address_components.find(
+                                (component) => component.types.includes('country')
+                            ).long_name;
+                            const state = data.results[0].address_components.find(
+                                (component) => component.types.includes('administrative_area_level_1')
+                            ).long_name;
+                            const city = data.results[0].address_components.find(
+                                (component) =>
+                                    component.types.includes('locality') ||
+                                    component.types.includes('administrative_area_level_2')
+                            ).long_name;
+
+                            setLocationData({
+                                latitude,
+                                longitude,
+                                address,
+                                country,
+                                state,
+                                city,
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error fetching location:', error);
+                        });
+                },
+                (error) => {
+                    console.error('Error getting geolocation:', error);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }
+
 
     return (
         <>
-            <SignInSmall />
+            <SignUpSmall />
             <div className="md:flex-row flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
                 <div className="p-5 width">
                     <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">
@@ -109,13 +166,20 @@ const VendorRegister = () => {
                     </div>
                     <form className="mt-11">
                         <p className="text-[#666666] text-[16px]">Phone Number</p>
-                        <LabeledInput className="col-span-2"
+                        {/* <LabeledInput className="col-span-2"
                             type='number'
                             inputMode='numeric'
                             pattern="[0-9]*"
                             maxlength="10"
                             handleChange={handlePhoneNumberChange}
-                        />
+                        /> */}
+                        <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
+                            <PhoneInput
+                                international
+                                defaultCountry="IN"
+                                value={phoneNumber}
+                                onChange={setPhoneNumber} />
+                        </div>
                         {/* <StepThree /> */}
                         <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5">
                             <Input

@@ -28,6 +28,12 @@ import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
 import VendorSignIn from "./components/vendor/Vendor_Auth/VendorSignIn";
 import OrderCompleted from "./components/vendor/OrderCompleted";
 import Settings from "./components/vendor/Settings";
+import AcceptedOrder from "./components/vendor/AcceptedOrder";
+import PriceCardComponent from "./components/vendor/components/PriceCard";
+import Pricing from "./components/vendor/priceList";
+import History from "./components/vendor/History";
+import ContactScreen from "./pages/ContactUs";
+import AboutUs from "./pages/AboutUsPage";
 
 function App() {
   const [userId, setUserId] = React.useState("");
@@ -65,7 +71,8 @@ function App() {
 
             {/* Vendor Dashboard */}
             <Route path="/vendor-dashboard" element={<VendorDashboard />} />
-
+            <Route path="/accept-order" element={<AcceptedOrder />} />
+            <Route path="/price" element={<Pricing />} />
 
             {/* Order Pickup Flow */}
             <Route
@@ -91,6 +98,9 @@ function App() {
             />
 
             <Route path="/Settings" element={<Settings />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/contactUs" element={<ContactScreen />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
 
 
 

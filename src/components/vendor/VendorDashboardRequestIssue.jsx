@@ -17,9 +17,9 @@ const VendorDashboardRequestIssue = () => {
   const navigate = useNavigate();
   const orderId = location.state.item
   console.log("order details ", orderId)
-  const handlePickup = async (item) => {
+  const handlePickup = async () => {
 
-
+    console.log("passing data", orderId);
     const payload = {
       "orderId": orderId.orderId,
       "orderStatus": 2

@@ -24,7 +24,7 @@ const VendorOtpRegister = () => {
 
     const location = useLocation();
 
-    console.log("phoneNumberObj", location.state.phoneNumber);
+    console.log("phoneNumberObj", location.state.mobile);
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
         const phoneRegex = /^\d{6}$/;
@@ -36,7 +36,7 @@ const VendorOtpRegister = () => {
     const otpVerifyService = async () => {
         const payload = {
             otp: otp,
-            phoneNumber: location.state.phoneNumber
+            phoneNumber: location.state.mobile
         };
 
         try {

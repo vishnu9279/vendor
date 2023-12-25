@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 const AdminDashboardHeader = ({ showNav, handleNavClick }) => {
   const [searchBar, setSearchBar] = useState(false);
   const navigate = useNavigate();
-
   const handleClick = () => {
     setSearchBar(true);
     console.log("clicke");
@@ -37,9 +36,8 @@ const AdminDashboardHeader = ({ showNav, handleNavClick }) => {
             </span>
           </div>
           <div
-            className={`${
-              searchBar ? "flex scale-in-center  items-center w-full" : "hidden"
-            }`}
+            className={`${searchBar ? "flex scale-in-center  items-center w-full" : "hidden"
+              }`}
           >
             <input
               type="search"

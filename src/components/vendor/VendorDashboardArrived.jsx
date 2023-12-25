@@ -15,7 +15,7 @@ const VendorDashboardArrived = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const orderId = location.state.item
+  const orderId = location.state.orderId
   console.log("order details ", orderId)
 
 

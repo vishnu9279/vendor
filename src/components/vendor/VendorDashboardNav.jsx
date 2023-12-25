@@ -15,6 +15,7 @@ import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 const VendorDashboardNav = ({
   showNav,
@@ -22,7 +23,8 @@ const VendorDashboardNav = ({
   onScrap,
   showHistory,
   showSettings,
-  Pricing
+  Pricing,
+  AcceptOrder
 
 }) => {
 
@@ -31,6 +33,28 @@ const VendorDashboardNav = ({
   const handlehome = () => {
     navigate("https://junkbaazar-user.netlify.app/")
   }
+
+
+  const [profile, setProfileData] = useState({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get("/getCurrentUser");
+      console.log("get User data", response);
+      const data = JSON.parse(response.data.data);
+      setProfileData(data);
+      console.log("get Profile of user ", data)
+      localStorage.setItem("fullname", profile.firstName)
+    }
+    catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const handleLogOut = async () => {
     try {
@@ -68,76 +92,98 @@ const VendorDashboardNav = ({
                 className="w-36 cursor-pointer p-3"
               />
             </div>
-            <div className="flex flex-col justify-center">
-              <div
-                className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer ml-2"
-                onClick={onScrap}
-              >
-                <img src={orders} alt="order-icon" />
-                <span className="text-center text-lime-600 text-base font-normal font-['Gilroy-Bold'] tracking-tight ml-3">
-                  Orders
-                </span>
-              </div>
 
-              <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
-                <img src={home_icon} alt="home-icon" />
-                <a href="https://junkbaazar-user.netlify.app/" target="_blank" rel="noreferrer">
+            <div className="flex flex-col justify-center">
+              <Link to="/vendor-dashboard-order">
+                <div
+                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer ml-2"
+                  onClick={onScrap}
+                >
+                  <img src={orders} alt="order-icon" />
+                  <span className="text-center text-lime-600 text-base font-normal font-['Gilroy-Bold'] tracking-tight ml-3">
+                    Orders
+                  </span>
+                </div>
+              </Link>
+              <Link to="/accept-order">
+                <div
+                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+
+                  <img src={price_list_icon} alt="price-list-icon" />
+
+                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                    Accept Order
+                  </span>
+
+                </div>
+              </Link>
+              <Link to="/vendor-dashboard">
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                  <img src={home_icon} alt="home-icon" />
+
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     Homepage
                   </span>
-                </a>
-              </div>
 
-              <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
-                <img src={about_icon} alt="about-icon" />
-                <a href="https://junkbaazar-user.netlify.app/" target="_blank" rel="noreferrer">
+                </div>
+              </Link >
+              <Link to={"/aboutUs"} >
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                  <img src={about_icon} alt="about-icon" />
+
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     About
                   </span>
-                </a>
-              </div>
 
-              <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                </div>
+              </Link>
+              <Link to="/contactUs">
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
 
-                <img src={contact_icon} alt="contact-icon" />
-                <a href="https://junkbaazar-user.netlify.app/" target="_blank" rel="noreferrer">
+                  <img src={contact_icon} alt="contact-icon" />
+
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     Contact
                   </span>
-                </a>
-              </div>
 
-              <div onClick={Pricing}
-                className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                </div>
+              </Link>
+              {/* <Link to={"/price"}>
+                <div
+                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
 
-                <img src={price_list_icon} alt="price-list-icon" />
+                  <img src={price_list_icon} alt="price-list-icon" />
+                  <a href="https://junkbaazar-user.netlify.app/" target="_blank" rel="noreferrer">
+                    <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                      Price List
+                    </span>
+                  </a>
+                </div>
+              </Link> */}
+              <Link to="/history">
+                <div
+                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
+                  onClick={showHistory}
+                >
+                  <img src={pickup_icon} alt="pickup-icon" />
+                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                    Pickup History
+                  </span>
+                </div>
+              </Link>
+              <Link to="/Settings">
+                <div
+                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
 
-                <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
-                  Price List
-                </span>
-
-              </div>
-
-              <div
-                className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
-                onClick={showHistory}
-              >
-                <img src={pickup_icon} alt="pickup-icon" />
-                <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
-                  Pickup History
-                </span>
-              </div>
-
-              <div
-                className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
-                onClick={showSettings}
-              >
-                <img src={setting_icon} alt="setting-icon" />
-                <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
-                  Settings
-                </span>
-              </div>
+                >
+                  <img src={setting_icon} alt="setting-icon" />
+                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                    Settings
+                  </span>
+                </div>
+              </Link>
             </div>
+
           </section>
           <section>
             <div onClick={handleLogOut} className=" w-[90%] h-[3.25rem] hover:bg-red-300 mb-3 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2 text-neutral-500 hover:text-neutral-800">
@@ -175,10 +221,10 @@ const VendorDashboardNav = ({
                 />
                 <aside>
                   <h1 className="text-white text-lg md:text-2xl font-bold leading-tight">
-                    Andy Cophra
+                    {profile.firstName}
                   </h1>
                   <p className="text-white text-sm md:text-xl font-bold leading-tight">
-                    +91 23940839400
+                    {profile.dialCode}{" "} {profile.phoneNumber}
                   </p>
                   <span className="flex mr-1">
                     <img src={location_icon} alt="location_icon" />
@@ -193,7 +239,7 @@ const VendorDashboardNav = ({
             <nav className="font-['Gilroy-Regular'] h-full">
               <div className="flex justify-between flex-col h-3/4 ">
                 <ul className="flex flex-col px-1 py-4 text-gray-800 font-semibold mt-1">
-                  <Link >
+                  <Link to="/vendor-dashboard">
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -209,7 +255,7 @@ const VendorDashboardNav = ({
                     </li>
                   </Link>
 
-                  <Link >
+                  <Link to={"/aboutUs"}>
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -225,7 +271,7 @@ const VendorDashboardNav = ({
                       </span>
                     </li>
                   </Link>
-                  <Link >
+                  <Link to="/contactUs">
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -241,7 +287,7 @@ const VendorDashboardNav = ({
                       </span>
                     </li>
                   </Link>
-                  <Link >
+                  {/* <Link to={"/price"}>
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -255,9 +301,9 @@ const VendorDashboardNav = ({
                         Price List
                       </span>
                     </li>
-                  </Link>
+                  </Link> */}
 
-                  <Link to="/vendor-dashboard-order">
+                  {/* <Link to="/history">
                     <li
                       onClick={hideNav}
                       className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -271,7 +317,7 @@ const VendorDashboardNav = ({
                         Pickup History
                       </span>
                     </li>
-                  </Link>
+                  </Link> */}
 
                   <Link to="/Settings">
                     <li

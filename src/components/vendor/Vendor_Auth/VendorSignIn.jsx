@@ -128,36 +128,42 @@ const VendorSignIn = () => {
                                 onChange={setPhoneNumber} />
                         </div>
                         {/* <StepThree /> */}
-                        <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5">
-                            <Input
-                                type="checkbox"
-                                classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
-                                value={checked}
-                                checked={checked}
-                                handleChange={() => setChecked((prevState) => !prevState)}
-                            />{" "}
-                            By creating an account, I agree to our
-                            <span className="underline cursor-pointer">
-                                Terms of use
-                            </span> and{" "}
-                            <span className="underline cursor-pointer">Privacy Policy </span>
-                        </p>
-                        <Button
-                            label="Continue"
-                            classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                            handleClick={signInService}
 
-                        />
-                        <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
-                            Already have an account?{" "}
-                            <span
-                                className="font-semibold cursor-pointer underline hover:text-[#5AB344]"
-                                onClick={() => navigate("/")}
-                            >
-                                Sign Up
-                            </span>{" "}
-                        </p>
+                        <div className="pt-20">
+                            <p className="text-[14px] text-[#666666] font-semibold  mb-5">
+                                <Input
+                                    type="checkbox"
+                                    classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
+                                    value={checked}
+                                    checked={checked}
+                                    handleChange={() => setChecked((prevState) => !prevState)}
+                                />{" "}
+                                By creating an account, I agree to our
+                                <span className="underline cursor-pointer">
+                                    Terms of use
+                                </span> and{" "}
+                                <span className="underline cursor-pointer">Privacy Policy </span>
+                            </p>
+                            <Button
+                                label="Continue"
+                                classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
+                                handleClick={signInService}
+
+                            />
+                            <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
+                                Already have an account?{" "}
+                                <span
+                                    className="font-semibold cursor-pointer underline hover:text-[#5AB344]"
+                                    onClick={() => navigate("/")}
+                                >
+                                    Sign Up
+                                </span>{" "}
+                            </p>
+                        </div>
+
                     </form>
+
+
                 </div>
             </div>
         </>

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
 import Swal from "sweetalert2";
+import Pagination from "react-js-pagination";
 
 
 const VendorDashboardOrder = () => {
@@ -20,6 +21,8 @@ const VendorDashboardOrder = () => {
   const closeVendorNav = () => setVendorNav(false);
   const [userOrder, setUserOrder] = useState([]);
   const navigate = useNavigate();
+
+  const [pageNumber, setPageNumber] = useState(0);
 
   const date = 0.01;
   const count = date * 60 * 24 * 1000;
@@ -42,6 +45,11 @@ const VendorDashboardOrder = () => {
       </div>
     );
   };
+
+  const handlePageChange = (pageNumber) => {
+    console.log(`active page is ${pageNumber}`);
+    setPageNumber(pageNumber);
+  }
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -230,6 +238,7 @@ const VendorDashboardOrder = () => {
         </div>
 
       </aside>
+
     ))
   }
 
@@ -407,6 +416,13 @@ const VendorDashboardOrder = () => {
         </aside> */}
 
         {renderData()}
+        {/* <Pagination
+          activePage={pageNumber}
+          itemsCountPerPage={10}
+          totalItemsCount={450}
+          pageRangeDisplayed={5}
+          onChange={() => handlePageChange(pageNumber)}
+        /> */}
       </section>
     </main>
   );

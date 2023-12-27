@@ -108,7 +108,7 @@ const SmallDevices = () => {
     const payload = {
       ContentType: file.type,
       fileName: file.name,
-      uploadType: "documents",
+      uploadType: "DOCUMENTS",
       userId: id
     };
 
@@ -120,9 +120,14 @@ const SmallDevices = () => {
 
       const imageSignedObj = JSON.parse(signedUrl.data.data);
 
+      console.log("start ", adharCard);
+
+
       setAdharCard(imageSignedObj.key);
+      console.log("end ", adharCard);
 
       console.log("image signed url outside axios block", imageSignedObj.signedUrl, imageSignedObj.key);
+      console.log("dead end ", adharCard);
 
       const uploadResponse = await fetch(imageSignedObj.signedUrl, {
         body: file,
@@ -170,7 +175,7 @@ const SmallDevices = () => {
     const payload = {
       ContentType: file.type,
       fileName: file.name,
-      uploadType: "documents",
+      uploadType: "DOCUMENTS",
       userId: id
     };
 
@@ -233,7 +238,7 @@ const SmallDevices = () => {
     const payload = {
       ContentType: file.type,
       fileName: file.name,
-      uploadType: "documents",
+      uploadType: "DOCUMENTS",
       userId: id
     };
 
@@ -241,9 +246,11 @@ const SmallDevices = () => {
       const signedUrl = await axios.post(`${serverUrl}/generateS3UploadSignedUrl`, payload, {
         headers: headers
       });
-      //  console.log('image signed url outside axios block', signedUrl);
+      console.log('image signed url outside axios block', signedUrl);
 
       const imageSignedObj = JSON.parse(signedUrl.data.data);
+
+      console.log("image response", imageSignedObj);
 
       setPhoto(imageSignedObj.key);
 

@@ -1,4 +1,4 @@
-import location from "../../assets/SVG/dashboard/location_icon.svg";
+import locationIcon from "../../assets/SVG/dashboard/location_icon.svg";
 import contact_icon from "../../assets/SVG/dashboard/contact_icon.svg";
 import telephone from "../../assets/SVG/dashboard/telephone.svg";
 import VendorDashboardNav from "./VendorDashboardNav";
@@ -55,7 +55,7 @@ const VendorDashboardPickupScrap = () => {
             <div className="flex justify-between w-full">
               <div className="w-full">
                 <div className="flex p-2">
-                  <img src={location} alt="location_icon" className="mr-2" />
+                  <img src={locationIcon} alt="location_icon" className="mr-2" />
                   <div className="">
                     <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
                       {orderId.city}

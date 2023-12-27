@@ -115,7 +115,7 @@ const VendorSignup = () => {
     const payload = {
       ContentType: file.type,
       fileName: file.name,
-      uploadType: "documents",
+      uploadType: "DOCUMENTS",
       userId: id
     };
 
@@ -127,10 +127,14 @@ const VendorSignup = () => {
 
       const imageSignedObj = JSON.parse(signedUrl.data.data);
 
+      console.log("start ", adharCard);
+
+
       setAdharCard(imageSignedObj.key);
+      console.log("end ", adharCard);
 
       console.log("image signed url outside axios block", imageSignedObj.signedUrl, imageSignedObj.key);
-
+      console.log("dead end ", adharCard);
       const uploadResponse = await fetch(imageSignedObj.signedUrl, {
         body: file,
         headers: {
@@ -177,7 +181,7 @@ const VendorSignup = () => {
     const payload = {
       ContentType: file.type,
       fileName: file.name,
-      uploadType: "documents",
+      uploadType: "DOCUMENTS",
       userId: id
     };
 
@@ -240,7 +244,7 @@ const VendorSignup = () => {
     const payload = {
       ContentType: file.type,
       fileName: file.name,
-      uploadType: "documents",
+      uploadType: "DOCUMENTS",
       userId: id
     };
 
@@ -355,7 +359,7 @@ const VendorSignup = () => {
 
   return (
     <>
-      <SmallDevices />
+      {/* <SmallDevices /> */}
       <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
         <div className="p-5 width">
           <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">

@@ -128,7 +128,7 @@ const VendorDashboardRequestIssue = () => {
           </div>
         </div>
 
-        <aside className="mb-8">
+        {/* <aside className="mb-8">
           <p className=" text-neutral-600 text-2xl pl-7 pt-3 font-bold">
             Report an Issue
           </p>
@@ -149,7 +149,7 @@ const VendorDashboardRequestIssue = () => {
               Submit
             </button>
           </div>
-        </aside>
+        </aside> */}
       </section>
     </main>
   );

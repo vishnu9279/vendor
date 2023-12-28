@@ -101,6 +101,7 @@ const VendorSignIn = () => {
                         className="signup-img w-[251px] h-[251px] mx-auto xs:w-[320px] xs:h-[450px] max-w-[886px] lg:h-[500px]"
                     />
                 </div>
+
                 <div className="form-data-content width pl-12 pr-12 p-6 mr-5 w-full max-w-[772px] bg-white">
                     <h2 className="text-[#333333] font-semibold text-[24px] mt-6 mb-2 xs:text-[28px]">
                         Sign In now
@@ -113,21 +114,16 @@ const VendorSignIn = () => {
                     </div>
                     <form className="mt-11">
                         <p className="text-[#666666] text-[16px]">Phone Number</p>
-                        {/* <LabeledInput className="col-span-2"
-                            type='number'
-                            inputMode='numeric'
-                            pattern="[0-9]*"
-                            maxlength="10"
-                            handleChange={handlePhoneNumberChange}
-                        /> */}
+
                         <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                             <PhoneInput
+                                className={"input-phone-number"}
                                 international
                                 defaultCountry="IN"
                                 value={phoneNumber}
                                 onChange={setPhoneNumber} />
                         </div>
-                        {/* <StepThree /> */}
+
 
                         <div className="pt-20">
                             <p className="text-[14px] text-[#666666] font-semibold  mb-5">

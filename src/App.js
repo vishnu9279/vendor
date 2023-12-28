@@ -34,6 +34,7 @@ import Pricing from "./components/vendor/priceList";
 import History from "./components/vendor/History";
 import ContactScreen from "./pages/ContactUs";
 import AboutUs from "./pages/AboutUsPage";
+import VendorSign from "./components/vendor/Vendor_Auth/VendorSignTest";
 
 function App() {
   const [userId, setUserId] = React.useState("");
@@ -101,7 +102,7 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/contactUs" element={<ContactScreen />} />
             <Route path="/aboutUs" element={<AboutUs />} />
-
+            <Route path="/VendorSign" element={<VendorSign />} />
 
 
 

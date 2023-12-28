@@ -40,13 +40,13 @@ const VendorSignup = () => {
 
   const [address, setAddress] = useState("");
 
-  const {
-    state
-  } = useLocation(); const {
-    id
-  } = state;
+  // const {
+  //   state
+  // } = useLocation(); const {
+  //   id
+  // } = state;
 
-  console.log("Scrap Id", id);
+  // console.log("Scrap Id", id);
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get("/getCountries");
@@ -116,7 +116,7 @@ const VendorSignup = () => {
       ContentType: file.type,
       fileName: file.name,
       uploadType: "DOCUMENTS",
-      userId: id
+      // userId: id
     };
 
     try {
@@ -182,7 +182,7 @@ const VendorSignup = () => {
       ContentType: file.type,
       fileName: file.name,
       uploadType: "DOCUMENTS",
-      userId: id
+      // userId: id
     };
 
     try {
@@ -245,7 +245,7 @@ const VendorSignup = () => {
       ContentType: file.type,
       fileName: file.name,
       uploadType: "DOCUMENTS",
-      userId: id
+      // userId: id
     };
 
     try {
@@ -304,7 +304,7 @@ const VendorSignup = () => {
 
   const signUpService = async () => {
     const payload = {
-      "userId": id,
+      // "userId": id,
       "firstName": firstName,
       "lastName": lastName,
       "aadhaarID": adharCard,
@@ -360,7 +360,7 @@ const VendorSignup = () => {
   return (
     <>
       {/* <SmallDevices /> */}
-      <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
+      {/* <div className="flex flex-col signup-container lg:pl-[50px] lg:pr-[50px]">
         <div className="p-5 width">
           <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">
             Welcome To <span className="text-[#5AB344]">JunkBazar</span>
@@ -554,31 +554,7 @@ const VendorSignup = () => {
 
             </div>
 
-            {/* <p className="text-[#666666] text-[16px]">Upload Pan Card</p>
-            <div className="border border-[#66666659] rounded-[12px] p-3 w-full cursor-pointer mb-2">
-              <label htmlFor="upload">
-                <span className="rounded-[8px] bg-[#DFDFDF] font-[400] text-[16px] text-[#666666] p-2 hidden lg:inline">
-                  Choose an image
-                </span>
-                <span className="ml-2 text-[#D9D9D9] text-[16px] font-[400]">
-                  No files selected
-                </span>
-                <Input type="file" classname="hidden w-full" id="upload" />
-              </label>
-            </div> */}
-            {/* <p className="text-[#666666] text-[16px]">Upload Photo</p>
-            <div className="border border-[#66666659] rounded-[12px] p-3 w-full cursor-pointer mb-2">
-              <label htmlFor="upload">
-                <span className="rounded-[8px] bg-[#DFDFDF] font-[400] text-[16px] text-[#666666] p-2 hidden lg:inline">
-                  Choose an image
-                </span>
-                <span className="ml-2 text-[#D9D9D9] text-[16px] font-[400]">
-                  No files selected
-                </span>
-                <Input type="file" classname="hidden w-full" id="upload" />
-              </label>
-            </div> */}
-            {/* <StepThree /> */}
+           
             <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
               <Input
                 type="checkbox"
@@ -610,7 +586,235 @@ const VendorSignup = () => {
             </p>
           </form>
         </div>
-      </div>
+      </div> */}
+      <div class="  text-gray-900 bg-[#355B2B] flex justify-center" >
+        <div class="w-full m-0 sm:m-10   sm:rounded-lg flex justify-center flex-1">
+
+          <div
+            class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
+            <div className="p-5 width">
+              <h2 className="head text-[38px] md:text-[48px] mt-10 mb-2 font-[600] text-white hidden">
+                Welcome To <span className="text-[#5AB344]">JunkBazar</span>
+              </h2>
+              <p className="head hidden text-[20px] md:text-[24px] text-white font-[400]">
+                Sign up to enjoy exclusive access!
+              </p>
+              <img
+                src={customer}
+                alt=""
+                className="signup-img w-[251px] h-[251px] mx-auto xs:w-[320px] xs:h-[450px] max-w-[886px] lg:h-[500px]"
+              />
+            </div>
+
+          </div>
+          <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 shadow bg-white">
+
+            <div class="mx-auto w-full max-w-[550px] bg-white">
+              <form className="mt-5">
+                <div className="grid  grid-cols-2 gap-6">
+
+                  <div>
+                    <label className="block py-3 text-black">First Name</label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        required
+                        onChange={(e) => {
+                          setFirstName(e.target.value);
+                        }}
+                        placeholder="Enter Address"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+
+
+                  <div>
+                    <label className="block py-3 text-black">Last Name</label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        required
+                        onChange={(e) => {
+                          setLastName(e.target.value);
+                        }}
+                        placeholder="Enter Address"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+
+
+                </div>
+                <p className="text-[#666666] text-[16px] mt-5">Upload Adhar Card</p>
+                <div className="col-span-6 sm:col-span-3 ">
+                  <div className="relative">
+                    <label
+                      htmlFor="pix1"
+                      className="cursor-pointer block bg-[#80d7421c] border border-gray-300 hover:border-gray-400 rounded-md p-4 text-center"
+                    >
+                      {previewAdhar ? (
+                        <p>{previewAdhar}</p>
+                      ) : (
+                        <span className="text-gray-500 mb-4">Upload Adhar Card</span>
+                      )}
+                    </label>
+                    <input
+                      id="pix1"
+                      type="file"
+                      className="hidden"
+                      onChange={uploadAdhar}
+                    />
+                  </div>
+                </div>
+                <p className="text-[#666666] text-[16px] mt-5">Upload Pan Card</p>
+                <div className="col-span-6 sm:col-span-3 ">
+                  <div className="relative">
+                    <label
+                      htmlFor="pix2"
+                      className="cursor-pointer block bg-[#80d7421c] border border-gray-300 hover:border-gray-400 rounded-md p-4 text-center"
+                    >
+                      {previewPanCard ? (
+                        <p>{previewPanCard}</p>
+                      ) : (
+                        <span className="text-gray-500 mb-4">Upload Pan Card</span>
+                      )}
+                    </label>
+                    <input
+                      id="pix2"
+                      type="file"
+                      className="hidden"
+                      onChange={uploadPanCard}
+                    />
+                  </div>
+                </div>
+                <p className="text-[#666666] text-[16px] mt-5">Upload Photo</p>
+                <div className="col-span-6 sm:col-span-3 ">
+                  <div className="relative">
+                    <label
+                      htmlFor="pix3"
+                      className="cursor-pointer block bg-[#80d7421c] border border-gray-300 hover:border-gray-400 rounded-md p-4 text-center"
+                    >
+                      {previewPhoto ? (
+                        <p>{previewPhoto}</p>
+                      ) : (
+                        <span className="text-gray-500 mb-4">Upload Photo</span>
+                      )}
+                    </label>
+                    <input
+                      id="pix3"
+                      type="file"
+                      className="hidden"
+                      onChange={uploadPhoto}
+                    />
+                  </div>
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <div>
+                    <label className="block py-3 text-black">Enter Address</label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        required
+                        onChange={(e) => {
+                          setAddress(e.target.value);
+                        }}
+                        placeholder="Enter Address"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <div className="grid  grid-cols-2 gap-6">
+                    <div>
+                      <label className="block py-3 text-black">Select Country</label>
+                      <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                        <div className="w-full">
+                          <select className="w-full bg-[#80d7421c] p-1"
+                            value={selectedCountry}
+                            onChange={handleCountryChange}
+                          >
+                            <option value="">Select Country</option>
+                            {countriesAndStates.map((country) => (
+                              <option key={country.iso2} value={country.iso2}>
+                                {country.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block py-3 text-black">Select State</label>
+                      <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                        <div className="w-full">
+                          <select className="w-full bg-[#80d7421c] p-1" value={selectedState} onChange={handleStateChange}>
+                            <option value="">Select State</option>
+                            {states.map((stateObj) => (
+                              <option
+                                key={stateObj.state_code}
+                                value={stateObj.state_code}
+                              >
+                                {stateObj.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div>
+                    <label className="block py-3 text-black">Select City</label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <div className="w-full">
+                        <select className="w-full bg-[#80d7421c] p-1" value={selectedCity} disabled={!selectedState} onChange={handleCityChange}>
+                          <option value="">Select City</option>
+                          {cities.map((cityObj) => (
+                            <option key={cityObj.id} value={cityObj.name}>
+                              {cityObj.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
+                  <Input
+                    type="checkbox"
+                    classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
+                    value={checked}
+                    checked={checked}
+                    handleChange={() => setChecked((prevState) => !prevState)}
+                  />{" "}
+                  By creating an account, I agree to our
+                  <span className="underline cursor-pointer">
+                    Terms of use
+                  </span> and{" "}
+                  <span className="underline cursor-pointer">Privacy Policy </span>
+                </p>
+                <Button handleClick={signUpService}
+                  label={loading ? "Please wait ...." : "Continue"}
+                  classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
+
+
+                />
+                <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
+                  Already have an account?{" "}
+                  <span
+                    className="font-semibold cursor-pointer underline hover:text-[#5AB344]"
+                    onClick={() => navigate("/vendor-signIn")}
+                  >
+                    Sign in
+                  </span>{" "}
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div >
     </>
   );
 };

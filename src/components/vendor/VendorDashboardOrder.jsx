@@ -155,14 +155,14 @@ const VendorDashboardOrder = () => {
                 </p>
               </div>
               <h1 className=" hidden md:block text-neutral-700 text-2xl font-normal  leading-9 tracking-tight p-2">
-                {/* {item.scrapInfo.scrapName} */}
+                {scrapDat.scrapInfo.scrapName}
               </h1>
             </div>
           ))}
 
           <div className="flex justify-between w-full">
             <div className="w-full">
-              {item.items?.map((scrapDat, index) => (
+              {/* {item.items?.map((scrapDat, index) => (
                 <div>
                   <div className="flex p-1 md:p-2 ">
                     <img
@@ -172,7 +172,7 @@ const VendorDashboardOrder = () => {
                     />
                     <div className="w-[230px] md:w-full">
                       <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                        {item.city}
+                        {scrapDat.city}
                       </p>
                       <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
                         {item.address}
@@ -196,7 +196,7 @@ const VendorDashboardOrder = () => {
                   </div>
                 </div>
 
-              ))}
+              ))} */}
 
               <section className=" md:hidden">
                 <aside className="">

@@ -14,7 +14,7 @@ const VendorSignIn = () => {
     const navigate = useNavigate();
 
     const [checked,
-        setChecked] = React.useState(true);
+        setChecked] = React.useState(false);
     const [phoneNumber,
         setPhoneNumber] = useState("");
     const [isValidPhoneNumber,
@@ -32,54 +32,64 @@ const VendorSignIn = () => {
 
 
     const signInService = async () => {
-        console.log("phone number ", phoneNumber.slice(3, 13))
-        const mobile = phoneNumber.slice(3, 13)
-        const payload = {
-            dialCode: "+91",
-            phoneNumber: mobile
-        };
+        if (checked) {
+            console.log("phone number ", phoneNumber.slice(3, 13))
+            const mobile = phoneNumber.slice(3, 13)
+            const payload = {
+                dialCode: "+91",
+                phoneNumber: mobile
+            };
 
-        try {
-            const resp = await axiosInstance.post("/login", payload);
-            const dataObject = resp.data;
+            try {
+                const resp = await axiosInstance.post("/login", payload);
+                const dataObject = resp.data;
 
-            if (dataObject.statusCode === 200) {
-                Swal.fire({
-                    icon: "success",
-                    position: "center",
-                    showConfirmButton: true,
-                    timer: 2500,
-                    title: dataObject.message
-                });
-                navigate("/vendor-otp", {
-                    state: {
-                        mobile
-                    }
-                });
+                if (dataObject.statusCode === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        position: "center",
+                        showConfirmButton: true,
+                        timer: 2500,
+                        title: dataObject.message
+                    });
+                    navigate("/vendor-otp", {
+                        state: {
+                            mobile
+                        }
+                    });
+                }
             }
-        }
-        catch (error) {
-            console.error("error", error);
+            catch (error) {
+                console.error("error", error);
 
-            if (error.response) {
-                Swal.fire({
-                    icon: "error",
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    title: error.response.data.error._message
-                });
+                if (error.response) {
+                    Swal.fire({
+                        icon: "error",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: error.response.data.error._message
+                    });
+                }
+                else if (error.request) {
+                    // Client made a request but response is not received 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
+                }
+                else {
+                    // Other case 
+                    console.log("Error", error.message);
+                }
+                // Error handling here 
             }
-            else if (error.request) {
-                // Client made a request but response is not received 
-                console.log("<<<<<<<Response Not Received>>>>>>>>");
-                console.log(error.request);
-            }
-            else {
-                // Other case 
-                console.log("Error", error.message);
-            }
-            // Error handling here 
+        } else {
+            Swal.fire({
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2500,
+                title: "Select Term And Condition",
+            });
         }
     };
 
@@ -117,16 +127,19 @@ const VendorSignIn = () => {
 
                         <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                             <PhoneInput
+                                maxLength={15}
                                 className={"input-phone-number"}
                                 international
                                 defaultCountry="IN"
                                 value={phoneNumber}
                                 onChange={setPhoneNumber} />
                         </div>
+                        <div className="mt-40 text-start text-xl  leading-[25.3px] text-[#707070] ">
 
+                        </div>
 
-                        <div className="pt-20">
-                            <p className="text-[14px] text-[#666666] font-semibold  mb-5">
+                        <div className="">
+                            <p className="text-[14px] text-[#666666] font-semibold mt-20  mb-5 max-w-2xl">
                                 <Input
                                     type="checkbox"
                                     classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"

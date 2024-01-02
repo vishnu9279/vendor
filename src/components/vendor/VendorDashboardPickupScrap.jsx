@@ -106,7 +106,7 @@ const VendorDashboardPickupScrap = () => {
         <aside className="mb-3 pb-8 flex justify-between bg-white border p-3 pr-16 border-neutral-300 rounded-sm mx-8 h-full">
           <div className="">
             <h1 className=" text-neutral-700 text-2xl font-normal font-['Gilroy-Bold'] leading-9 tracking-tight p-2">
-              {orderId.scrapInfo.scrapName}
+              {/* {orderId.scrapInfo.scrapName} */}
             </h1>
             <div className="flex justify-between w-full">
               <div className="w-full">
@@ -160,7 +160,7 @@ const VendorDashboardPickupScrap = () => {
             <div className="pt-5 pl-5 w-full lg:max-w-sm ">
               <select value={selectPayment} onChange={handlePayment}
                 className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                {payment.map((option) => {
+                {payment?.map((option) => {
                   return (
                     <option key={option.paymentType} value={option.paymentType}>
                       {option.paymentType}

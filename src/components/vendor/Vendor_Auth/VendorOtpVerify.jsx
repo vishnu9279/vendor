@@ -13,7 +13,7 @@ import OtpSmall from "../components/OtpSmall";
 const VendorOtpRegister = () => {
 
     const [checked,
-        setChecked] = React.useState(true);
+        setChecked] = React.useState(false);
     const [otp,
         setOtp] = useState("");
     const [isValidPhoneNumber,
@@ -34,66 +34,76 @@ const VendorOtpRegister = () => {
         setIsValidPhoneNumber(isValid);
     };
     const otpVerifyService = async () => {
-        const payload = {
-            otp: otp,
-            phoneNumber: location.state.mobile
-        };
+        if (checked) {
+            const payload = {
+                otp: otp,
+                phoneNumber: location.state.mobile
+            };
 
-        try {
-            const resp = await axiosInstance.post("/otpVerify", payload);
-            const dataObject = resp.data;
-            const tokenParse = JSON.parse(dataObject.data);
-            console.log("response from api", resp)
-            console.log("token", tokenParse.token);
-            localStorage.setItem("token", tokenParse.token);
+            try {
+                const resp = await axiosInstance.post("/otpVerify", payload);
+                const dataObject = resp.data;
+                const tokenParse = JSON.parse(dataObject.data);
+                console.log("response from api", resp)
+                console.log("token", tokenParse.token);
+                localStorage.setItem("token", tokenParse.token);
 
-            const data = JSON.parse(resp.data.data);
-            if (dataObject.statusCode === 200) {
-                if (data.isDocumentUploaded === false) {
-                    navigate("/vendor-signup", {
-                        state: {
-                            id: data.userId,
-                        },
-                    });
-                } else {
+                const data = JSON.parse(resp.data.data);
+                if (dataObject.statusCode === 200) {
+                    if (data.isDocumentUploaded === false) {
+                        navigate("/vendor-signup", {
+                            state: {
+                                id: data.userId,
+                            },
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "success",
+                            position: "center",
+                            showConfirmButton: false,
+                            timer: 2500,
+                            title: dataObject.message
+                        });
+                        console.log("token store ", localStorage.getItem("token"));
+
+                        navigate("/vendor-dashboard", {
+
+                        });
+                    }
+
+
+
+                }
+            }
+            catch (error) {
+                console.error("Error", error);
+
+                if (error.response) { // status code out of the range of 2xx
                     Swal.fire({
-                        icon: "success",
+                        icon: "error",
                         position: "center",
                         showConfirmButton: false,
                         timer: 2500,
-                        title: dataObject.message
+                        title: error.response.data.error._message
                     });
-                    console.log("token store ", localStorage.getItem("token"));
 
-                    navigate("/vendor-dashboard", {
-
-                    });
+                    console.log("Status :" + error.response.status);
                 }
-
-
-
+                else if (error.request) { // The request was made but no response was received
+                    console.log(error.request);
+                }
+                else {// Error on setting up the request
+                    console.log("Error", error.message);
+                }
             }
-        }
-        catch (error) {
-            console.error("Error", error);
-
-            if (error.response) { // status code out of the range of 2xx
-                Swal.fire({
-                    icon: "error",
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    title: error.response.data.error._message
-                });
-
-                console.log("Status :" + error.response.status);
-            }
-            else if (error.request) { // The request was made but no response was received
-                console.log(error.request);
-            }
-            else {// Error on setting up the request
-                console.log("Error", error.message);
-            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2500,
+                title: "Select Term And Condition",
+            });
         }
     };
 
@@ -137,7 +147,10 @@ const VendorOtpRegister = () => {
                             handleChange={handlePhoneNumberChange}
                         />
                         {/* <StepThree /> */}
-                        <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5">
+                        <div className="mt-40 text-start text-xl  leading-[25.3px] text-[#707070] ">
+
+                        </div>
+                        <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
                             <Input
                                 type="checkbox"
                                 classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"

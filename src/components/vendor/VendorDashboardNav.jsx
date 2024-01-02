@@ -93,10 +93,10 @@ const VendorDashboardNav = ({
               />
             </div>
 
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center ">
               <Link to="/vendor-dashboard-order">
                 <div
-                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer ml-2"
+                  className=" w-[90%] h-[3.25rem] active:bg-lime-200 hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer ml-2"
                   onClick={onScrap}
                 >
                   <img src={orders} alt="order-icon" />

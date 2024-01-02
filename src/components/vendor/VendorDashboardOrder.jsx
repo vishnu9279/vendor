@@ -144,49 +144,59 @@ const VendorDashboardOrder = () => {
           <div className="md:hidden flex items-center">
             {/* <Countdown date={Date.now() + count} renderer={renderer} /> */}
           </div>
-          <div className="md:hidden flex justify-between items-center w-full p-1 pr-3">
-            <p className=" text-neutral-400 text-sm  tracking-wide">
-              Order ID: #{item.orderId}
-            </p>
-            <p className="text-center text-neutral-400 text-sm  tracking-wide leading-3">
-              {item.createdAt}
-            </p>
-          </div>
-          <h1 className=" hidden md:block text-neutral-700 text-2xl font-normal  leading-9 tracking-tight p-2">
-            {item.scrapInfo.scrapName}
-          </h1>
+          {item.items?.map((scrapDat, index) => (
+            <div>
+              <div className="md:hidden flex justify-between items-center w-full p-1 pr-3">
+                <p className=" text-neutral-400 text-sm  tracking-wide">
+                  Order ID: #{item.orderId}
+                </p>
+                <p className="text-center text-neutral-400 text-sm  tracking-wide leading-3">
+                  {scrapDat.scrapInfo.createdAt}
+                </p>
+              </div>
+              <h1 className=" hidden md:block text-neutral-700 text-2xl font-normal  leading-9 tracking-tight p-2">
+                {/* {item.scrapInfo.scrapName} */}
+              </h1>
+            </div>
+          ))}
+
           <div className="flex justify-between w-full">
             <div className="w-full">
-              <div className="flex p-1 md:p-2 ">
-                <img
-                  src={location}
-                  alt="location_icon"
-                  className="mr-3 md:mr-2"
-                />
-                <div className="w-[230px] md:w-full">
-                  <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                    {item.city}
-                  </p>
-                  <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
-                    {item.address}
-                  </p>
+              {item.items?.map((scrapDat, index) => (
+                <div>
+                  <div className="flex p-1 md:p-2 ">
+                    <img
+                      src={location}
+                      alt="location_icon"
+                      className="mr-3 md:mr-2"
+                    />
+                    <div className="w-[230px] md:w-full">
+                      <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
+                        {item.city}
+                      </p>
+                      <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
+                        {item.address}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex p-2">
+                    <img
+                      src={contact_icon}
+                      alt="contact_icon"
+                      className="mr-3 md:mr-2"
+                    />
+                    <div className="w-[230px] md:w-full">
+                      <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
+                        {item.fullName}
+                      </p>
+                      <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
+                        {item.dialCode}{" "} {item.phoneNumber}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex p-2">
-                <img
-                  src={contact_icon}
-                  alt="contact_icon"
-                  className="mr-3 md:mr-2"
-                />
-                <div className="w-[230px] md:w-full">
-                  <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                    {item.fullName}
-                  </p>
-                  <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
-                    {item.dialCode}{" "} {item.phoneNumber}
-                  </p>
-                </div>
-              </div>
+
+              ))}
 
               <section className=" md:hidden">
                 <aside className="">
@@ -249,7 +259,7 @@ const VendorDashboardOrder = () => {
         handleNavClick={handleVendorNav}
         showNav={vendorNav}
       />
-      <section className="lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[8%] bg-green-50 h-full ">
+      <section className="lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[10%] sm-[10%] h-full ">
         <section className="mx-5 border-2 border-lime-600 rounded-full mb-2 block lg:hidden md:max-w-[600px] md:mx-auto">
           <div className="flex mx-4 justify-between items-center py-1 ">
             <img src={note} alt="note_icon" className="mr-2 md:w-8" />

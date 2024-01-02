@@ -69,7 +69,7 @@ const VendorDashboardRequestIssue = () => {
               </p>
             </div>
             <h1 className=" text-neutral-700 text-2xl font-normal font-['Gilroy-Bold'] leading-9 tracking-tight p-2 w-full">
-              {orderId.scrapInfo.scrapName}
+              {/* {orderId.scrapInfo.scrapName} */}
             </h1>
             <div className="flex justify-between w-full">
               <div className="w-full">

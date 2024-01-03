@@ -139,115 +139,88 @@ const VendorDashboardOrder = () => {
 
   const renderData = () => {
     return userOrder?.map((item) => (
-      <aside className="mb-3 pb-8 flex justify-center lg:justify-between bg-white border p-3 md:pr-16 border-neutral-300 rounded-lg lg:rounded-sm mx-3 md:mx-8 h-full ">
-        <div className="">
-          <div className="md:hidden flex items-center">
-            {/* <Countdown date={Date.now() + count} renderer={renderer} /> */}
-          </div>
-          {item.items?.map((scrapDat, index) => (
-            <div>
-              <div className="md:hidden flex justify-between items-center w-full p-1 pr-3">
-                <p className=" text-neutral-400 text-sm  tracking-wide">
-                  Order ID: #{item.orderId}
-                </p>
-                <p className="text-center text-neutral-400 text-sm  tracking-wide leading-3">
-                  {scrapDat.scrapInfo.createdAt}
-                </p>
-              </div>
-              <h1 className=" hidden md:block text-neutral-700 text-2xl font-normal  leading-9 tracking-tight p-2">
-                {scrapDat.scrapInfo.scrapName}
-              </h1>
-            </div>
-          ))}
 
-          <div className="flex justify-between w-full">
-            <div className="w-full">
-              {/* {item.items?.map((scrapDat, index) => (
+
+      <div class="mx-auto mt-8 max-w-2xl md:mt-12">
+        <div class="bg-white shadow-lg">
+
+          <div class="flex flex-col justify-between ml-4 flex-grow">
+            <span class="font-bold text-sm">{item?.userInfo.firstName}{" "}{item?.userInfo.lastName}</span>
+            <span class="text-red-500 text-sm">{item?.userInfo.dialCode}{item?.userInfo.phoneNumber}</span>
+
+          </div>
+          <span class="h-1 w-full bg-slate-400 lg:w-1/3"></span>
+          <div class="flex flex-row  ml-4 flex-grow mt-2">
+            <img
+              src="https://file.rendit.io/n/C0CS7E4FGckCjnUrkzNJ.svg"
+              alt="Carbonlocationfilled"
+              id="CarbonlocationfilledRoot"
+              className="w-5 h-4"
+            />
+            <span class="font-bold text-sm"> {item?.userInfo.address}</span>
+          </div>
+          <div class="px-4 py-6 sm:px-8 sm:py-10">
+            <div class="flow-root">
+              <span class="h-1 w-full bg-slate-400 lg:w-1/3"></span>
+              <ul class="-my-8">
+                <span class="mt-10 font-bold text-slate-400 text-sm">Order ID:- #{item?.orderId}</span>
                 <div>
-                  <div className="flex p-1 md:p-2 ">
-                    <img
-                      src={location}
-                      alt="location_icon"
-                      className="mr-3 md:mr-2"
-                    />
-                    <div className="w-[230px] md:w-full">
-                      <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                        {scrapDat.city}
-                      </p>
-                      <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
-                        {item.address}
-                      </p>
-                    </div>
+                  <div class="flex mt-2  mb-5">
+                    <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
+                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
                   </div>
-                  <div className="flex p-2">
-                    <img
-                      src={contact_icon}
-                      alt="contact_icon"
-                      className="mr-3 md:mr-2"
-                    />
-                    <div className="w-[230px] md:w-full">
-                      <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                        {item.fullName}
-                      </p>
-                      <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
-                        {item.dialCode}{" "} {item.phoneNumber}
-                      </p>
+                  {item.items?.map((scrapDat, index) => (
+                    <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                      <div class="flex w-2/5">
+                        <div class="w-10">
+                          <img class="h-10" src={scrapDat?.scrapInfo.docUrl} alt="" />
+                        </div>
+                        <div class="flex flex-col justify-between ml-4 flex-grow">
+                          <span class="font-bold text-sm">{scrapDat?.scrapInfo.scrapName}</span>
+                          <span class="text-red-500 text-sm">{scrapDat?.scrapInfo.quantityType}</span>
+
+                        </div>
+                      </div>
+                      <div class="flex justify-center w-1/5">
+                        {scrapDat?.quantity}
+                      </div>
+                      <span class="text-center w-1/5 font-semibold text-sm">₹{scrapDat?.scrapInfo.price}</span>
+                      <span class="text-center w-1/5 font-semibold text-sm">₹{scrapDat?.scrapInfo.price}</span>
                     </div>
-                  </div>
+                  ))}
                 </div>
 
-              ))} */}
 
-              <section className=" md:hidden">
-                <aside className="">
-                  <section className="flex flex-col pr-4">
-                    <button onClick={() => handlePickup(item)}
-                      className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.8rem] border-2 w-full border-lime-600 ${apply ? "hidden" : "block"
-                        }`}
-                    >
-                      Accept Order
-                    </button>
-
-                    <button
-                      className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.8rem] w-full hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"
-                        }`}
-                    >
-                      Reject Order
-                    </button>
-                  </section>
-                </aside>
-              </section>
+              </ul>
+            </div>
+            <div class="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
+              <div className="flex space-x-4">
+                <button
+                  className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-3  mt-5 cursor-pointer px-7 py-[.65rem] hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"
+                    }`}
+                >
+                  Reject Pickup
+                </button>
+                <button onClick={(e) => handlePickup(item)}
+                  className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 ${apply ? "hidden" : "block"
+                    }`}
+                >
+                  Accept Pickup
+                </button>
+                <button
+                  className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-12 py-[.65rem] border-2 border-lime-600 ${apply ? "block" : "hidden"
+                    }`}
+                  onClick={() => setApply(false)}
+                >
+                  Reapply
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
-
-        <div className="md:flex justify-between items-center flex-col hidden">
-          {/* <Countdown date={Date.now() + count} renderer={renderer} /> */}
-          <div className="flex justify-end items-end">
-            <button
-              className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-3  mt-5 cursor-pointer px-7 py-[.65rem] hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"
-                }`}
-            >
-              Reject Pickup
-            </button>
-            <button onClick={() => handlePickup(item)}
-              className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 ${apply ? "hidden" : "block"
-                }`}
-            >
-              Accept Pickup
-            </button>
-            <button
-              className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-12 py-[.65rem] border-2 border-lime-600 ${apply ? "block" : "hidden"
-                }`}
-              onClick={() => setApply(false)}
-            >
-              Reapply
-            </button>
-          </div>
-        </div>
-
-      </aside>
+      </div>
 
     ))
   }
@@ -270,160 +243,7 @@ const VendorDashboardOrder = () => {
           </div>
         </section>
 
-        {/* <aside className="mb-3 pb-8 flex justify-center lg:justify-between bg-white border p-3 md:pr-16 border-neutral-300 rounded-lg lg:rounded-sm mx-3 md:mx-8 h-full ">
-          <div className="">
-            <div className="md:hidden flex items-center">
-              <Countdown date={Date.now() + count} renderer={renderer} />
-            </div>
-            <div className="md:hidden flex justify-between items-center w-full p-1 pr-3">
-              <p className=" text-neutral-400 text-sm  tracking-wide">
-                Order ID: #284921
-              </p>
-              <p className="text-center text-neutral-400 text-sm  tracking-wide leading-3">
-                October, 20th. 8:00 PM
-              </p>
-            </div>
-            <h1 className=" hidden md:block text-neutral-700 text-2xl font-normal  leading-9 tracking-tight p-2">
-              A New Order
-            </h1>
-            <div className="flex justify-between w-full">
-              <div className="w-full">
-                <div className="flex p-1 md:p-2 ">
-                  <img
-                    src={location}
-                    alt="location_icon"
-                    className="mr-3 md:mr-2"
-                  />
-                  <div className="w-[230px] md:w-full">
-                    <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                      Dehli, Groove Estate
-                    </p>
-                    <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
-                      234, Knight St Cedar Lake,Groove Estate, Mumbai, India
-                    </p>
-                  </div>
-                </div>
-                <div className="flex p-2">
-                  <img
-                    src={contact_icon}
-                    alt="contact_icon"
-                    className="mr-3 md:mr-2"
-                  />
-                  <div className="w-[230px] md:w-full">
-                    <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                      Ajay Raj
-                    </p>
-                    <p className=" text-zinc-600 text-sm font-normal font-['Gilroy-Regular'] ">
-                      234, Knight St Cedar Lake,Groove Estate, Mumbai, India
-                    </p>
-                  </div>
-                </div>
 
-                <section className=" md:hidden">
-                  <aside className="">
-                    <div>
-                      <p className=" text-lime-400 text-lg font-semiBold">
-                        Order List
-                      </p>
-                    </div>
-
-                    <section className="px-4 pl-4">
-                      <div className="flex justify-between items-center h-full w-full mb-1">
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                          Carton Corrugated
-                        </p>
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                          ₹37/KG
-                        </p>
-                      </div>
-
-                      <div className="flex justify-between items-center h-full w-full mb-1">
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                          Newspaper
-                        </p>
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                          ₹18/KG
-                        </p>
-                      </div>
-
-                      <div className="flex justify-between items-center h-full w-full mb-1">
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                          Car Scrap
-                        </p>
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                          ₹37/KG
-                        </p>
-                      </div>
-
-                      <div className="flex justify-between items-center h-full w-full mb-1">
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium']">
-                          Carton Corrugated
-                        </p>
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Medium'] leading-[15.18px]">
-                          ₹51/KG
-                        </p>
-                      </div>
-                    </section>
-
-                    <section>
-                      <div className="flex justify-between items-center h-full w-full pt-8 px-4">
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold']">
-                          Total Weight
-                        </p>
-                        <p className=" text-neutral-600 text-base font-normal font-['Gilroy-Bold'] leading-[15.18px]">
-                          ₹143/KG
-                        </p>
-                      </div>
-                    </section>
-
-                    <section className="flex flex-col pr-4">
-                      <button onClick={handlePickup}
-                        className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.8rem] border-2 w-full border-lime-600 ${apply ? "hidden" : "block"
-                          }`}
-                      >
-                        Accept Order
-                      </button>
-
-                      <button
-                        className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.8rem] w-full hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"
-                          }`}
-                      >
-                        Reject Order
-                      </button>
-                    </section>
-                  </aside>
-                </section>
-              </div>
-            </div>
-          </div>
-
-
-          <div className="md:flex justify-between items-center flex-col hidden">
-            <Countdown date={Date.now() + count} renderer={renderer} />
-            <div className="flex justify-end items-end">
-              <button
-                className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-3  mt-5 cursor-pointer px-7 py-[.65rem] hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"
-                  }`}
-              >
-                Reject Pickup
-              </button>
-              <button onClick={handlePickup}
-                className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 ${apply ? "hidden" : "block"
-                  }`}
-              >
-                Accept Pickup
-              </button>
-              <button
-                className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-12 py-[.65rem] border-2 border-lime-600 ${apply ? "block" : "hidden"
-                  }`}
-                onClick={() => setApply(false)}
-              >
-                Reapply
-              </button>
-            </div>
-          </div>
-
-        </aside> */}
 
         {renderData()}
         {/* <Pagination

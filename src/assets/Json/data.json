@@ -1,0 +1,111 @@
+[
+    {
+        "_id": "65956c4c8669d58c3f6fd34b",
+        "addToCartId": "Ete28S",
+        "createdAt": "2024-01-03T14:16:44.778Z",
+        "enabled": true,
+        "items": [
+            {
+                "amount": 1000,
+                "quantity": 1,
+                "quantityType": "per/piece",
+                "scrapId": "OeJOHv",
+                "scrapIdF_K": "65910d236ecd51b30f1ffc42",
+                "scrapInfo": {
+                    "_id": "65910d236ecd51b30f1ffc42",
+                    "currentTime": 1704004899955,
+                    "docPath": "scrap/UudlCk/1704004899324-product-jpeg.jpg",
+                    "enabled": true,
+                    "price": 1000,
+                    "quantity": 0,
+                    "quantityType": "per/piece",
+                    "scrapId": "OeJOHv",
+                    "scrapName": "trolly scrap",
+                    "userId": "UudlCk",
+                    "userIdF_k": "65905a8fb51227e70802abe1",
+                    "createdAt": "2023-12-31T06:41:39.958Z",
+                    "updatedAt": "2023-12-31T06:41:39.958Z",
+                    "__v": 0,
+                    "docUrl": "https://junkbazarstaging.s3.ap-south-1.amazonaws.com/scrap/UudlCk/1704004899324-product-jpeg.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA6EEKHLBBMI4CRHLW%2F20240103%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240103T141704Z&X-Amz-Expires=60&X-Amz-Signature=35d4a41ad19a852a5bbc7595a7a4623e55a1569ec006c0f49b83b42f01ac9f23&X-Amz-SignedHeaders=host&x-id=GetObject"
+                }
+            },
+            {
+                "amount": 1000,
+                "quantity": 1,
+                "quantityType": "per/piece",
+                "scrapId": "UuPWtr",
+                "scrapIdF_K": "6591b8430324575217c4848e",
+                "scrapInfo": {
+                    "_id": "6591b8430324575217c4848e",
+                    "currentTime": 1704048707908,
+                    "docPath": "scrap/UudlCk/1704048667912-scrapking.jpg",
+                    "enabled": true,
+                    "price": 1000,
+                    "quantity": 0,
+                    "quantityType": "per/piece",
+                    "scrapId": "UuPWtr",
+                    "scrapName": "glubs1 scrap",
+                    "userId": "UudlCk",
+                    "userIdF_k": "65905a8fb51227e70802abe1",
+                    "createdAt": "2023-12-31T18:51:47.913Z",
+                    "updatedAt": "2023-12-31T18:51:47.913Z",
+                    "__v": 0,
+                    "docUrl": "https://junkbazarstaging.s3.ap-south-1.amazonaws.com/scrap/UudlCk/1704048667912-scrapking.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA6EEKHLBBMI4CRHLW%2F20240103%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240103T141704Z&X-Amz-Expires=60&X-Amz-Signature=6470e632e635f6cb9acc6c30f0ef4330f0fc80c3fa31c8b8699a748897242fc8&X-Amz-SignedHeaders=host&x-id=GetObject"
+                }
+            },
+            {
+                "amount": 5000,
+                "quantity": 1,
+                "quantityType": "per/piece",
+                "scrapId": "X7NaTZ",
+                "scrapIdF_K": "6592ff6c41c372eeea613b4e",
+                "scrapInfo": {
+                    "_id": "6592ff6c41c372eeea613b4e",
+                    "currentTime": 1704132460355,
+                    "docPath": "scrap/UudlCk/1704132438006-71nimIzWsTL.jpg",
+                    "enabled": true,
+                    "price": 5000,
+                    "quantity": 0,
+                    "quantityType": "per/piece",
+                    "scrapId": "X7NaTZ",
+                    "scrapName": "testing",
+                    "userId": "UudlCk",
+                    "userIdF_k": "65905a8fb51227e70802abe1",
+                    "createdAt": "2024-01-01T18:07:40.360Z",
+                    "updatedAt": "2024-01-01T18:07:40.360Z",
+                    "__v": 0,
+                    "docUrl": "https://junkbazarstaging.s3.ap-south-1.amazonaws.com/scrap/UudlCk/1704132438006-71nimIzWsTL.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA6EEKHLBBMI4CRHLW%2F20240103%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240103T141704Z&X-Amz-Expires=60&X-Amz-Signature=a14ac2992f8ba8f669ccdb214922667f2762572468e05f957fc0c920d8e0770d&X-Amz-SignedHeaders=host&x-id=GetObject"
+                }
+            }
+        ],
+        "orderId": "awij4N",
+        "orderStatus": 0,
+        "updatedAt": "2024-01-03T14:16:44.778Z",
+        "userId": "9MkqMg",
+        "userIdF_k": "658b1490f3abe4820283cbf7",
+        "vendorId": null,
+        "userInfo": {
+            "_id": "658b1490f3abe4820283cbf7",
+            "accountBlocked": false,
+            "dialCode": "+91",
+            "isActive": true,
+            "isDocumentUploaded": true,
+            "OTP": null,
+            "otpGenerateTime": 1704291331125,
+            "phoneNumber": "7488325096",
+            "roles": 1,
+            "userId": "9MkqMg",
+            "verified": true,
+            "createdAt": "2023-12-26T17:59:44.218Z",
+            "updatedAt": "2024-01-03T14:16:44.837Z",
+            "__v": 0,
+            "address": "addresss",
+            "city": "Bokaro",
+            "countryCode": "IN",
+            "firstName": "Test",
+            "lastName": "sharma",
+            "stateCode": "JH",
+            "scrapSoldCount": 70
+        }
+    }
+]

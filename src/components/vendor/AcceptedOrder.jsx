@@ -57,10 +57,10 @@ const AcceptedOrder = () => {
 
     }
 
-    const fullname = localStorage.getItem("fullname");
+    // const fullname = localStorage.getItem("fullname");
     const fetchData = async () => {
         try {
-            const response = await axiosInstance.get("/getVendorOrder?page=0&limit=10&orderStatus=1");
+            const response = await axiosInstance.get("/getVendorOrder?page=0&limit=10&orderStatus=1,2,3,4");
             console.log("get User data", response);
             const res = JSON.parse(response.data.data)
             console.log("order data", res);
@@ -79,8 +79,8 @@ const AcceptedOrder = () => {
                     <div class="bg-white shadow-lg">
 
                         <div class="flex flex-col justify-between ml-4 flex-grow">
-                            <span class="font-bold text-sm">{item?.userInfo.firstName}{" "}{item?.userInfo.lastName}</span>
-                            <span class="text-red-500 text-sm">{item?.userInfo.dialCode}{item?.userInfo.phoneNumber}</span>
+                            <span class="font-bold text-sm">{item?.fullName}</span>
+                            <span class="text-red-500 text-sm">{item?.dialCode}{item?.phoneNumber}</span>
 
                         </div>
                         <span class="h-1 w-full bg-slate-400 lg:w-1/3"></span>
@@ -91,7 +91,7 @@ const AcceptedOrder = () => {
                                 id="CarbonlocationfilledRoot"
                                 className="w-5 h-4"
                             />
-                            <span class="font-bold text-sm"> {item?.userInfo.address}</span>
+                            <span class="font-bold text-sm"> {item?.addressInfo.address}</span>
                         </div>
                         <div class="px-4 py-6 sm:px-8 sm:py-10">
                             <div class="flow-root">

@@ -99,20 +99,16 @@ const VendorDashboardOrder = () => {
     }
   };
 
-
-
-
-
-  const handlePickup = async (item) => {
+  const handlePickup = async (item, orderStatus) => {
     // this.setState({
     //   [e.target.name]: e.target.value
     // });
-    console.log("selected pickup request", item)
     const orderId = item.orderId;
     const payload = {
-      "orderId": orderId,
-      "orderStatus": 1
+      orderId,
+      orderStatus
     }
+    console.log("selected pickup request", item, orderStatus,payload)
     try {
       const response = await axiosInstance.post("/updateOrderStatus", payload);
       console.log("get User data", response);
@@ -197,13 +193,13 @@ const VendorDashboardOrder = () => {
             </div>
             <div class="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
               <div className="flex space-x-4">
-                <button
+                <button onClick={(e) => handlePickup(item,5)}
                   className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-3  mt-5 cursor-pointer px-7 py-[.65rem] hover:border-2 hover:border-lime-600 ${apply ? "hidden" : "block"
                     }`}
                 >
                   Reject Pickup
                 </button>
-                <button onClick={(e) => handlePickup(item)}
+                <button onClick={(e) => handlePickup(item,1)}
                   className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 ${apply ? "hidden" : "block"
                     }`}
                 >

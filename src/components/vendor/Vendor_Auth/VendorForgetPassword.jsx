@@ -1,7 +1,7 @@
 import React from "react";
 import SigupInput from "../../auth/SigupInput";
 import Button from "../../auth/Button";
-import client from "../../../api/client";
+// import client from "../../../api/client";
 import { useNavigate } from "react-router-dom";
 import pic from "../../../assets/auth/vendor_signup.png";
 const VendorForgetPassword = ({ userId, getUserId }) => {

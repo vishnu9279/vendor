@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import search_icon from "../../assets/PNG/search_icon.png";
 import Input from "../auth/Input";
 import Row from "./components/Row";
-import client from "../../api/client";
+// import client from "../../api/client";
 import VendorDashboardNav from "./VendorDashboardNav";
 import VendorDashboardHead from "./VendorDashboardHead";
 import axiosInstance from "../../api-config/axiosInstance";

@@ -29,7 +29,7 @@ import VendorSignIn from "./components/vendor/Vendor_Auth/VendorSignIn";
 import OrderCompleted from "./components/vendor/OrderCompleted";
 import Settings from "./components/vendor/Settings";
 import AcceptedOrder from "./components/vendor/AcceptedOrder";
-import PriceCardComponent from "./components/vendor/components/PriceCard";
+// import PriceCardComponent from "./components/vendor/components/PriceCard";
 import Pricing from "./components/vendor/priceList";
 import History from "./components/vendor/History";
 import ContactScreen from "./pages/ContactUs";

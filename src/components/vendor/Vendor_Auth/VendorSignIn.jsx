@@ -169,10 +169,7 @@ const VendorSignIn = () => {
                                 </span>{" "}
                             </p>
                         </div>
-
                     </form>
-
-
                 </div>
             </div>
         </>

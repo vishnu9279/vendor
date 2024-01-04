@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import VendorDashboardRequestIssue from "./components/vendor/VendorDashboardRequestIssue";
 import VendorDashboardArrived from "./components/vendor/VendorDashboardArrived";
 import VendorDashboardPickupScrap from "./components/vendor/VendorDashboardPickupScrap";
-import VendorSignup from "./components/vendor/Vendor_Auth/VendorSIgnUp";
+import VendorSignup from "./components/vendor/Vendor_Auth/addDocuments";
 import VendorForgetPassword from "./components/vendor/Vendor_Auth/VendorForgetPassword";
 
 import VendorEnterOtp from "./components/vendor/VendorEnterOtp";

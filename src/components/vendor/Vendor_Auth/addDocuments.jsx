@@ -2,41 +2,29 @@ import React, { useEffect, useState } from "react";
 import Button from "../../auth/Button";
 import customer from "../../../assets/PNG/tractor 2.png";
 import Input from "../../auth/Input";
-// import StepOne from "../components/StepOne";
-// import StepTwo from "../components/StepTwo";
-// import StepThree from "../components/StepThree";
 import { useLocation, useNavigate } from "react-router-dom";
-// import SmallDevices from "../components/SmallDevices";
-// import client from "../../../api/client";
-// import LabeledInput from "../../auth/LabeledInput";
 import axiosInstance from "../../../api-config/axiosInstance";
 import showSuccessMessage from "../../../utils/SwalPopup";
 
 const VendorSignup = () => {
   const location = useLocation();
-
-  // const [currentPage, setCurrentPage] = React.useState(1);
-  // const [loading, setLoading] = React.useState(false);
-  // const [disabled, setDisabled] = React.useState(true);
-  // const [selectedDialCode, setDialCode] = useState("");
-  // const [otp, setOtp] = React.useState("");
   const [checked, setChecked] = React.useState(true);
   const navigate = useNavigate();
-  const [previewAdhar, setPreviewAdhar] = useState("");
+  
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [previewPanCard, setPreviewPanCard] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [previewAdhar, setPreviewAdhar] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   const [previewPhoto, setPreviewPhoto] = useState("");
   const [adharCard, setAdharCard] = useState("");
-  const [panCard, setPanCard] = useState("");
-  const [photo, setProfilePhoto] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [countriesAndStates, setcountriesAndStates] = useState([]);
-
-  const [address, setAddress] = useState("");
   const [userId, setUserId] = React.useState("");
+  const [photo, setProfilePhoto] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [panCard, setPanCard] = useState("");
+  const [address, setAddress] = useState("");
+  const [countriesAndStates, setcountriesAndStates] = useState([]);
 
   const fetchData = async () => {
     try {

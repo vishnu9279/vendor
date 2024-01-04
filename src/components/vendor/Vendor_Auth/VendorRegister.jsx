@@ -220,7 +220,7 @@ const VendorRegister = () => {
                         <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
                             Already have an account?{" "}
                             <span
-                                className="font-semibold cursor-pointer underline hover:text-[#5AB344]"
+                                className="font-semibold cursor-pointer none hover:text-[#5AB344]"
                                 onClick={() => navigate("/vendor-signin")}
                             >
                                 Sign In

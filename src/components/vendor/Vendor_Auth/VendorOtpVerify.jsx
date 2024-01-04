@@ -36,45 +36,23 @@ const VendorOtpRegister = () => {
     try {
       const resp = await axiosInstance.post("/otpVerify", payload);
       const dataObject = resp.data;
-      const tokenParse = JSON.parse(dataObject.data);
-      console.log("response from api", resp);
+      console.log("response from api", dataObject);
+      const userResp = JSON.parse(dataObject.data);
 
-      const userResp = JSON.parse(resp.data.data);
       console.log("userResp", userResp);
 
-      if (userResp.isDocumentUploaded) {
-        console.log("token", tokenParse.token);
-        localStorage.setItem("token", tokenParse.token);
+      if (!userResp.isDocumentUploaded) {
+        navigate("/vendor-signup", {
+          state: {
+            userId: userResp.userId,
+          },
+        });
+      } else {
+        console.log("token", userResp.token);
+        localStorage.setItem("token", userResp.token);
         showSuccessMessage(dataObject.message, "success");
-        // console.log("token store ", localStorage.getItem("token"));
-
         navigate("/vendor-dashboard", {});
       }
-      navigate("/vendor-signup", {
-        state: {
-          userId: userResp.userId,
-        },
-      });
-      // if (dataObject.statusCode === 200) {
-      //   if (data.isDocumentUploaded === false) {
-      //     navigate("/vendor-signup", {
-      //       state: {
-      //         id: data.userId,
-      //       },
-      //     });
-      //   } else {
-      //     Swal.fire({
-      //       icon: "success",
-      //       position: "center",
-      //       showConfirmButton: false,
-      //       timer: 2500,
-      //       title: dataObject.message,
-      //     });
-      //     console.log("token store ", localStorage.getItem("token"));
-
-      //     navigate("/vendor-dashboard", {});
-      //   }
-      // }
     } catch (error) {
       console.error("Error", error);
       showSuccessMessage(error.response.data.error._message, "error");

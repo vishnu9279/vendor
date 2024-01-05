@@ -145,8 +145,8 @@ const VendorDashboardOrder = () => {
         <div class="bg-white shadow-lg">
 
           <div class="flex flex-col justify-between ml-4 flex-grow">
-            <span class="font-bold text-sm">{item?.userInfo.firstName}{" "}{item?.userInfo.lastName}</span>
-            <span class="text-red-500 text-sm">{item?.userInfo.dialCode}{item?.userInfo.phoneNumber}</span>
+            <span class="font-bold text-sm">{item?.fullName}</span>
+            <span class="text-red-500 text-sm">{item?.dialCode}{" "}{item?.phoneNumber}</span>
 
           </div>
           <span class="h-1 w-full bg-slate-400 lg:w-1/3"></span>
@@ -157,7 +157,7 @@ const VendorDashboardOrder = () => {
               id="CarbonlocationfilledRoot"
               className="w-5 h-4"
             />
-            <span class="font-bold text-sm"> {item?.userInfo.address}</span>
+            <span class="font-bold text-sm"> {item?.addressInfo.address}</span>
           </div>
           <div class="px-4 py-6 sm:px-8 sm:py-10">
             <div class="flow-root">

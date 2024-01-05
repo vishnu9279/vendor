@@ -31,7 +31,6 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
         console.log("axiosInstance response error", error);
-
         if (error.response && error.response.status === 401) {
             // Handle unauthorized access, e.g., redirect to sign-in page
             console.log("Unauthorized access. Redirecting to sign-in page.");

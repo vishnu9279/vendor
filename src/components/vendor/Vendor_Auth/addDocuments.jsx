@@ -44,6 +44,10 @@ const VendorSignup = () => {
   };
 
   useEffect(() => {
+    let loginToken = localStorage.getItem("token");
+    if(loginToken){
+      navigate("/vendor-dashboard")
+    }
     window.scrollTo(0, 0);
     fetchData();
   }, []);

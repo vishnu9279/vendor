@@ -1,141 +1,125 @@
 import React, { useState } from "react";
-import vendor from "../../../assets/PNG/tractor 2.png";
-import SignupInput from "./SignupInput";
 import Button from "../../auth/Button";
-import Swal from "sweetalert2";
-import axiosInstance from "../../../api-config/axiosInstance";
+import Input from "../../auth/Input";
 import { useLocation, useNavigate } from "react-router-dom";
-import scrapBus from '../../../assets/PNG/scrapbus.png'
+import scrapBus from "../../../assets/PNG/scrapbus.png";
+import showSuccessMessage from "../../../utils/SwalPopup";
+import LabeledInput from "../../auth/LabeledInput";
+
+import { otpVerifyService, handleOTP } from "../../../services/user";
+
 const OtpSmall = () => {
+  const [checked, setChecked] = React.useState(false);
+  const [otp, setOtp] = useState("");
+  const [isValidPhoneNumber, setIsValidOTP] = useState(false);
 
-    const [checked,
-        setChecked] = React.useState(true);
-    const [otp,
-        setOtp] = useState("");
-    const [isValidPhoneNumber,
-        setIsValidPhoneNumber] = useState(false);
-    const navigate = useNavigate();
-    const [preview, setPreview] = useState("");
-    const [imageKey, setImageKey] = useState("");
+  const navigate = useNavigate();
 
-    const location = useLocation();
+  const location = useLocation();
 
-    console.log("phoneNumberObj", location.state.mobile);
-    const handlePhoneNumberChange = (e) => {
-        const value = e.target.value;
-        const phoneRegex = /^\d{6}$/;
-        const isValid = phoneRegex.test(value);
+  console.log("phoneNumberObj", location.state.mobile);
 
-        setOtp(value);
-        setIsValidPhoneNumber(isValid);
-    };
-    const otpVerifyService = async () => {
-        const payload = {
-            otp: otp,
-            phoneNumber: location.state.mobile
-        };
+  const handleOTPChange = (e) => {
+    console.log("events", e);
+    const value = e.target.value;
+    const isValidOtp = handleOTP(value);
+    setOtp(value);
+    setIsValidOTP(isValidOtp);
+  };
 
-        try {
-            const resp = await axiosInstance.post("/otpVerify", payload);
-            const dataObject = resp.data;
-            const tokenParse = JSON.parse(dataObject.data);
-            console.log("response from api", resp)
-            console.log("token", tokenParse.token);
-            localStorage.setItem("token", tokenParse.token);
+  const otpVerify = async () => {
+    try {
+      if (!checked) {
+        showSuccessMessage("Select Term And Condition", "error");
+        return;
+      }
 
-            const data = JSON.parse(resp.data.data);
-            if (dataObject.statusCode === 200) {
-                if (data.isDocumentUploaded === false) {
-                    navigate("/vendor-signup", {
-                        state: {
-                            id: data.userId,
-                        },
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "success",
-                        position: "center",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        title: dataObject.message
-                    });
-                    console.log("token store ", localStorage.getItem("token"));
+      const otpVerifyResp = await otpVerifyService(location.state.mobile, otp);
+      console.log("otpVerifyResp from Service File", otpVerifyResp);
 
-                    navigate("/vendor-dashboard", {
+      if (!otpVerifyResp.isDocumentUploaded) {
+        navigate("/add-documents", {
+          state: {
+            userId: otpVerifyResp.userId,
+          },
+        });
+      } else {
+        console.log("token", otpVerifyResp.token);
+        localStorage.setItem("token", otpVerifyResp.token);
+        showSuccessMessage(otpVerifyResp.message, "success");
+        navigate("/vendor-dashboard", {});
+      }
+    } catch (error) {
+      console.error("Error", error);
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
 
-                    });
-                }
+      showSuccessMessage(errorMessage, "error");
+    }
+  };
 
-
-
-            }
-        }
-        catch (error) {
-            console.error("Error", error);
-
-            if (error.response) { // status code out of the range of 2xx
-                Swal.fire({
-                    icon: "error",
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    title: error.response.data.error._message
-                });
-
-                console.log("Status :" + error.response.status);
-            }
-            else if (error.request) { // The request was made but no response was received
-                console.log(error.request);
-            }
-            else {// Error on setting up the request
-                console.log("Error", error.message);
-            }
-        }
-    };
-
-
-    return (
-        <div className="small-devices bg-[#5AB344]">
-
-            <div className="pl-10 pr-10">
-                <img src={scrapBus} className="w-full h-[255px] xs:h-[400px]" alt="" />
-            </div>
-            <div className="bg-white -mt-12 p-10 rounded-t-lg">
-                <div className="mt-5">
-                    <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">
-                        Sign up now
-                    </h2>
-                    <p className="text-[#707070]  text-[14px]">
-                        Create a new account in four simple steps
-                    </p>
-                </div>
-                <form className="mt-5">
-                    <SignupInput
-                        input={{ label: "Enter OTP", name: "enter otp", type: "number" }}
-
-                        inputMode='numeric'
-                        pattern="[0-9]*"
-                        maxlength="6"
-                        handleChange={handlePhoneNumberChange}
-                    />
-                    <div className="mt-20">
-                        <Button handleClick={otpVerifyService}
-                            label="Verify"
-                            classname="w-full bg-[#5AB344] h-[48px] p-3 font-semibold text-white mt-7 rounded-[27px]"
-                        />
-                        <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400]">
-                            Don't have an account?{" "}
-                            <span className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">
-                                Sign Up
-                            </span>
-                        </p>
-                    </div>
-                </form>
-            </div>
+  return (
+    <div className="small-devices bg-[#5AB344]">
+      <div className="pl-10 pr-10">
+        <img src={scrapBus} className="w-full h-[255px] xs:h-[400px]" alt="" />
+      </div>
+      <div className="bg-white -mt-12 p-10 rounded-t-lg">
+        <div className="mt-5">
+          <h2 className="text-[#303030]  text-[32px] mt-2 mb-0"> OTP Verification</h2>
+          <p className="text-[#707070]  text-[14px]">
+            Create a new account in four simple steps
+          </p>
         </div>
-
-
-    );
+        <form className="mt-5">
+          <p className="text-[#666666] text-[16px]">OTP Verification</p>
+          <LabeledInput
+            className="col-span-2"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength="6"
+            handleChange={handleOTPChange}
+          />
+          {isValidPhoneNumber || (
+            <p className="text-red-500 text-sm">
+              Please enter a valid 6-digit OTP.
+            </p>
+          )}
+          {/* <StepThree /> */}
+          <div className="mt-40 text-start text-xl  leading-[25.3px] text-[#707070] "></div>
+          <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
+            <Input
+              type="checkbox"
+              classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
+              value={checked}
+              checked={checked}
+              handleChange={() => setChecked((prevState) => !prevState)}
+            />{" "}
+            By creating an account, I agree to our
+            <span className="underline cursor-pointer">
+              Terms of use
+            </span> and{" "}
+            <span className="underline cursor-pointer">Privacy Policy </span>
+          </p>
+          <Button
+            label="Continue"
+            classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
+            handleClick={otpVerify}
+          />
+          <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
+            Already have an account?{" "}
+            <span
+              className="font-semibold cursor-pointer none hover:text-[#5AB344]"
+              onClick={() => navigate("/vendor-signIn")}
+            >
+              Sign in
+            </span>{" "}
+          </p>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default OtpSmall;

@@ -1,61 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../auth/Button";
 import customer from "../../../assets/PNG/tractor 2.png";
 import Input from "../../auth/Input";
 import { useLocation, useNavigate } from "react-router-dom";
 import LabeledInput from "../../auth/LabeledInput";
 import showSuccessMessage from "../../../utils/SwalPopup";
-import axiosInstance from "../../../api-config/axiosInstance";
 import OtpSmall from "../components/OtpSmall";
 
+import { otpVerifyService, handleOTP } from "../../../services/user";
 const VendorOtpRegister = () => {
+  useEffect(() => {
+    let loginToken = localStorage.getItem("token");
+    if (loginToken) {
+      navigate("/vendor-dashboard");
+    }
+  }, []);
+
   const [checked, setChecked] = React.useState(false);
   const [otp, setOtp] = useState("");
-  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
+  const [isValidOTP, setIsValidOTP] = useState(false);
+
   const navigate = useNavigate();
 
   const location = useLocation();
 
-  console.log("phoneNumberObj", location.state.mobile);
-  const handlePhoneNumberChange = (e) => {
+  console.log("phoneNumberObj", location.state.phoneNumber);
+
+  const handleOTPChange = (e) => {
+    console.log("events", e);
     const value = e.target.value;
-    const phoneRegex = /^\d{6}$/;
-    const isValid = phoneRegex.test(value);
-
+    const isValidOtp = handleOTP(value);
     setOtp(value);
-    setIsValidPhoneNumber(isValid);
+    setIsValidOTP(isValidOtp);
   };
-  const otpVerifyService = async () => {
-    if (!checked) showSuccessMessage("Select Term And Condition", "error");
 
-    const payload = {
-      otp: otp,
-      phoneNumber: location.state.mobile,
-    };
-
+  const otpVerify = async () => {
     try {
-      const resp = await axiosInstance.post("/otpVerify", payload);
-      const dataObject = resp.data;
-      console.log("response from api", dataObject);
-      const userResp = JSON.parse(dataObject.data);
+      if (!checked) {
+        showSuccessMessage("Select Term And Condition", "error");
+        return;
+      }
+      const otpVerifyResp = await otpVerifyService(
+        location.state.phoneNumber,
+        otp
+      );
+      console.log("otpVerifyResp from Service File", otpVerifyResp);
 
-      console.log("userResp", userResp);
-
-      if (!userResp.isDocumentUploaded) {
-        navigate("/vendor-signup", {
+      if (!otpVerifyResp.isDocumentUploaded) {
+        navigate("/add-documents", {
           state: {
-            userId: userResp.userId,
+            userId: otpVerifyResp.userId,
           },
         });
       } else {
-        console.log("token", userResp.token);
-        localStorage.setItem("token", userResp.token);
-        showSuccessMessage(dataObject.message, "success");
+        console.log("token", otpVerifyResp.token);
+        localStorage.setItem("token", otpVerifyResp.token);
+        showSuccessMessage(otpVerifyResp.message, "success");
         navigate("/vendor-dashboard", {});
       }
     } catch (error) {
       console.error("Error", error);
-      showSuccessMessage(error.response.data.error._message, "error");
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+
+      showSuccessMessage(errorMessage, "error");
     }
   };
 
@@ -92,9 +101,9 @@ const VendorOtpRegister = () => {
               inputMode="numeric"
               pattern="[0-9]*"
               maxLength="6"
-              handleChange={handlePhoneNumberChange}
+              handleChange={handleOTPChange}
             />
-            {isValidPhoneNumber || (
+            {isValidOTP || (
               <p className="text-red-500 text-sm">
                 Please enter a valid 6-digit OTP.
               </p>
@@ -118,7 +127,7 @@ const VendorOtpRegister = () => {
             <Button
               label="Continue"
               classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-              handleClick={otpVerifyService}
+              handleClick={otpVerify}
             />
             <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
               Already have an account?{" "}

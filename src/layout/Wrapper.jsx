@@ -21,7 +21,7 @@ const Wrapper = ({ children, token }) => {
     "/vendor-dashboard-request-issue",
     "/vendor-dashboard-arrived",
     "/vendor-dashboard-pickup-scrap",
-    "/vendor-signup",
+    "/add-documents",
     "/vendor-forgetpassword",
     "/vendor-otp",
     "/vendor-signin",

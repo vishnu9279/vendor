@@ -56,7 +56,7 @@ const VendorSignin = () => {
               Already have an account?{" "}
               <span
                 className="font-semibold cursor-pointer underline hover:text-[#5AB344]"
-                onClick={() => navigate("/vendor-signup")}
+                onClick={() => navigate("/add-documents")}
               >
                 Sign Up
               </span>{" "}

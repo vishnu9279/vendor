@@ -26,14 +26,22 @@ import Protected from "./components/protected/protectedForComponent";
 import Loader from "./components/Loader";
 import axiosInstance from "./api-config/axiosInstance";
 
+// import MainNotificationFile from "./components/Notifications/MainNotificationFile";
+import {generateFCMToken, messaging} from "./services/fireBaseInit";
+import { onMessage} from "firebase/messaging";
+
 function App() {
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
+    generateFCMToken();
+    onMessage(messaging,(payload)=>{
+      console.log("fcm payload", payload);
+    })
     axiosInstance.interceptors.request.use(
       (config) => {
         setLoading(true);
-
+        
         return config;
       },
       (error) => {
@@ -41,22 +49,24 @@ function App() {
         setLoading(false);
         return Promise.reject(error);
       }
-    );
+      );
+      
+      axiosInstance.interceptors.response.use(
+        (response) => {
+          console.log("axios response ", response);
+          setLoading(false);
+          return response;
+        },
+        (error) => {
+          console.log("axiosInstance response error", error);
+          setLoading(false);
+          
+          return Promise.reject(error);
+        }
+        );
+      }, []);
+      
 
-    axiosInstance.interceptors.response.use(
-      (response) => {
-        console.log("axios response ", response);
-        setLoading(false);
-        return response;
-      },
-      (error) => {
-        console.log("axiosInstance response error", error);
-        setLoading(false);
-
-        return Promise.reject(error);
-      }
-    );
-  }, []);
 
   return (
     <div className="App">

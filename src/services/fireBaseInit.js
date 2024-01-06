@@ -1,35 +1,21 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging,getToken } from "firebase/messaging";
+import { getMessaging, getToken } from "firebase/messaging";
+import { FIREBASE_CONFIG_JSON,FIREBASE_CONFIG_PUBLIC_KEY } from "../constants/constants";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyACL02H72KZ6KZmp15-hbBTrHZkPEPOtsY",
-    authDomain: "junbazarapp.firebaseapp.com",
-    databaseURL: "https://junbazarapp-default-rtdb.firebaseio.com",
-    projectId: "junbazarapp",
-    storageBucket: "junbazarapp.appspot.com",
-    messagingSenderId: "591668782120",
-    appId: "1:591668782120:web:65364265d2346ba834411d",
-    measurementId: "G-64QCLZBNM3"
-};
-
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(FIREBASE_CONFIG_JSON);
 
 export const messaging = getMessaging(firebaseApp);
-
-
-const publicKey = "BMvw3tJpxyBXb-kl3cm09i8klqzNlK-8SvVxIGuvaXpuDuwhTVpuFDE5ACYSPmedfKQGoP8JFhlGPDxb4PgdGSo";
+const publicKey = FIREBASE_CONFIG_PUBLIC_KEY
 
 export const generateFCMToken = async () => {
   try {
-    const permission =await Notification.requestPermission();
-    console.log('====================================');
+    const permission = await Notification.requestPermission();
+    console.log("====================================");
     console.log(permission);
-    console.log('====================================');
-    if(permission === "granted"){
-      const fcmToken =  await getToken(messaging,{vapidKey:publicKey})
-console.log("fcmToken", fcmToken);
+    console.log("====================================");
+    if (permission === "granted") {
+      const fcmToken = await getToken(messaging, { vapidKey: publicKey });
+      console.log("fcmToken", fcmToken);
     }
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 };

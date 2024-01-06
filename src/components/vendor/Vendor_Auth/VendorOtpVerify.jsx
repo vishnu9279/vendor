@@ -7,7 +7,11 @@ import LabeledInput from "../../auth/LabeledInput";
 import showSuccessMessage from "../../../utils/SwalPopup";
 import OtpSmall from "../components/OtpSmall";
 
-import { otpVerifyService, handleOTP } from "../../../services/user";
+import {
+  otpVerifyService,
+  handleOTP,
+  resendOtpService,
+} from "../../../services/user";
 const VendorOtpRegister = () => {
   useEffect(() => {
     let loginToken = localStorage.getItem("token");
@@ -24,7 +28,7 @@ const VendorOtpRegister = () => {
 
   const location = useLocation();
 
-  console.log("phoneNumberObj", location.state.phoneNumber);
+  console.log("phoneNumberObj", location.state);
 
   const handleOTPChange = (e) => {
     console.log("events", e);
@@ -44,20 +48,39 @@ const VendorOtpRegister = () => {
         location.state.phoneNumber,
         otp
       );
-      console.log("otpVerifyResp from Service File", otpVerifyResp);
 
-      if (!otpVerifyResp.isDocumentUploaded) {
+      const userResp = JSON.parse(otpVerifyResp.data);
+      console.log("userResp", userResp);
+      console.log("otpVerifyResp from Service File", userResp);
+
+      if (!userResp.isDocumentUploaded) {
         navigate("/add-documents", {
           state: {
-            userId: otpVerifyResp.userId,
+            userId: userResp.userId,
           },
         });
       } else {
-        console.log("token", otpVerifyResp.token);
-        localStorage.setItem("token", otpVerifyResp.token);
+        console.log("token", userResp.token);
+        localStorage.setItem("token", userResp.token);
         showSuccessMessage(otpVerifyResp.message, "success");
         navigate("/vendor-dashboard", {});
       }
+    } catch (error) {
+      console.error("Error", error);
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+
+      showSuccessMessage(errorMessage, "error");
+    }
+  };
+  const resendOtp = async () => {
+    try {
+      const otpVerifyResp = await resendOtpService(
+        location.state.countryCode,
+        location.state.phoneNumber
+      );
+      showSuccessMessage(otpVerifyResp.message, "success");
     } catch (error) {
       console.error("Error", error);
       const errorMessage = !error.response.data.error.message
@@ -108,8 +131,18 @@ const VendorOtpRegister = () => {
                 Please enter a valid 6-digit OTP.
               </p>
             )}
+
             {/* <StepThree /> */}
-            <div className="mt-40 text-start text-xl  leading-[25.3px] text-[#707070] "></div>
+            <div className="absolute right-50">
+              <span
+                className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl cursor-pointer"
+                onClick={resendOtp}
+              >
+                Resend Otp
+              </span>
+            </div>
+            <div className="mt-20 text-start text-xl  leading-[25.3px] text-[#707070] "></div>
+
             <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
               <Input
                 type="checkbox"

@@ -48,9 +48,7 @@ const otpVerifyService = async (phoneNumber, otp) => {
     const dataObject = resp.data;
     console.log("response from api", dataObject);
 
-    const userResp = JSON.parse(dataObject.data);
-    console.log("userResp", userResp);
-    return userResp;
+    return dataObject;
   } catch (error) {
     console.error("Error While Otp Verify", error);
     if (error.response) {
@@ -139,9 +137,38 @@ const signUpUser = async(dialCode,phoneNumber)=>{
   }
 }
 
+const resendOtpService = async(dialCode,phoneNumber)=>{
+  const payload = {
+    dialCode,
+    phoneNumber,
+  };
+
+  try {
+    console.log("payload", payload);
+    const otpResp = await axiosInstance.post("/resendOtp", payload);
+
+    console.log("userResp", otpResp);
+    return otpResp.data;
+  } catch (error) {
+    console.error("Error While Otp Verify", error);
+    if (error.response) {
+      // Handle specific server response errors
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+      showSuccessMessage(errorMessage, "error");
+    } else {
+      // Handle other types of errors
+      showSuccessMessage("An error occurred", "error");
+    }
+    throw error; // Rethrow the error to propagate it to the calling code
+  }
+}
+
 export { otpVerifyService, 
   handleOTP,
   signUpUser,
   handlePhoneNumberValidation,
   getCountries,
-  loginUser };
+  loginUser,
+  resendOtpService };

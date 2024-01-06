@@ -58,6 +58,7 @@ const VendorSignIn = () => {
       setIsValidCountryCode(false);
     }
   };
+  
   const signInService = async () => {
     try {
       console.log("checked", checked);
@@ -71,6 +72,7 @@ const VendorSignIn = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
+          countryCode
         },
       });
     } catch (error) {

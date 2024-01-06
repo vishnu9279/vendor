@@ -6,11 +6,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api-config/axiosInstance";
 import showSuccessMessage from "../../../utils/SwalPopup";
 
-const VendorSignup = () => {
+const AddDocuments = () => {
   const location = useLocation();
   const [checked, setChecked] = React.useState(true);
   const navigate = useNavigate();
-  
+
   const [selectedCountry, setSelectedCountry] = useState("");
   const [previewPanCard, setPreviewPanCard] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -45,8 +45,8 @@ const VendorSignup = () => {
 
   useEffect(() => {
     let loginToken = localStorage.getItem("token");
-    if(loginToken){
-      navigate("/vendor-dashboard")
+    if (loginToken) {
+      navigate("/vendor-dashboard");
     }
     window.scrollTo(0, 0);
     fetchData();
@@ -460,7 +460,7 @@ const VendorSignup = () => {
                   </span>
                 </p>
                 <Button
-                 label="Continue"
+                  label="Continue"
                   handleClick={signUpService}
                   // label={loading ? "Please wait ...." : "Continue"}
                   classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
@@ -483,4 +483,4 @@ const VendorSignup = () => {
   );
 };
 
-export default VendorSignup;
+export default AddDocuments;

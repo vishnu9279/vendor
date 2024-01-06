@@ -34,6 +34,7 @@ axiosInstance.interceptors.response.use(
         if (error.response && error.response.status === 401) {
             // Handle unauthorized access, e.g., redirect to sign-in page
             console.log("Unauthorized access. Redirecting to sign-in page.");
+            localStorage.removeItem("token");
             window.location.href = "/vendor-signIn";
         }
 

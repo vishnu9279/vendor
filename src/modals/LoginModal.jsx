@@ -10,7 +10,7 @@ const LoginModal = ({ openModal, loader, handleClick }) => {
       title=""
       children={
         <div>
-          <img src={success} className="w-[100px] h-[100px] mx-auto -mb-8" />
+          <img src={success} className="w-[100px] h-[100px] mx-auto -mb-8" alt="" />
           <Button
             label={loader ? "loading..." : "Continue"}
             classname="w-[200px] sm:w-[400px] input-content btn"

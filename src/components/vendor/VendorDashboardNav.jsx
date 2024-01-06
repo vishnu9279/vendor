@@ -24,16 +24,9 @@ const VendorDashboardNav = ({
   showHistory,
   showSettings,
   Pricing,
-  AcceptOrder
-
+  AcceptOrder,
 }) => {
-
   const navigate = useNavigate();
-
-  const handlehome = () => {
-    navigate("https://junkbaazar-user.netlify.app/")
-  }
-
 
   const [profile, setProfileData] = useState({});
 
@@ -48,10 +41,9 @@ const VendorDashboardNav = ({
       console.log("get User data", response);
       const data = JSON.parse(response.data.data);
       setProfileData(data);
-      console.log("get Profile of user ", data)
-      localStorage.setItem("fullname", profile.firstName)
-    }
-    catch (error) {
+      console.log("get Profile of user ", data);
+      localStorage.setItem("fullname", profile.firstName);
+    } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
@@ -67,18 +59,15 @@ const VendorDashboardNav = ({
           position: "center",
           showConfirmButton: true,
           timer: 2500,
-          title: "Successfully Logout"
+          title: "Successfully Logout",
         });
         localStorage.clear();
-        navigate("/vendor-signIn")
+        navigate("/vendor-signIn");
       }
-
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
 
   return (
     <div>
@@ -106,15 +95,12 @@ const VendorDashboardNav = ({
                 </div>
               </Link>
               <Link to="/accept-order">
-                <div
-                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
-
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={price_list_icon} alt="price-list-icon" />
 
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     Accept Order
                   </span>
-
                 </div>
               </Link>
               <Link to="/vendor-dashboard">
@@ -124,42 +110,26 @@ const VendorDashboardNav = ({
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     Homepage
                   </span>
-
                 </div>
-              </Link >
-              <Link to={"/aboutUs"} >
+              </Link>
+              <Link to={"/aboutUs"}>
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={about_icon} alt="about-icon" />
 
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     About
                   </span>
-
                 </div>
               </Link>
               <Link to="/contactUs">
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
-
                   <img src={contact_icon} alt="contact-icon" />
 
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     Contact
                   </span>
-
                 </div>
               </Link>
-              {/* <Link to={"/price"}>
-                <div
-                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
-
-                  <img src={price_list_icon} alt="price-list-icon" />
-                  <a href="https://junkbaazar-user.netlify.app/" target="_blank" rel="noreferrer">
-                    <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
-                      Price List
-                    </span>
-                  </a>
-                </div>
-              </Link> */}
               <Link to="/history">
                 <div
                   className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
@@ -172,10 +142,7 @@ const VendorDashboardNav = ({
                 </div>
               </Link>
               <Link to="/Settings">
-                <div
-                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
-
-                >
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={setting_icon} alt="setting-icon" />
                   <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                     Settings
@@ -183,10 +150,12 @@ const VendorDashboardNav = ({
                 </div>
               </Link>
             </div>
-
           </section>
           <section>
-            <div onClick={handleLogOut} className=" w-[90%] h-[3.25rem] hover:bg-red-300 mb-3 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2 text-neutral-500 hover:text-neutral-800">
+            <div
+              onClick={handleLogOut}
+              className=" w-[90%] h-[3.25rem] hover:bg-red-300 mb-3 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2 text-neutral-500 hover:text-neutral-800"
+            >
               <img src={logout_icon} alt="logout-icon" />
               <span className="text-center   text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
                 Logout
@@ -224,7 +193,7 @@ const VendorDashboardNav = ({
                     {profile.firstName}
                   </h1>
                   <p className="text-white text-sm md:text-xl font-bold leading-tight">
-                    {profile.dialCode}{" "} {profile.phoneNumber}
+                    {profile.dialCode} {profile.phoneNumber}
                   </p>
                   <span className="flex mr-1">
                     <img src={location_icon} alt="location_icon" />
@@ -281,44 +250,15 @@ const VendorDashboardNav = ({
                         size={22}
                       /> */}
 
-                      <TfiHeadphoneAlt className="mx-3 mr-3 w-7 md:w-12 text-zinc-500" size={22} />
+                      <TfiHeadphoneAlt
+                        className="mx-3 mr-3 w-7 md:w-12 text-zinc-500"
+                        size={22}
+                      />
                       <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-loose">
                         Contact Us
                       </span>
                     </li>
                   </Link>
-                  {/* <Link to={"/price"}>
-                    <li
-                      onClick={hideNav}
-                      className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
-                    >
-                      <img
-                        src={price_list_icon}
-                        alt="price-list-icon"
-                        className="mx-3 mr-3 w-7 md:w-12"
-                      />
-                      <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-loose">
-                        Price List
-                      </span>
-                    </li>
-                  </Link> */}
-
-                  {/* <Link to="/history">
-                    <li
-                      onClick={hideNav}
-                      className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
-                    >
-                      <img
-                        src={pickup_icon}
-                        alt="pickup-icon"
-                        className="mx-3 mr-3 w-7 md:w-12"
-                      />
-                      <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-loose">
-                        Pickup History
-                      </span>
-                    </li>
-                  </Link> */}
-
                   <Link to="/Settings">
                     <li
                       onClick={hideNav}
@@ -337,7 +277,10 @@ const VendorDashboardNav = ({
                 </ul>
 
                 <section>
-                  <div onClick={handleLogOut} className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-red-300  duration-500 pl-2">
+                  <div
+                    onClick={handleLogOut}
+                    className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-red-300  duration-500 pl-2"
+                  >
                     <img
                       src={logout_icon}
                       alt="logout-icon"
@@ -353,7 +296,7 @@ const VendorDashboardNav = ({
           </aside>
         </section>
       </main>
-    </div >
+    </div>
   );
 };
 

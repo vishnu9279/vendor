@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
     serverUrl
-} from "../api-config/config.js";
+} from "./configuration.js";
 
 const axiosInstance = axios.create({
     baseURL: serverUrl

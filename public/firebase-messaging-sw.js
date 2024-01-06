@@ -1,8 +1,9 @@
 /* eslint-disable no-restricted-globals */
 import { initializeApp } from "firebase/app";
 import { getMessaging,onBackgroundMessage } from "firebase/messaging/sw";
-import {FIREBASE_CONFIG_JSON} from "../src/constants/constants"
+import {FIREBASE_CONFIG_JSON} from "../src/api-config/configuration"
 const firebaseApp = initializeApp(FIREBASE_CONFIG_JSON);
+
 
 const messaging = getMessaging(firebaseApp);
 

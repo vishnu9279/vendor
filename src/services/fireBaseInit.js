@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken } from "firebase/messaging";
-import { FIREBASE_CONFIG_JSON,FIREBASE_CONFIG_PUBLIC_KEY } from "../constants/constants";
+import { FIREBASE_CONFIG_JSON,FIREBASE_CONFIG_PUBLIC_KEY } from "../api-config/configuration";
 
 const firebaseApp = initializeApp(FIREBASE_CONFIG_JSON);
 

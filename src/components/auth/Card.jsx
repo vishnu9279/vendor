@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+// import React from "react";
 import NavLinks from "./NavLinks";
 
 const Card = ({ children, signin, activateSignin, activateSignup }) => {

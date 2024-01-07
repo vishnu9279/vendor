@@ -1,13 +1,9 @@
-import locationIcon from "../../assets/SVG/dashboard/location_icon.svg";
-import contact_icon from "../../assets/SVG/dashboard/contact_icon.svg";
-import telephone from "../../assets/SVG/dashboard/telephone.svg";
 import VendorDashboardNav from "./VendorDashboardNav";
 import VendorDashboardHead from "./VendorDashboardHead";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstance from "../../api-config/axiosInstance";
-
 
 const VendorDashboardRequestIssue = () => {
   const [vendorNav, setVendorNav] = useState(false);
@@ -49,7 +45,6 @@ const VendorDashboardRequestIssue = () => {
 
   }
 
-
   return (
     <main className=" bg-white">
       <VendorDashboardNav showNav={vendorNav} hideNav={closeVendorNav} />
@@ -59,63 +54,61 @@ const VendorDashboardRequestIssue = () => {
       />
       <section className="lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[8%] lg:bg-slate-200 h-full ">
 
+        <div className="mx-auto mt-8 max-w-2xl md:mt-12 ">
+          <div className="bg-white shadow-lg p-5">
 
-        <div class="mx-auto mt-8 max-w-2xl md:mt-12 ">
-          <div class="bg-white shadow-lg p-5">
-
-            <div class="flex flex-col justify-between ml-4 flex-grow">
-              <span class="font-bold text-sm">{orderId?.fullName}</span>
-              <span class="text-red-500 text-sm">{orderId?.dialCode}{orderId?.phoneNumber}</span>
+            <div className="flex flex-col justify-between ml-4 flex-grow">
+              <span className="font-bold text-sm">{orderId?.fullName}</span>
+              <span className="text-red-500 text-sm">{orderId?.dialCode}{orderId?.phoneNumber}</span>
 
             </div>
-            <span class="h-1 w-full bg-slate-400 lg:w-1/3"></span>
-            <div class="flex flex-row  ml-4 flex-grow mt-2 mb-2">
+            <span className="h-1 w-full bg-slate-400 lg:w-1/3"></span>
+            <div className="flex flex-row  ml-4 flex-grow mt-2 mb-2">
               <img
                 src="https://file.rendit.io/n/C0CS7E4FGckCjnUrkzNJ.svg"
                 alt="Carbonlocationfilled"
                 id="CarbonlocationfilledRoot"
                 className="w-5 h-4"
               />
-              <span class="font-bold text-sm"> {orderId?.addressInfo.address}</span>
+              <span className="font-bold text-sm"> {orderId?.addressInfo.address}</span>
             </div>
             <div className="bg-[#f7f8f6] w-full h-1 " />
-            <div class="px-4 py-6 sm:px-8 sm:py-10 mt-2">
-              <div class="flow-root">
+            <div className="px-4 py-6 sm:px-8 sm:py-10 mt-2">
+              <div className="flow-root">
 
-                <ul class="-my-8">
-                  <span class="mt-10 font-bold text-slate-400 text-sm">Order ID:- #{orderId?.orderId}</span>
+                <ul className="-my-8">
+                  <span className="mt-10 font-bold text-slate-400 text-sm">Order ID:- #{orderId?.orderId}</span>
                   <div>
-                    <div class="flex mt-2  mb-5">
-                      <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-                      <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
-                      <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
-                      <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
+                    <div className="flex mt-2  mb-5">
+                      <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
+                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
                     </div>
                     {orderId.items?.map((scrapDat, index) => (
-                      <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-                        <div class="flex w-2/5">
-                          <div class="w-10">
-                            <img class="h-10" src={scrapDat?.scrapInfo.docUrl} alt="" />
+                      <div key = {index} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                        <div className="flex w-2/5">
+                          <div className="w-10">
+                            <img className="h-10" src={scrapDat?.scrapInfo.docUrl} alt="" />
                           </div>
-                          <div class="flex flex-col justify-between ml-4 flex-grow">
-                            <span class="font-bold text-sm">{scrapDat?.scrapInfo.scrapName}</span>
-                            <span class="text-red-500 text-sm">{scrapDat?.scrapInfo.quantityType}</span>
+                          <div className="flex flex-col justify-between ml-4 flex-grow">
+                            <span className="font-bold text-sm">{scrapDat?.scrapInfo.scrapName}</span>
+                            <span className="text-red-500 text-sm">{scrapDat?.scrapInfo.quantityType}</span>
 
                           </div>
                         </div>
-                        <div class="flex justify-center w-1/5">
+                        <div className="flex justify-center w-1/5">
                           {scrapDat?.quantity}
                         </div>
-                        <span class="text-center w-1/5 font-semibold text-sm">₹{scrapDat?.scrapInfo.price}</span>
-                        <span class="text-center w-1/5 font-semibold text-sm">₹{scrapDat?.scrapInfo.price}</span>
+                        <span className="text-center w-1/5 font-semibold text-sm">₹{scrapDat?.scrapInfo.price}</span>
+                        <span className="text-center w-1/5 font-semibold text-sm">₹{scrapDat?.scrapInfo.price}</span>
                       </div>
                     ))}
                   </div>
 
-
                 </ul>
               </div>
-              <div class="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
+              <div className="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
                 <div className="flex space-x-4">
                   <button onClick={handlePickup} className="text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600">
                     on my way to pickup
@@ -125,31 +118,6 @@ const VendorDashboardRequestIssue = () => {
             </div>
           </div>
         </div>
-
-
-
-        {/* <aside className="mb-8">
-          <p className=" text-neutral-600 text-2xl pl-7 pt-3 font-bold">
-            Report an Issue
-          </p>
-
-          <div>
-            <textarea
-              name="text"
-              id="text"
-              cols="30"
-              rows="10"
-              className=" bg-lime-50 mx-2 md:mx-5 w-[95%] mt-5 border-[.2rem] border-zinc-50 outline-none p-5 placeholder:text-zinc-700"
-              placeholder="click to report issue"
-            ></textarea>
-          </div>
-
-          <div className="flex justify-center items-end">
-            <button className="text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-14 py-[.45rem] border-2 border-lime-600">
-              Submit
-            </button>
-          </div>
-        </aside> */}
       </section>
     </main>
   );

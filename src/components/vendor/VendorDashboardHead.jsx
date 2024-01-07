@@ -1,7 +1,8 @@
-import toggle_icon from "../../assets/SVG/dashboard/Toggle.svg";
-import bell_icon from "../../assets/SVG/dashboard/Bell.svg";
-import bell_icon_black from "../../assets/SVG/dashboard/bell_black.svg";
-import user_img from "../../assets/SVG/dashboard/User Img.svg";
+/* eslint-disable react/prop-types */
+// import toggle_icon from "../../assets/SVG/dashboard/Toggle.svg";
+// import bell_icon from "../../assets/SVG/dashboard/Bell.svg";
+// import bell_icon_black from "../../assets/SVG/dashboard/bell_black.svg";
+// import user_img from "../../assets/SVG/dashboard/User Img.svg";
 import location_icon from "../../assets/SVG/dashboard/location.svg";
 import menu from "../../assets/SVG/dashboard/jam_menu.svg";
 import { useEffect, useState } from "react";
@@ -57,7 +58,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
             />
             <span className="ml-3">
               <h1 className="text-neutral-700 text-2xl font-['Gilroy-Bold']">
-                Hello, {profile.firstName}
+                Hi, {profile.firstName} {profile.lastName}
               </h1>
               <p className="text-center text-neutral-500 text-sm font-normal font-['Gilroy-Regular'] tracking-tight">
                 You are {useStatus ? 'online' : 'offline'}
@@ -80,7 +81,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
               className="w-12 mr-2 cursor-pointer rounded-full"
             />
             <span className="text-neutral-700 font-normal font-['Gilroy-Regular']">
-              {profile.firstName}
+              {profile.firstName} {}
               <span className="flex">
                 <img
                   src={location_icon}
@@ -88,7 +89,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
                   className=" w-4 mr-.5 cursor-pointer"
                 />
                 <p className="text-center text-neutral-600  font-normal font-['Gilroy-Regular'] leading-[15.18px]">
-                  India
+                  {profile.countryName}
                 </p>
               </span>
             </span>
@@ -119,7 +120,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
               />
               <span>
                 <p className="font-semibold text-lg md:text-2xl md:mb-.5">
-                  Hi {profile.firstName}
+                  Hi {profile.firstName} {profile.lastName}
                 </p>
                 <div className="flex mr-1">
                   <img
@@ -127,7 +128,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
                     alt="location_icon"
                     className="w-4 md:w-7 cursor-pointer"
                   />
-                  <p className="font-semibold text-base md:text-xl">India</p>
+                  <p className="font-semibold text-base md:text-xl">{profile?.countryName}</p>
                 </div>
               </span>
             </div>
@@ -152,7 +153,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
         <aside className="bg-zinc-600 rounded-lg mt-20 md:mt-28 mx-3 p-3 absolute left-0 right-0 -z-30">
           <div className="flex justify-between items-center">
             <section>
-              <h1 className="text-lg text-white font-bold">{profile.firstName}</h1>
+              <h1 className="text-lg text-white font-bold">{profile.firstName} {profile.lastName}</h1>
               <p className="text-white text-sm leading-none">You are {useStatus ? 'online' : 'offline'}</p>
             </section>
             <section>

@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import Modal from "./Modal";
 import { CgDanger } from "react-icons/cg";
 import Button from "../components/auth/Button";

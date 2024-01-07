@@ -6,7 +6,7 @@ import scrapBus from "../../../assets/PNG/scrapbus.png";
 import showSuccessMessage from "../../../utils/SwalPopup";
 import LabeledInput from "../../auth/LabeledInput";
 
-import { otpVerifyService, handleOTP } from "../../../services/user";
+import { otpVerifyService, handleOTP,resendOtpService } from "../../../services/user";
 
 const OtpSmall = () => {
   const [checked, setChecked] = React.useState(false);
@@ -58,7 +58,22 @@ const OtpSmall = () => {
       showSuccessMessage(errorMessage, "error");
     }
   };
+  const resendOtp = async () => {
+    try {
+      const otpVerifyResp = await resendOtpService(
+        location.state.countryCode,
+        location.state.phoneNumber
+      );
+      showSuccessMessage(otpVerifyResp.message, "success");
+    } catch (error) {
+      console.error("Error", error);
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
 
+      showSuccessMessage(errorMessage, "error");
+    }
+  };
   return (
     <div className="small-devices bg-[#5AB344]">
       <div className="pl-10 pr-10">
@@ -87,6 +102,14 @@ const OtpSmall = () => {
             </p>
           )}
           {/* <StepThree /> */}
+          <div className="absolute right-50">
+              <span
+                className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl cursor-pointer"
+                onClick={resendOtp}
+              >
+                Resend Otp
+              </span>
+            </div>
           <div className="mt-40 text-start text-xl  leading-[25.3px] text-[#707070] "></div>
           <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
             <Input

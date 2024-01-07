@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Protected = (props) => {
+  // eslint-disable-next-line react/prop-types
   const { Component } = props;
   const navigate = useNavigate();
   useEffect(() => {

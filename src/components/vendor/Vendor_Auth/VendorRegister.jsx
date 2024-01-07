@@ -74,6 +74,7 @@ const VendorRegister = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
+          countryCode
         },
       });
     } catch (error) {

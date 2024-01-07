@@ -17,5 +17,7 @@ export const generateFCMToken = async () => {
       const fcmToken = await getToken(messaging, { vapidKey: publicKey });
       console.log("fcmToken", fcmToken);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("error",error);
+  }
 };

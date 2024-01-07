@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 

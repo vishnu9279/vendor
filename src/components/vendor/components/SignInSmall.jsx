@@ -60,7 +60,7 @@ const SignInSmall = () => {
       if (!checked) {
         showSuccessMessage("Select Term And Condition", "error")
         return
-    };
+    }
       const userResp = await loginUser(countryCode, phoneNumber);
       console.log("user login from Service File", userResp);
 
@@ -68,6 +68,7 @@ const SignInSmall = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
+          countryCode
         },
       });
     } catch (error) {
@@ -177,7 +178,6 @@ const SignInSmall = () => {
       </div>
 
     </div>
-
 
   );
 };

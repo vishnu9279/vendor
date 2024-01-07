@@ -1,12 +1,7 @@
-// import { useNavigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import junk_bg from "../../assets/PNG/junk-bg.png";
 import Treasure from "./Treasure";
 
-
-
 const Junk = () => {
-    const navigate = useNavigate()
     return (
         <div>
             <section className="lg:ml-[18%] pt-[10%] md:pt-[2%] lg:pt-[1%] bg-green-50 h-full ">

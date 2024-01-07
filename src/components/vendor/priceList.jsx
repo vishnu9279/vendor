@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import VendorDashboardHead from "./VendorDashboardHead";
 import VendorDashboardNav from "./VendorDashboardNav";
-import PriceCardComponent from "./components/PriceCard";
-import { useNavigate } from "react-router-dom";
+// import PriceCardComponent from "./components/PriceCard";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 
 const Pricing = () => {
 
     const [vendorNav, setVendorNav] = useState(false);
     const handleVendorNav = () => setVendorNav(true);
     const closeVendorNav = () => setVendorNav(true);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [scrapList, setScrapList] = useState([]);
 
     useEffect(() => {

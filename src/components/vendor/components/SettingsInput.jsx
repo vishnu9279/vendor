@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import Input from "../../auth/Input";
 
 const SettingsInput = ({ value, label, handleChange, name, type }) => {

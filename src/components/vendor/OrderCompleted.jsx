@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import order_successful from "../../assets/PNG/order_successful.png";
 
-import { useNavigate } from "react-router-dom";
-import Button from "../auth/Button";
 import VendorDashboardNav from "./VendorDashboardNav";
 import VendorDashboardHead from "./VendorDashboardHead";
 
 const OrderCompleted = () => {
-    const navigate = useNavigate();
     const [vendorNav, setVendorNav] = useState(false);
     const handleVendorNav = () => setVendorNav(true);
     const closeVendorNav = () => setVendorNav(false);
@@ -31,7 +28,6 @@ const OrderCompleted = () => {
                             Order Completed{" "}
                         </p>
                     </div>
-
 
                 </section>
             </section>

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import singh from "../../assets/PNG/singh.png";
+import  { useEffect, useState } from "react";
+// import singh from "../../assets/PNG/singh.png";
 import edit from "../../assets/PNG/edit.png";
 import location from "../../assets/PNG/location.png";
 import add from "../../assets/PNG/add.png";
-import Button from "../auth/Button";
+// import Button from "../auth/Button";
 import SettingsInput from "./components/SettingsInput";
-import delete_ from "../../assets/PNG/delete.png";
-import SettingsModal from "../../modals/SettingsModal";
+// import delete_ from "../../assets/PNG/delete.png";
+// import SettingsModal from "../../modals/SettingsModal";
 import axiosInstance from "../../api-config/axiosInstance";
 import VendorDashboardNav from "./VendorDashboardNav";
 import VendorDashboardHead from "./VendorDashboardHead";
@@ -15,13 +15,7 @@ const Settings = () => {
   const [vendorNav, setVendorNav] = useState(false);
   const handleVendorNav = () => setVendorNav(true);
   const closeVendorNav = () => setVendorNav(false);
-  const [state, setState] = React.useState({
-    firstName: "Andy",
-    lastName: "Singh",
-    currentPassword: "123456",
-    newPassword: "1234567",
-  });
-  const [openModal, setOpenModal] = React.useState(false);
+
   const [profile, setProfileData] = useState({});
 
   useEffect(() => {
@@ -41,9 +35,6 @@ const Settings = () => {
       console.error("Error fetching data:", error);
     }
   };
-
-
-
 
   return (
     <main>
@@ -74,7 +65,7 @@ const Settings = () => {
                     className="w-[11.85px] h-[16.93px] mt-2"
                   />
                   <p className="font-[400] text-[20.32px] text-[#4A4A4A] mr-2 ml-2">
-                    India
+                    {profile.countryName}
                   </p>
                   <img
                     src={edit}

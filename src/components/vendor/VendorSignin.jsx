@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import SignInSmall from "./components/SignInSmall";
 
 const VendorSignin = () => {
-  const [loading, setLoading] = React.useState(false);
   const [state, setState] = React.useState({ username: "", password: "" });
   const navigate = useNavigate();
   const handleChange = (event) =>
@@ -49,7 +48,6 @@ const VendorSignin = () => {
               handleChange={handleChange}
             />
             <Button
-              label={loading ? "Please wait ...." : "Continue"}
               classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80 mt-[180px]"
             />
             <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">

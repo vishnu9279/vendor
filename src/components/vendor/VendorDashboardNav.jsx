@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import logo from "../../assets/PNG/dashboard/junk_bazar_logo.png";
 import orders from "../../assets/SVG/dashboard/solar_bag-check-bold.svg";
 import home_icon from "../../assets/SVG/dashboard/Home.svg";
@@ -8,7 +9,7 @@ import pickup_icon from "../../assets/SVG/dashboard/Pickup history.svg";
 import setting_icon from "../../assets/SVG/dashboard/Settings.svg";
 import logout_icon from "../../assets/SVG/dashboard/logout.svg";
 import cancel_icon from "../../assets/SVG/dashboard/cancel.svg";
-import user_img from "../../assets/SVG/dashboard/User Img.svg";
+// import user_img from "../../assets/SVG/dashboard/User Img.svg";
 import location_icon from "../../assets/SVG/dashboard/location.svg";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 
@@ -22,9 +23,7 @@ const VendorDashboardNav = ({
   hideNav,
   onScrap,
   showHistory,
-  showSettings,
-  Pricing,
-  AcceptOrder,
+  
 }) => {
   const navigate = useNavigate();
 
@@ -184,13 +183,13 @@ const VendorDashboardNav = ({
               />
               <aside className="flex items-center ">
                 <img
-                  src={user_img}
+                  src={profile.profileUrl}
                   alt="useImg"
                   className="mr-2 w-16 md:w-20"
                 />
                 <aside>
                   <h1 className="text-white text-lg md:text-2xl font-bold leading-tight">
-                    {profile.firstName}
+                    {profile.firstName} {profile.lastName}
                   </h1>
                   <p className="text-white text-sm md:text-xl font-bold leading-tight">
                     {profile.dialCode} {profile.phoneNumber}
@@ -198,7 +197,7 @@ const VendorDashboardNav = ({
                   <span className="flex mr-1">
                     <img src={location_icon} alt="location_icon" />
                     <p className="text-white text-sm md:text-xl font-bold leading-tight">
-                      India
+                      {profile.countryName}
                     </p>
                   </span>
                 </aside>

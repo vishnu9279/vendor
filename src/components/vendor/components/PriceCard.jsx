@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import api from '../../../api-config/axiosInstance';
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { serverUrl } from "../../../api-config/configuration";
-import axiosInstance from "../../../api-config/axiosInstance";
 import axios from "axios";
 
 const PriceCardComponent = () => {
-    const navigate = useNavigate();
     const [scrapList, setScrapList] = useState([]);
 
     useEffect(() => {

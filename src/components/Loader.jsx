@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import { RotatingSquare } from "react-loader-spinner";
 
-const Loader = ({ show}) => {
+const Loader = ({ show }) => {
     return show ? (
         <div
           style={{

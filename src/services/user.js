@@ -1,8 +1,6 @@
 import showSuccessMessage from "../utils/SwalPopup";
 import axiosInstance from "../api-config/axiosInstance";
 
-
-
 const getCountries = async () => {
   try {
       const response = await axiosInstance.get("/getCountries");

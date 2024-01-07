@@ -137,8 +137,8 @@ const VendorDashboardOrder = () => {
   };
 
   const renderData = () => {
-    return userOrder?.map((item) => (
-      <div className="mx-auto mt-8 max-w-2xl md:mt-12">
+    return userOrder?.map((item,index) => (
+      <div key={index}className="mx-auto mt-8 max-w-2xl md:mt-12">
         <div className="bg-white shadow-lg">
           <div className="flex flex-col justify-between ml-4 flex-grow">
             <span className="font-bold text-sm">{item?.fullName}</span>
@@ -183,7 +183,7 @@ const VendorDashboardOrder = () => {
                     </h3>
                   </div>
                   {item.items?.map((scrapDat, index) => (
-                    <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                    <div key={index} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                       <div className="flex w-2/5">
                         <div className="w-10">
                           <img
@@ -218,7 +218,7 @@ const VendorDashboardOrder = () => {
             <div className="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
               <div className="flex space-x-4">
                 <button
-                  onClick={(e) => handlePickup(item, OrdersEnum.REJECTED)}
+                  onClick={() => handlePickup(item, OrdersEnum.REJECTED)}
                   className={`text-center hover:text-white text-base font-semibold tracking-tight hover:bg-lime-600 bg-transparent border-2 border-zinc-500 text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-3  mt-5 cursor-pointer px-7 py-[.65rem] hover:border-2 hover:border-lime-600 ${
                     apply ? "hidden" : "block"
                   }`}
@@ -226,7 +226,7 @@ const VendorDashboardOrder = () => {
                   Reject Pickup
                 </button>
                 <button
-                  onClick={(e) => handlePickup(item, OrdersEnum.ACCEPTED)}
+                  onClick={() => handlePickup(item, OrdersEnum.ACCEPTED)}
                   className={`text-center text-white text-base font-semibold tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 ${
                     apply ? "hidden" : "block"
                   }`}

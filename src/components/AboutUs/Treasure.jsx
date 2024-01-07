@@ -5,10 +5,7 @@ import team from "../../assets/PNG/TEAM 1.png";
 import phone from "../../assets/PNG/APP 1.png";
 import phone_2 from "../../assets/PNG/APP 2.png";
 
-import { useNavigate } from "react-router-dom";
-
 const Treasure = () => {
-    const navigate = useNavigate();
     return (
         <div>
             <main className="lg:pt-20 lg:px-8 flex justify-center items-center">

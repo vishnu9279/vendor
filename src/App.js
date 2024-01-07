@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -10,7 +10,6 @@ import VendorDashboardRequestIssue from "./components/vendor/VendorDashboardRequ
 import VendorDashboardArrived from "./components/vendor/VendorDashboardArrived";
 import VendorDashboardPickupScrap from "./components/vendor/VendorDashboardPickupScrap";
 import VendorSignup from "./components/vendor/Vendor_Auth/AddDocuments";
-import VendorForgetPassword from "./components/vendor/Vendor_Auth/VendorForgetPassword";
 
 import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
@@ -26,7 +25,6 @@ import Protected from "./components/protected/protectedForComponent";
 import Loader from "./components/Loader";
 import axiosInstance from "./api-config/axiosInstance";
 
-// import MainNotificationFile from "./components/Notifications/MainNotificationFile";
 import {generateFCMToken, messaging} from "./services/fireBaseInit";
 import { onMessage} from "firebase/messaging";
 
@@ -65,8 +63,6 @@ function App() {
         }
         );
       }, []);
-      
-
 
   return (
     <div className="App">
@@ -78,11 +74,6 @@ function App() {
         <Route path="/add-documents" element={<VendorSignup />} />
         <Route path="/vendor-otp" element={<VendorOtpRegister />} />
         <Route path="/vendor-signIn" element={<VendorSignIn />} />
-
-        <Route
-          path="/vendor-forgetpassword"
-          element={<VendorForgetPassword />}
-        />
 
         {/* Vendor Dashboard */}
         <Route

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import VendorDashboardOrder from "../VendorDashboardOrder";
 import scrap_img from "../../../assets/PNG/dashboard/Scrap.png";
 import axiosInstance from "../../../api-config/axiosInstance";
@@ -21,7 +21,6 @@ const NoOrder = () => {
       if (res.totalScrapCount > 0) {
         setNoScrap(true);
       }
-
 
     }
     catch (error) {

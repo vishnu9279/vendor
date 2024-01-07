@@ -73,6 +73,7 @@ const SignUpSmall = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
+          countryCode
         },
       });
     } catch (error) {

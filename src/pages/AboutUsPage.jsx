@@ -8,7 +8,7 @@ import playstore_logo from "../assets/SVG/Vector.svg";
 
 import VendorDashboardNav from "../components/vendor/VendorDashboardNav.jsx";
 import VendorDashboardHead from "../components/vendor/VendorDashboardHead.jsx";
-import Junk from "../components/AboutUs/Junk.jsx";
+// import Junk from "../components/AboutUs/Junk.jsx";
 // import Nav from "../Common/Navbar/Nav";
 // import Footer from "../Common/Footer/Footer";
 

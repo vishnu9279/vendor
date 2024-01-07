@@ -1,6 +1,6 @@
 import VendorDashboardNav from "./VendorDashboardNav";
 import VendorDashboardHead from "./VendorDashboardHead";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import History from "./History";
 import NoOrder from "./components/NoOrder";
 import Settings from "./Settings";

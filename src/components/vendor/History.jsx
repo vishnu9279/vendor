@@ -42,7 +42,6 @@ const History = () => {
       />
       <section className="lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[8%]    h-full p-5">
         <div id="NewRootRoot" className="flex flex-row w-full shadow bg-green-50 items-start">
-
           <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">

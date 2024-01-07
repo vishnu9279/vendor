@@ -13,6 +13,7 @@ const VendorDashboardPickupScrap = () => {
   const navigate = useNavigate();
   const orderId = location.state.orderId
   console.log("order details ", orderId)
+  const [loader, setLoading] = useState(true);
   const [payment, setPaymentMode] = useState();
   const [selectPayment, setSelectedPayent] = useState();
 
@@ -61,6 +62,7 @@ const VendorDashboardPickupScrap = () => {
   };
 
   const handlePaymentMode = async () => {
+    setLoading(true);
     console.log("payment mode", selectPayment);
     const payload = {
       "paymentType": selectPayment,
@@ -88,6 +90,8 @@ const VendorDashboardPickupScrap = () => {
     }
     catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -191,7 +195,7 @@ const VendorDashboardPickupScrap = () => {
                 <button
                   onClick={handlePaymentMode}
                   className="text-center text-white text-base font-semibold bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 tracking-wide">
-                  Submit
+                  {loader ? "Please wait ...." : "Submit"}
                 </button>
               </div>
             </div>

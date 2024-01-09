@@ -1,9 +1,21 @@
 // import showSuccessMessage from "../utils/SwalPopup";
 import axiosInstance from "../api-config/axiosInstance";
 
-const scrapOrdersService = async () => {
+const scrapOrdersService = async (queryString,obj) => {
     try {
-      const response = await axiosInstance.get("/getVendorOrder?page=0&limit=10&orderStatus=0,1,2,3,4");
+      const response = await axiosInstance.get(`/getVendorOrder?page=0&limit=10&orderStatus=${queryString}&key=${(obj)?obj.key:null}`);
+    
+      const resposeParsing = JSON.parse(response.data.data);
+      console.log("getVendorOrder data parsing", resposeParsing);
+      return resposeParsing
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const scrapOrdersSearchFilterService = async (obj) => {
+    try {
+      const response = await axiosInstance.get(`/getVendorOrder?page=0&limit=10&key=${obj.key}`);
     
       const resposeParsing = JSON.parse(response.data.data);
       console.log("getVendorOrder data parsing", resposeParsing);
@@ -66,4 +78,5 @@ export { scrapOrdersService,
   updateScrapOrderStatusService,
   scrapOrdersInfoService,
   getPaymentModeService,
-  updatePaymentMethodService};
+  updatePaymentMethodService,
+  scrapOrdersSearchFilterService};

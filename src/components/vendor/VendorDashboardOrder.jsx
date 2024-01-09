@@ -10,24 +10,60 @@ import { Link } from "react-router-dom";
 
 const VendorDashboardOrder = () => {
   const [userOrder, setUserOrder] = useState([]);
-
+  const [filterOrderStatus, setFilterOrderStatus] = useState("0");
+  // const [searchFilter, setSearchFilter] = useState("");
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const scraps = async () => {
-      try {
-        const scrapOrders = await scrapOrdersService();
-        console.log("vendor orders", scrapOrders);
-        setUserOrder(scrapOrders.orders);
-      } catch (error) {
-        console.error("error", error);
-      }
-    };
-    scraps();
+    filterByOrderStatus();
   }, []);
 
   const fullname = localStorage.getItem("fullname");
+  const scraps = async (queryString) => {
+    try {
+      const scrapOrders = await scrapOrdersService(queryString);
+      console.log("vendor orders", scrapOrders);
+      setUserOrder(scrapOrders.orders);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
 
+  const filterByOrderStatus = async (filterStatus) => {
+    console.log("filterByOrderStatus", filterOrderStatus, filterStatus);
+    const filterValue = filterStatus
+      ? filterStatus.target.value
+      : filterOrderStatus;
+
+      let queryString = "";
+      try {
+        if (filterValue.toLowerCase() === "all") {
+          queryString += "0,1,2,3,4";
+        } else {
+          queryString += filterValue;
+        }
+        
+        setFilterOrderStatus(queryString);
+      await scraps(queryString);
+      console.log("queryString", queryString);
+    } catch (error) {
+      console.error("Error during select payment method");
+    }
+  };
+
+  // const filetrOrderBySearch = async (event) => {
+  //   console.log("serach event", event.target.value);
+  //   // setSearchFilter(event.target.value);
+  //   let obj = {}
+  //   try {
+  //     obj.key = event.target.value
+  //     console.log("searchFilter", obj,filterOrderStatus);
+  //   //  const scrapOrders= await scrapOrdersSearchFilterService(obj)
+  //     // setUserOrder(scrapOrders.orders);
+  //   } catch (error) {
+  //     console.error("Search Error", error);
+  //   }
+  // };
   const renderData = () => {
     return (
       <main>
@@ -36,8 +72,6 @@ const VendorDashboardOrder = () => {
             id="NewRootRoot"
             className="flex flex-col w-full shadow bg-green-50"
           >
-            <div className="lg:w-1/3 flex-shrink-0"></div>
-
             <div className="flex-grow overflow-x-auto">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="overflow-hidden">
@@ -142,7 +176,38 @@ const VendorDashboardOrder = () => {
     <div>
       <VendorDashboardNav />
       <VendorDashboardHead />
+      <div className="relative flex grid grid-cols-2 gap-4 lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[10%] sm-[10%] h-full">
+        <div className="col-span-1">
+          <p className="pt-5 pl-5 relative right-0 lg:max-w-sm">Order Status</p>
+          <select
+            value={filterOrderStatus}
+            onChange={filterByOrderStatus}
+            className=" text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance focus:border-indigo-600"
+          >
+            <option value="0">Pending Order</option>
 
+            <option value="all">All</option>
+            <option value="1">Accpted Order</option>
+            <option value="2">On the Way</option>
+            <option value="3">Arrived</option>
+            <option value="4">Scrap Picked</option>
+          </select>
+        </div>
+        {/* <div className="col-span-1">
+         / <div className="w-7/12">
+            <label className="block py-3 text-black">Search</label>
+            <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+              <input
+                onChange={(e) => {
+                  filetrOrderBySearch(e);
+                }}
+                placeholder="Search"
+                className="p-1 ml-3 text-black outline-none bg-transparent"
+              />
+            </div>
+          </div>
+        </div> */}
+      </div>
       {userOrder?.length > 0 ? (
         <main>
           <section className="lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[10%] sm-[10%] h-full ">

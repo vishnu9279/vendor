@@ -11,17 +11,16 @@ import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
 import VendorSignIn from "./components/vendor/Vendor_Auth/VendorSignIn";
 import Settings from "./components/vendor/Settings";
-// import History from "./components/vendor/History";
+import History from "./components/vendor/History";
 import ContactScreen from "./pages/ContactUs";
 import AboutUs from "./pages/AboutUsPage";
-
 import Protected from "./components/protected/protectedForComponent";
 import Loader from "./components/Loader";
 import axiosInstance from "./api-config/axiosInstance";
-
 import {generateFCMToken, messaging} from "./services/fireBaseInit";
 import { onMessage} from "firebase/messaging";
 import VendorDashboardOrderDetail from "./components/vendor/VendorDashboardOrderDetail";
+import VendorDashboardOrderHistory from "./components/vendor/VendorDashboardOrderHistory";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -90,7 +89,8 @@ function App() {
         />
         <Route path="/aboutUs" element={<Protected Component={AboutUs} />} />
 
-        {/* <Route path="/history" element={<History />} /> */}
+        <Route path="/history" element={<Protected Component={History} />} />
+        <Route path="/order-history-detail/:orderId" element={<Protected Component={VendorDashboardOrderHistory} />} />
        
       </Routes>
     </div>

@@ -5,7 +5,7 @@ ARG NODE_VERSION=20
 FROM node:${NODE_VERSION}
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /app/build
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./

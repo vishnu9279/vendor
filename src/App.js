@@ -6,18 +6,18 @@ import VendorDashboard from "./components/vendor/VendorDashboard";
 
 import VendorDashboardOrder from "./components/vendor/VendorDashboardOrder";
 
-import VendorDashboardRequestIssue from "./components/vendor/VendorDashboardRequestIssue";
-import VendorDashboardArrived from "./components/vendor/VendorDashboardArrived";
-import VendorDashboardPickupScrap from "./components/vendor/VendorDashboardPickupScrap";
+// import VendorDashboardRequestIssue from "./components/vendor/VendorDashboardRequestIssue";
+// import VendorDashboardArrived from "./components/vendor/VendorDashboardArrived";
+// import VendorDashboardPickupScrap from "./components/vendor/VendorDashboardPickupScrap";
 import VendorSignup from "./components/vendor/Vendor_Auth/AddDocuments";
 
 import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
 import VendorSignIn from "./components/vendor/Vendor_Auth/VendorSignIn";
-import OrderCompleted from "./components/vendor/OrderCompleted";
+// import OrderCompleted from "./components/vendor/OrderCompleted";
 import Settings from "./components/vendor/Settings";
-import AcceptedOrder from "./components/vendor/AcceptedOrder";
-import History from "./components/vendor/History";
+// import AcceptedOrder from "./components/vendor/AcceptedOrder";
+// import History from "./components/vendor/History";
 import ContactScreen from "./pages/ContactUs";
 import AboutUs from "./pages/AboutUsPage";
 
@@ -27,6 +27,7 @@ import axiosInstance from "./api-config/axiosInstance";
 
 import {generateFCMToken, messaging} from "./services/fireBaseInit";
 import { onMessage} from "firebase/messaging";
+import VendorDashboardOrderDetail from "./components/vendor/VendorDashboardOrderDetail";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -80,18 +81,22 @@ function App() {
           path="/vendor-dashboard"
           element={<Protected Component={VendorDashboard} />}
         />
-        <Route
+          <Route
+            path="/vendor-dashboard-order"
+            element={<Protected Component={VendorDashboardOrder} />}
+          />
+           <Route
+            path="/order-detail/:orderId"
+            element={<Protected Component={VendorDashboardOrderDetail} />}
+          />
+        {/* <Route
           path="/accept-order"
           element={<Protected Component={AcceptedOrder} />}
-        />
+        /> */}
         {/* <Route path="/price" element={<Pricing />} /> */}
 
         {/* Order Pickup Flow */}
-        <Route
-          path="/vendor-dashboard-order"
-          element={<Protected Component={VendorDashboardOrder} />}
-        />
-        <Route
+        {/* <Route
           path="/vendor-dashboard-request-issue"
           element={<Protected Component={VendorDashboardRequestIssue} />}
         />
@@ -102,15 +107,15 @@ function App() {
         <Route
           path="/vendor-dashboard-pickup-scrap"
           element={<Protected Component={VendorDashboardPickupScrap} />}
-        />
+        /> */}
 
-        <Route
+        {/* <Route
           path="/OrderCompleted"
           element={<Protected Component={OrderCompleted} />}
-        />
+        /> */}
 
         <Route path="/Settings" element={<Protected Component={Settings} />} />
-        <Route path="/history" element={<History />} />
+        {/* <Route path="/history" element={<History />} /> */}
         <Route
           path="/contactUs"
           element={<Protected Component={ContactScreen} />}

@@ -1,8 +1,8 @@
-import VendorDashboardNav from "./VendorDashboardNav";
-import VendorDashboardHead from "./VendorDashboardHead";
+import VendorDashboardNav from "../src/components/vendor/VendorDashboardNav";
+import VendorDashboardHead from "../src/components/vendor/VendorDashboardHead";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosInstance from "../../api-config/axiosInstance";
+import axiosInstance from "../src/api-config/axiosInstance";
 import Swal from "sweetalert2";
 
 const VendorDashboardArrived = () => {

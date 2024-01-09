@@ -163,10 +163,39 @@ const resendOtpService = async(dialCode,phoneNumber)=>{
   }
 }
 
+const getCurrentUser = async () => {
+  try {
+    const response = await axiosInstance.get("/getCurrentUser");
+    console.log("get User data", response);
+    const user = JSON.parse(response.data.data);
+    return user
+  }
+  catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+const changeUserActiveStatusTogggleButtonService = async (userActiveStatus)=>{
+  const payload = {
+    "isActive": JSON.stringify(userActiveStatus)
+  }
+  try {
+    const response = await axiosInstance.post("/updateActiveStatus",payload);
+    console.log("get User data", response);
+    const user = JSON.parse(response.data.data);
+    return user
+  }
+  catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
 export { otpVerifyService, 
   handleOTP,
   signUpUser,
   handlePhoneNumberValidation,
   getCountries,
   loginUser,
-  resendOtpService };
+  resendOtpService,
+  getCurrentUser,
+  changeUserActiveStatusTogggleButtonService};

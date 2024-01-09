@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import Input from "./Input";
 
 const LabeledInput = ({ label, handleChange, name, type, value }) => {

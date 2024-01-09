@@ -1,10 +1,10 @@
 // import locationIcon from "../../assets/SVG/dashboard/location_icon.svg";
 // import contact_icon from "../../assets/SVG/dashboard/contact_icon.svg";
 // import telephone from "../../assets/SVG/dashboard/telephone.svg";
-import VendorDashboardNav from "./VendorDashboardNav";
-import VendorDashboardHead from "./VendorDashboardHead";
+import VendorDashboardNav from "../src/components/vendor/VendorDashboardNav";
+import VendorDashboardHead from "../src/components/vendor/VendorDashboardHead";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosInstance from "../../api-config/axiosInstance";
+import axiosInstance from "../src/api-config/axiosInstance";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 
@@ -38,7 +38,11 @@ const VendorDashboardPickupScrap = () => {
           timer: 2500,
           title: "Select Payment Mode"
         });
-
+        navigate("/OrderCompleted", {
+          state: {
+            orderId
+          }
+        });
       }
     }
     catch (error) {
@@ -60,44 +64,38 @@ const VendorDashboardPickupScrap = () => {
     }
   };
 
-  const handlePaymentMode = async () => {
-    console.log("payment mode", selectPayment);
-    const payload = {
-      "paymentType": selectPayment,
-      "orderId": orderId.orderId
-    }
-
-    try {
-      const response = await axiosInstance.post("/updatePaymentMethod", payload);
-      console.log("get User data", response);
-      const data = response.data;
-      if (data.statusCode === 200) {
-        Swal.fire({
-          icon: "success",
-          position: "center",
-          showConfirmButton: true,
-          timer: 2500,
-          title: "Successfully Order Completed"
-        });
-        navigate("/OrderCompleted", {
-          state: {
-            orderId
-          }
-        });
-      }
-    }
-    catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
-  const handlePayment = (event) => {
+  const handlePayment = async (event) => {
     const Payment = event.target.value;
 
     console.log("selectedCountry", Payment);
     setSelectedPayent(Payment);
-  }
 
+    console.log("payment mode", selectPayment);
+      const payload = {
+        "paymentType": Payment,
+        "orderId": orderId.orderId
+      }
+  
+      try {
+        const response = await axiosInstance.post("/updatePaymentMethod", payload);
+        console.log("get User data", response);
+        const data = response.data;
+        if (data.statusCode === 200) {
+          Swal.fire({
+            icon: "success",
+            position: "center",
+            showConfirmButton: true,
+            timer: 2500,
+            title: "Successfully Order Completed"
+          });
+        }
+      }
+      catch (error) {
+        console.error("Error fetching data:", error);
+      }
+
+  }
+console.log("Payment",selectPayment);
   return (
     <main className=" bg-white">
       <VendorDashboardNav />
@@ -154,25 +152,11 @@ const VendorDashboardPickupScrap = () => {
                       </div>
                     ))}
                   </div>
-
                 </ul>
-              </div>
-              <div className="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
-                <div className="flex space-x-4">
-                  <button
-                    onClick={handlePickup}
-                    className="text-center text-white text-base font-semibold bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 tracking-wide">
-                    I have Pickup Scrap
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <aside className="mt-5 mb-3 pb-8 flex justify-between bg-white border p-3 pr-16 border-neutral-300 rounded-sm mx-8 h-full">
-            <div className="">
-              <div className="pt-5 pl-5 w-full lg:max-w-sm ">
+                  <div className="pt-5 pl-5 relative right-0 lg:max-w-sm ">
                 <select value={selectPayment} onChange={handlePayment}
                   className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                    <option value="">Select State</option>
                   {payment?.map((option) => {
                     return (
                       <option key={option.paymentType} value={option.paymentType}>
@@ -183,18 +167,25 @@ const VendorDashboardPickupScrap = () => {
 
                 </select>
               </div>
-
-            </div>
-            <div className="flex">
-              <div className="flex justify-end items-end">
-                <button
-                  onClick={handlePaymentMode}
-                  className="text-center text-white text-base font-semibold bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-7 py-[.65rem] border-2 border-lime-600 tracking-wide">
-                  Submit
-                </button>
+               
+              </div>
+           
+              <div className="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
+                <div className="flex space-x-4">
+                  <button
+                  disabled={!selectPayment}
+                    onClick={handlePickup}
+                    className={`text-center text-white text-base font-semibold ${
+                      selectPayment
+                        ? "bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500"
+                        : "bg-gray-400 cursor-not-allowed"
+                    } duration-200 flex items-center justify-center shadow-inner rounded-full mt-5 px-7 py-[.65rem] border-2 border-lime-600 tracking-wide`}>
+                    I have Pickup Scrap
+                  </button>
+                </div>
               </div>
             </div>
-          </aside>
+          </div>
         </div>
 
       </section>

@@ -13,7 +13,7 @@ import cancel_icon from "../../assets/SVG/dashboard/cancel.svg";
 import location_icon from "../../assets/SVG/dashboard/location.svg";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate ,NavLink} from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
@@ -82,72 +82,72 @@ const VendorDashboardNav = ({
             </div>
 
             <div className="flex flex-col justify-center ">
-              <Link to="/vendor-dashboard-order">
+              <NavLink to="/vendor-dashboard-order">
                 <div
                   className=" w-[90%] h-[3.25rem] active:bg-lime-200 hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer ml-2"
                   onClick={onScrap}
                 >
                   <img src={orders} alt="order-icon" />
-                  <span className="text-center text-lime-600 text-base font-normal font-['Gilroy-Bold'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center${isActive?"text-lime-600":"text-neutral-500"} text-base font-normal font-['Gilroy-Bold'] tracking-tight ml-3`}>
                     Orders
                   </span>
                 </div>
-              </Link>
-              <Link to="/accept-order">
-                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+              </NavLink>
+              <NavLink to="/accept-order">
+                <div className="w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={price_list_icon} alt="price-list-icon" />
 
-                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
                     Accept Order
                   </span>
                 </div>
-              </Link>
-              <Link to="/vendor-dashboard">
+              </NavLink>
+              <NavLink to="/vendor-dashboard">
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={home_icon} alt="home-icon" />
 
-                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
                     Homepage
                   </span>
                 </div>
-              </Link>
-              <Link to={"/aboutUs"}>
+              </NavLink>
+              <NavLink to={"/aboutUs"}>
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={about_icon} alt="about-icon" />
 
-                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
                     About
                   </span>
                 </div>
-              </Link>
-              <Link to="/contactUs">
+              </NavLink>
+              <NavLink to="/contactUs">
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={contact_icon} alt="contact-icon" />
 
-                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
                     Contact
                   </span>
                 </div>
-              </Link>
-              <Link to="/history">
+              </NavLink>
+              <NavLink to="/history">
                 <div
                   className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
                   onClick={showHistory}
                 >
                   <img src={pickup_icon} alt="pickup-icon" />
-                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
                     Pickup History
                   </span>
                 </div>
-              </Link>
-              <Link to="/Settings">
+              </NavLink>
+              <NavLink to="/Settings">
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={setting_icon} alt="setting-icon" />
-                  <span className="text-center text-neutral-500 text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
+                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
                     Settings
                   </span>
                 </div>
-              </Link>
+              </NavLink>
             </div>
           </section>
           <section>

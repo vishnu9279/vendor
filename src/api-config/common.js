@@ -18,6 +18,6 @@ export const OrdersRespEnum = {
   2: "On the Way",
   3: "Arrived",
   4: "Picked The Scrap",
-  5: "Order Rejected Successfully",
+  5: "Order Rejected",
 };
 

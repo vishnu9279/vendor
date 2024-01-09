@@ -19,9 +19,9 @@ const VendorDashboardOrder = () => {
   }, []);
 
   const fullname = localStorage.getItem("fullname");
-  const scraps = async (queryString) => {
+  const scraps = async (queryString,obj) => {
     try {
-      const scrapOrders = await scrapOrdersService(queryString);
+      const scrapOrders = await scrapOrdersService(queryString,obj);
       console.log("vendor orders", scrapOrders);
       setUserOrder(scrapOrders.orders);
     } catch (error) {
@@ -51,19 +51,20 @@ const VendorDashboardOrder = () => {
     }
   };
 
-  // const filetrOrderBySearch = async (event) => {
-  //   console.log("serach event", event.target.value);
-  //   // setSearchFilter(event.target.value);
-  //   let obj = {}
-  //   try {
-  //     obj.key = event.target.value
-  //     console.log("searchFilter", obj,filterOrderStatus);
-  //   //  const scrapOrders= await scrapOrdersSearchFilterService(obj)
-  //     // setUserOrder(scrapOrders.orders);
-  //   } catch (error) {
-  //     console.error("Search Error", error);
-  //   }
-  // };
+  const filetrOrderBySearch = async (event) => {
+    console.log("serach event", event.target.value);
+    // setSearchFilter(event.target.value);
+    let obj = {}
+    try {
+      obj.key = event.target.value
+      console.log("searchFilter", obj,filterOrderStatus);
+      await scraps(filterOrderStatus,obj);
+    //  const scrapOrders= await scrapOrdersSearchFilterService(obj)
+      // setUserOrder(scrapOrders.orders);
+    } catch (error) {
+      console.error("Search Error", error);
+    }
+  };
   const renderData = () => {
     return (
       <main>
@@ -193,7 +194,7 @@ const VendorDashboardOrder = () => {
             <option value="4">Scrap Picked</option>
           </select>
         </div>
-        {/* <div className="col-span-1">
+        <div className="col-span-1">
          / <div className="w-7/12">
             <label className="block py-3 text-black">Search</label>
             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
@@ -206,7 +207,7 @@ const VendorDashboardOrder = () => {
               />
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
       {userOrder?.length > 0 ? (
         <main>

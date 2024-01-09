@@ -13,18 +13,6 @@ const scrapOrdersService = async (queryString,obj) => {
     }
   };
 
-  const scrapOrdersSearchFilterService = async (obj) => {
-    try {
-      const response = await axiosInstance.get(`/getVendorOrder?page=0&limit=10&key=${obj.key}`);
-    
-      const resposeParsing = JSON.parse(response.data.data);
-      console.log("getVendorOrder data parsing", resposeParsing);
-      return resposeParsing
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
 const updateScrapOrderStatusService = async (orderId,orderStatus)=>{
     const payload = {
         orderId,
@@ -78,5 +66,4 @@ export { scrapOrdersService,
   updateScrapOrderStatusService,
   scrapOrdersInfoService,
   getPaymentModeService,
-  updatePaymentMethodService,
-  scrapOrdersSearchFilterService};
+  updatePaymentMethodService};

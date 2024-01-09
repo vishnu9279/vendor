@@ -5,18 +5,12 @@ import "./App.css";
 import VendorDashboard from "./components/vendor/VendorDashboard";
 
 import VendorDashboardOrder from "./components/vendor/VendorDashboardOrder";
-
-// import VendorDashboardRequestIssue from "./components/vendor/VendorDashboardRequestIssue";
-// import VendorDashboardArrived from "./components/vendor/VendorDashboardArrived";
-// import VendorDashboardPickupScrap from "./components/vendor/VendorDashboardPickupScrap";
-import AddDocuments from "./components/vendor/Vendor_Auth/AddDocuments";
+// import AddDocuments from "./components/vendor/Vendor_Auth/AddDocuments";
 
 import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
 import VendorSignIn from "./components/vendor/Vendor_Auth/VendorSignIn";
-// import OrderCompleted from "./components/vendor/OrderCompleted";
 import Settings from "./components/vendor/Settings";
-// import AcceptedOrder from "./components/vendor/AcceptedOrder";
 // import History from "./components/vendor/History";
 import ContactScreen from "./pages/ContactUs";
 import AboutUs from "./pages/AboutUsPage";
@@ -72,7 +66,7 @@ function App() {
         {/* Vendor Part  */}
 
         <Route path="/" element={<VendorRegister />} />
-        <Route path="/add-documents" element={<AddDocuments />} />
+        {/* <Route path="/add-documents" element={<AddDocuments />} /> */}
         <Route path="/vendor-otp" element={<VendorOtpRegister />} />
         <Route path="/vendor-signIn" element={<VendorSignIn />} />
 
@@ -89,38 +83,15 @@ function App() {
             path="/order-detail/:orderId"
             element={<Protected Component={VendorDashboardOrderDetail} />}
           />
-        {/* <Route
-          path="/accept-order"
-          element={<Protected Component={AcceptedOrder} />}
-        /> */}
-        {/* <Route path="/price" element={<Pricing />} /> */}
-
-        {/* Order Pickup Flow */}
-        {/* <Route
-          path="/vendor-dashboard-request-issue"
-          element={<Protected Component={VendorDashboardRequestIssue} />}
-        />
-        <Route
-          path="/vendor-dashboard-arrived"
-          element={<Protected Component={VendorDashboardArrived} />}
-        />
-        <Route
-          path="/vendor-dashboard-pickup-scrap"
-          element={<Protected Component={VendorDashboardPickupScrap} />}
-        /> */}
-
-        {/* <Route
-          path="/OrderCompleted"
-          element={<Protected Component={OrderCompleted} />}
-        /> */}
-
-        <Route path="/Settings" element={<Protected Component={Settings} />} />
-        {/* <Route path="/history" element={<History />} /> */}
+           <Route path="/Settings" element={<Protected Component={Settings} />} />
         <Route
           path="/contactUs"
           element={<Protected Component={ContactScreen} />}
         />
         <Route path="/aboutUs" element={<Protected Component={AboutUs} />} />
+
+        {/* <Route path="/history" element={<History />} /> */}
+       
       </Routes>
     </div>
   );

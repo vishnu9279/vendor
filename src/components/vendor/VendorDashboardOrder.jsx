@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 const VendorDashboardOrder = () => {
   const [userOrder, setUserOrder] = useState([]);
   const [filterOrderStatus, setFilterOrderStatus] = useState("0");
-  // const [searchFilter, setSearchFilter] = useState("");
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -59,8 +58,6 @@ const VendorDashboardOrder = () => {
       obj.key = event.target.value
       console.log("searchFilter", obj,filterOrderStatus);
       await scraps(filterOrderStatus,obj);
-    //  const scrapOrders= await scrapOrdersSearchFilterService(obj)
-      // setUserOrder(scrapOrders.orders);
     } catch (error) {
       console.error("Search Error", error);
     }

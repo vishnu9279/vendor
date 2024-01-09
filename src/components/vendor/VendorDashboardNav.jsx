@@ -4,7 +4,7 @@ import orders from "../../assets/SVG/dashboard/solar_bag-check-bold.svg";
 import home_icon from "../../assets/SVG/dashboard/Home.svg";
 import about_icon from "../../assets/SVG/dashboard/About.svg";
 import contact_icon from "../../assets/SVG/dashboard/Contact.svg";
-import price_list_icon from "../../assets/SVG/dashboard/Price list.svg";
+// import price_list_icon from "../../assets/SVG/dashboard/Price list.svg";
 import pickup_icon from "../../assets/SVG/dashboard/Pickup history.svg";
 import setting_icon from "../../assets/SVG/dashboard/Settings.svg";
 import logout_icon from "../../assets/SVG/dashboard/logout.svg";
@@ -93,7 +93,7 @@ const VendorDashboardNav = ({
                   </span>
                 </div>
               </NavLink>
-              <NavLink to="/accept-order">
+              {/* <NavLink to="/accept-order">
                 <div className="w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={price_list_icon} alt="price-list-icon" />
 
@@ -101,7 +101,7 @@ const VendorDashboardNav = ({
                     Accept Order
                   </span>
                 </div>
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/vendor-dashboard">
                 <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={home_icon} alt="home-icon" />

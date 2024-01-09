@@ -9,7 +9,7 @@ import VendorDashboardOrder from "./components/vendor/VendorDashboardOrder";
 // import VendorDashboardRequestIssue from "./components/vendor/VendorDashboardRequestIssue";
 // import VendorDashboardArrived from "./components/vendor/VendorDashboardArrived";
 // import VendorDashboardPickupScrap from "./components/vendor/VendorDashboardPickupScrap";
-import VendorSignup from "./components/vendor/Vendor_Auth/AddDocuments";
+import AddDocuments from "./components/vendor/Vendor_Auth/AddDocuments";
 
 import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";
@@ -72,7 +72,7 @@ function App() {
         {/* Vendor Part  */}
 
         <Route path="/" element={<VendorRegister />} />
-        <Route path="/add-documents" element={<VendorSignup />} />
+        <Route path="/add-documents" element={<AddDocuments />} />
         <Route path="/vendor-otp" element={<VendorOtpRegister />} />
         <Route path="/vendor-signIn" element={<VendorSignIn />} />
 

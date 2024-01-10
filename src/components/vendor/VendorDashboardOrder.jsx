@@ -7,22 +7,20 @@ import scrap_img from "../../assets/PNG/dashboard/Scrap.png";
 import { OrdersRespEnum } from "../../api-config/common";
 import { scrapOrdersService } from "../../services/dashBoard";
 import { Link } from "react-router-dom";
-
 const VendorDashboardOrder = () => {
   const [userOrder, setUserOrder] = useState([]);
   const [filterOrderStatus, setFilterOrderStatus] = useState("0");
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    filterByOrderStatus();
-  }, []);
+  // const [page, setPage] = useState(1)
+  // const [totalPageCount, setTotalPageCount] = useState(0)
 
   const fullname = localStorage.getItem("fullname");
   const scraps = async (queryString,obj) => {
     try {
       const scrapOrders = await scrapOrdersService(queryString,obj);
+      // const scrapOrders = await scrapOrdersService(queryString,obj,(page *2 -2));
       console.log("vendor orders", scrapOrders);
       setUserOrder(scrapOrders.orders);
+      // setTotalPageCount(scrapOrders.totalScrapCount)
     } catch (error) {
       console.error("error", error);
     }
@@ -62,14 +60,23 @@ const VendorDashboardOrder = () => {
       console.error("Search Error", error);
     }
   };
+
+  // const selectPageHandler = (selectedPage) => {
+  //   console.log("selectPageHandler",userOrder);
+  //   if (selectedPage >= 1 && selectedPage <= totalPageCount && selectedPage !== page) {
+  //     setPage(selectedPage)
+  //   }
+  // }
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+
+    filterByOrderStatus();
+  }, []);
   const renderData = () => {
     return (
       <main>
         <section className="lg:ml-[1%] h-full p-5">
-          <div
-            id="NewRootRoot"
-            className="flex flex-col w-full shadow bg-green-50"
-          >
+          <div id="NewRootRoot" className="flex flex-col w-full shadow bg-green-50">
             <div className="flex-grow overflow-x-auto">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="overflow-hidden">
@@ -165,6 +172,18 @@ const VendorDashboardOrder = () => {
               </div>
             </div>
           </div>
+          {console.log("pagination ", userOrder.length)}
+          {/* <Pagination count={totalPageCount} page={page} onChange={filterByOrderStatus} /> */}
+          {/* {userOrder && userOrder.length > 0 && <div className="pagination">
+        <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : "pagination__disable"}>◀</span>
+
+        {Array.isArray(userOrder) && [...Array(Math.ceil(totalPageCount))].map((_, i) => {
+        {console.log("pagination 178", userOrder.length)}
+          return <span key={i} className={page === i + 1 ? "pagination__selected" : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
+        })}
+
+        <span onClick={() => selectPageHandler(page + 1)} className={page < totalPageCount ? "" : "pagination__disable"}>▶</span>
+      </div>} */}
         </section>
       </main>
     );

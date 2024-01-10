@@ -3,7 +3,7 @@ import axiosInstance from "../api-config/axiosInstance";
 
 const getCountries = async () => {
   try {
-      const response = await axiosInstance.get("/getCountries");
+      const response = await axiosInstance.get("/vendor/getCountries");
 
       const countriesAndStatesData = JSON.parse(response.data.data);
 
@@ -42,7 +42,7 @@ const otpVerifyService = async (phoneNumber, otp) => {
 
   try {
     console.log("payload", payload);
-    const resp = await axiosInstance.post("/otpVerify", payload);
+    const resp = await axiosInstance.post("/vendor/otpVerify", payload);
     const dataObject = resp.data;
     console.log("response from api", dataObject);
 
@@ -80,7 +80,7 @@ const loginUser = async(dialCode,phoneNumber)=>{
 
   try {
     console.log("payload", payload);
-    const resp = await axiosInstance.post("/login", payload);
+    const resp = await axiosInstance.post("/vendor/login", payload);
     const dataObject = resp.data;
     console.log("response from api", dataObject);
 
@@ -112,7 +112,7 @@ const signUpUser = async(dialCode,phoneNumber)=>{
 
   try {
     console.log("payload", payload);
-    const resp = await axiosInstance.post("/register", payload);
+    const resp = await axiosInstance.post("/vendor/register", payload);
     const dataObject = resp.data;
     console.log("response from api", dataObject);
 
@@ -143,7 +143,7 @@ const resendOtpService = async(dialCode,phoneNumber)=>{
 
   try {
     console.log("payload", payload);
-    const otpResp = await axiosInstance.post("/resendOtp", payload);
+    const otpResp = await axiosInstance.post("/vendor/resendOtp", payload);
 
     console.log("userResp", otpResp);
     return otpResp.data;
@@ -165,7 +165,7 @@ const resendOtpService = async(dialCode,phoneNumber)=>{
 
 const getCurrentUser = async () => {
   try {
-    const response = await axiosInstance.get("/getCurrentUser");
+    const response = await axiosInstance.get("/vendor/getCurrentUser");
     console.log("get User data", response);
     const user = JSON.parse(response.data.data);
     return user
@@ -180,7 +180,7 @@ const changeUserActiveStatusTogggleButtonService = async (userActiveStatus)=>{
     "isActive": JSON.stringify(userActiveStatus)
   }
   try {
-    const response = await axiosInstance.post("/updateActiveStatus",payload);
+    const response = await axiosInstance.post("/vendor/updateActiveStatus",payload);
     console.log("get User data", response);
     const user = JSON.parse(response.data.data);
     return user

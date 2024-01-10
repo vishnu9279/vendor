@@ -25,7 +25,7 @@ const Settings = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get("/getCurrentUser");
+      const response = await axiosInstance.get("/vendor/getCurrentUser");
       console.log("get User data", response);
       const data = JSON.parse(response.data.data);
       setProfileData(data);

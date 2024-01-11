@@ -24,6 +24,18 @@ function generateDeviceId() {
   return pseudoUniqueId;
 }
 
+const saveFcomToken = async(fcmToken,deviceId)=>{
+  try {
+    const response = await axiosInstance.post("/other/saveFcmToken", {
+      fcmToken,
+      deviceId,
+    });
+    console.log("fcm saved", response);
+  } catch (error) {
+    console.error("Error",error);
+  }
+}
+
 export const generateFCMToken = async () => {
   try {
     const permission = await Notification.requestPermission();
@@ -34,13 +46,10 @@ export const generateFCMToken = async () => {
       const fcmToken = await getToken(messaging, { vapidKey: publicKey });
       console.log("fcmToken", fcmToken);
       const deviceId = generateDeviceId();
-      const response = await axiosInstance.post("/other/saveFcmToken", {
-        fcmToken,
-        deviceId,
-      });
-      console.log("fcm saved", response);
+      await saveFcomToken(fcmToken,deviceId)
     }
   } catch (error) {
     console.error("error", error);
   }
 };
+

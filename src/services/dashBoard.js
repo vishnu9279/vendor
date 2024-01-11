@@ -1,10 +1,10 @@
 // import showSuccessMessage from "../utils/SwalPopup";
 import axiosInstance from "../api-config/axiosInstance";
 
-const scrapOrdersService = async (queryString,obj) => {
+const scrapOrdersService = async (queryString,obj,skip,perPageCount) => {
     try {
-      const response = await axiosInstance.get(`/vendor/getVendorOrder?page=0&limit=10&orderStatus=${queryString}&key=${(obj)?obj.key:null}`);
-      // const response = await axiosInstance.get(`/getVendorOrder?limit=2&page=${skip}&orderStatus=${queryString}&key=${(obj)?obj.key:null}`);
+      // const response = await axiosInstance.get(`/vendor/getVendorOrder?page=0&limit=10&orderStatus=${queryString}&key=${(obj)?obj.key:null}`);
+      const response = await axiosInstance.get(`/vendor/getVendorOrder?limit=${perPageCount}&page=${skip}&orderStatus=${queryString}&key=${(obj)?obj.key:null}`);
     
       const resposeParsing = JSON.parse(response.data.data);
       console.log("getVendorOrder data parsing", resposeParsing);

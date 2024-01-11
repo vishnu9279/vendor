@@ -1,5 +1,6 @@
 import showSuccessMessage from "../utils/SwalPopup";
 import axiosInstance from "../api-config/axiosInstance";
+import {generateFCMToken} from "../services/fireBaseInit";
 
 const getCountries = async () => {
   try {
@@ -183,6 +184,7 @@ const changeUserActiveStatusTogggleButtonService = async (userActiveStatus)=>{
     const response = await axiosInstance.post("/vendor/updateActiveStatus",payload);
     console.log("get User data", response);
     const user = JSON.parse(response.data.data);
+    await generateFCMToken();
     return user
   }
   catch (error) {

@@ -49,7 +49,7 @@ const VendorDashboardNav = ({
 
   const handleLogOut = async () => {
     try {
-      const response = await axiosInstance.get("/logout");
+      const response = await axiosInstance.get("/vendor/logout");
       console.log("logout", response);
       const data = response.data;
       if (data.statusCode === 200) {

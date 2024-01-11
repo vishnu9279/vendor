@@ -10,17 +10,17 @@ import { Link } from "react-router-dom";
 const VendorDashboardOrder = () => {
   const [userOrder, setUserOrder] = useState([]);
   const [filterOrderStatus, setFilterOrderStatus] = useState("0");
-  // const [page, setPage] = useState(1)
-  // const [totalPageCount, setTotalPageCount] = useState(0)
-
+  const [page, setPage] = useState(1);
+  const [totalPageCount, setTotalPageCount] = useState(0);
+  const perPageCount = 10;
   const fullname = localStorage.getItem("fullname");
-  const scraps = async (queryString,obj) => {
+  const scraps = async (queryString, obj) => {
     try {
-      const scrapOrders = await scrapOrdersService(queryString,obj);
-      // const scrapOrders = await scrapOrdersService(queryString,obj,(page *2 -2));
+      // const scrapOrders = await scrapOrdersService(queryString,obj);
+      const scrapOrders = await scrapOrdersService(queryString, obj, (page - 1),perPageCount);
       console.log("vendor orders", scrapOrders);
       setUserOrder(scrapOrders.orders);
-      // setTotalPageCount(scrapOrders.totalScrapCount)
+      setTotalPageCount(Math.ceil(scrapOrders.totalScrapCount / perPageCount));
     } catch (error) {
       console.error("error", error);
     }
@@ -32,15 +32,15 @@ const VendorDashboardOrder = () => {
       ? filterStatus.target.value
       : filterOrderStatus;
 
-      let queryString = "";
-      try {
-        if (filterValue.toLowerCase() === "all") {
-          queryString += "0,1,2,3,4";
-        } else {
-          queryString += filterValue;
-        }
-        
-        setFilterOrderStatus(queryString);
+    let queryString = "";
+    try {
+      if (filterValue.toLowerCase() === "all") {
+        queryString += "0,1,2,3,4";
+      } else {
+        queryString += filterValue;
+      }
+
+      setFilterOrderStatus(queryString);
       await scraps(queryString);
       console.log("queryString", queryString);
     } catch (error) {
@@ -51,32 +51,40 @@ const VendorDashboardOrder = () => {
   const filetrOrderBySearch = async (event) => {
     console.log("serach event", event.target.value);
     // setSearchFilter(event.target.value);
-    let obj = {}
+    let obj = {};
     try {
-      obj.key = event.target.value
-      console.log("searchFilter", obj,filterOrderStatus);
-      await scraps(filterOrderStatus,obj);
+      obj.key = event.target.value;
+      console.log("searchFilter", obj, filterOrderStatus);
+      await scraps(filterOrderStatus, obj);
     } catch (error) {
       console.error("Search Error", error);
     }
   };
 
-  // const selectPageHandler = (selectedPage) => {
-  //   console.log("selectPageHandler",userOrder);
-  //   if (selectedPage >= 1 && selectedPage <= totalPageCount && selectedPage !== page) {
-  //     setPage(selectedPage)
-  //   }
-  // }
+  const selectPageHandler = (selectedPage) => {
+    console.log("selectPageHandler", userOrder);
+    if (
+      selectedPage >= 1 &&
+      selectedPage <= totalPageCount &&
+      selectedPage !== page
+    ) {
+      console.log("selectedPage", selectedPage);
+      setPage(selectedPage);
+    }
+  };
   useEffect(() => {
     // window.scrollTo(0, 0);
 
     filterByOrderStatus();
-  }, []);
+  }, [page]);
   const renderData = () => {
     return (
       <main>
         <section className="lg:ml-[1%] h-full p-5">
-          <div id="NewRootRoot" className="flex flex-col w-full shadow bg-green-50">
+          <div
+            id="NewRootRoot"
+            className="flex flex-col w-full shadow bg-green-50"
+          >
             <div className="flex-grow overflow-x-auto">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="overflow-hidden">
@@ -172,18 +180,6 @@ const VendorDashboardOrder = () => {
               </div>
             </div>
           </div>
-          {console.log("pagination ", userOrder.length)}
-          {/* <Pagination count={totalPageCount} page={page} onChange={filterByOrderStatus} /> */}
-          {/* {userOrder && userOrder.length > 0 && <div className="pagination">
-        <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : "pagination__disable"}>◀</span>
-
-        {Array.isArray(userOrder) && [...Array(Math.ceil(totalPageCount))].map((_, i) => {
-        {console.log("pagination 178", userOrder.length)}
-          return <span key={i} className={page === i + 1 ? "pagination__selected" : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
-        })}
-
-        <span onClick={() => selectPageHandler(page + 1)} className={page < totalPageCount ? "" : "pagination__disable"}>▶</span>
-      </div>} */}
         </section>
       </main>
     );
@@ -211,7 +207,8 @@ const VendorDashboardOrder = () => {
           </select>
         </div>
         <div className="col-span-1">
-         / <div className="w-7/12">
+          /{" "}
+          <div className="w-7/12">
             <label className="block py-3 text-black">Search</label>
             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
               <input
@@ -262,6 +259,42 @@ const VendorDashboardOrder = () => {
           </section>
         </div>
       )}
+      <div>
+        {console.log("pagination ", userOrder.length)}
+        {userOrder && userOrder.length > 0 && (
+          <div className="pagination">
+            <span
+              onClick={() => selectPageHandler(page - 1)}
+              className={page > 1 ? "" : "pagination__disable"}
+            >
+              ◀
+            </span>
+
+            {Array.isArray(userOrder) &&
+              [...Array(Math.ceil(totalPageCount))].map((_, i) => {
+                {
+                  console.log("pagination 178", userOrder.length);
+                }
+                return (
+                  <span
+                    key={i}
+                    className={page === i + 1 ? "pagination__selected" : ""}
+                    onClick={() => selectPageHandler(i + 1)}
+                  >
+                    {i + 1}
+                  </span>
+                );
+              })}
+
+            <span
+              onClick={() => selectPageHandler(page + 1)}
+              className={page < totalPageCount ? "" : "pagination__disable"}
+            >
+              ▶
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

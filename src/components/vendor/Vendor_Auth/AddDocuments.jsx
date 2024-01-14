@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Button from "../components/auth/Button";
+import Button from "../../auth/Button";
 import customer from "../../../assets/PNG/tractor 2.png";
-import Input from "../components/auth/Input";
+import Input from "../../auth/Input";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosInstance from "../api-config/axiosInstance";
-import showSuccessMessage from "../utils/SwalPopup";
+import axiosInstance from "../../../api-config/axiosInstance";
+import showSuccessMessage from "../../../utils/SwalPopup";
 
 const AddDocuments = () => {
   const location = useLocation();

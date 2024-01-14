@@ -17,10 +17,10 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-  ],
+  //   "linebreak-style": [
+  //     "error",
+  //     "unix"
+  // ],
   "no-multiple-empty-lines": ["error", {
     "max": 1,
     "maxEOF": 1,

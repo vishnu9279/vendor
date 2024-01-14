@@ -10,6 +10,9 @@ import {
 const VendorDashboardOrderHistory = () => {
   const [userOrder, setUserOrder] = useState();
   const { orderId } = useParams();
+  const [vendorNav, setVendorNav] = useState(false);
+  const handleVendorNav = () => setVendorNav(true);
+  const closeVendorNav = () => setVendorNav(false);
 
   console.log("GETTING ORDER ID ", orderId);
 
@@ -30,7 +33,7 @@ const VendorDashboardOrderHistory = () => {
     orderInfo();
     fetchPayemtMethod();
   }, [orderId]);
- 
+
   const fetchPayemtMethod = async () => {
     try {
       const response = await getPaymentModeService();
@@ -44,8 +47,11 @@ const VendorDashboardOrderHistory = () => {
 
   return (
     <div>
-      <VendorDashboardNav />
-      <VendorDashboardHead />
+      <VendorDashboardNav showNav={vendorNav} hideNav={closeVendorNav} />
+      <VendorDashboardHead
+        handleNavClick={handleVendorNav}
+        showNav={vendorNav}
+      />
       <br />
       <br />
       <div className="mx-auto mt-8 max-w-2xl md:mt-12">

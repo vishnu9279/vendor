@@ -8,10 +8,14 @@ import { OrdersRespEnum } from "../../api-config/common";
 import { scrapOrdersService } from "../../services/dashBoard";
 import { Link } from "react-router-dom";
 const VendorDashboardOrder = () => {
+   console.log("VendorDashboardOrder")
   const [userOrder, setUserOrder] = useState([]);
   const [filterOrderStatus, setFilterOrderStatus] = useState("0");
   const [page, setPage] = useState(1);
   const [totalPageCount, setTotalPageCount] = useState(0);
+  const [vendorNav, setVendorNav] = useState(false);
+  const handleVendorNav = () => setVendorNav(true);
+  const closeVendorNav = () => setVendorNav(false);
   const perPageCount = 10;
   const fullname = localStorage.getItem("fullname");
   const scraps = async (queryString, obj) => {
@@ -187,8 +191,11 @@ const VendorDashboardOrder = () => {
 
   return (
     <div>
-      <VendorDashboardNav />
-      <VendorDashboardHead />
+      <VendorDashboardNav showNav={vendorNav} hideNav={closeVendorNav} />
+      <VendorDashboardHead
+        handleNavClick={handleVendorNav}
+        showNav={vendorNav}
+      />
       <div className="relative flex grid grid-cols-2 gap-4 lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[10%] sm-[10%] h-full">
         <div className="col-span-1">
           <p className="pt-5 pl-5 relative right-0 lg:max-w-sm">Order Status</p>

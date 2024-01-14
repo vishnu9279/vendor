@@ -13,19 +13,16 @@ import cancel_icon from "../../assets/SVG/dashboard/cancel.svg";
 import location_icon from "../../assets/SVG/dashboard/location.svg";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 
-import { Link, useNavigate ,NavLink} from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 
-const VendorDashboardNav = ({
-  showNav,
-  hideNav,
-  onScrap,
-  showHistory,
-  
-}) => {
+const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   const navigate = useNavigate();
+  console.log("showNav", showNav);
+  console.log("hello VendorDashboardNav");
 
   const [profile, setProfileData] = useState({});
 
@@ -67,6 +64,9 @@ const VendorDashboardNav = ({
       console.error("Error fetching data:", error);
     }
   };
+  const location = useLocation();
+  const { pathname } = location;
+  console.log("pathname",pathname)
 
   return (
     <div>
@@ -84,11 +84,17 @@ const VendorDashboardNav = ({
             <div className="flex flex-col justify-center ">
               <NavLink to="/vendor-dashboard-order">
                 <div
-                  className=" w-[90%] h-[3.25rem] active:bg-lime-200 hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer ml-2"
+                  className=" w-[90%] h-[3.25rem] active:bg-lime-200 hover:bg-lime-200 hover:rounded-[9px] hover:text-lime-600 pl-4 duration-300 cursor-pointer ml-2 flex items-center gap-2"
                   onClick={onScrap}
                 >
-                  <img src={orders} alt="order-icon" />
-                  <span className= {({isActive})=>`text-center${isActive?"text-lime-600":"text-neutral-500"} text-base font-normal font-['Gilroy-Bold'] tracking-tight ml-3`}>
+                  <img src={orders} alt="order-icon" className="mb-1" />
+                  <span
+                    className={({ isActive }) =>
+                      `text-center${
+                        isActive ? "text-lime-600" : "text-neutral-500"
+                      } text-base font-normal font-['Gilroy-Bold']  pt-5`
+                    }
+                  >
                     Orders
                   </span>
                 </div>
@@ -103,47 +109,77 @@ const VendorDashboardNav = ({
                 </div>
               </NavLink> */}
               <NavLink to="/vendor-dashboard">
-                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
-                  <img src={home_icon} alt="home-icon" />
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] hover:text-lime-600 flex items-center gap-2 pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                  <img src={home_icon} alt="home-icon" className="mb-1" />
 
-                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
+                  <span
+                    className={({ isActive }) =>
+                      `text-center ${
+                        isActive ? "text-lime-600" : "text-neutral-500"
+                      }  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3 pt-1`
+                    }
+                  >
                     Homepage
                   </span>
                 </div>
               </NavLink>
               <NavLink to={"/aboutUs"}>
-                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] hover:text-lime-600 flex items-center gap-2 pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={about_icon} alt="about-icon" />
 
-                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
+                  <span
+                    className={({ isActive }) =>
+                      `text-center ${
+                        isActive ? "text-lime-600" : "text-neutral-500"
+                      }  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`
+                    }
+                  >
                     About
                   </span>
                 </div>
               </NavLink>
               <NavLink to="/contactUs">
-                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] hover:text-lime-600 flex items-center gap-2 pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={contact_icon} alt="contact-icon" />
 
-                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
+                  <span
+                    className={({ isActive }) =>
+                      `text-center ${
+                        isActive ? "text-lime-600" : "text-neutral-500"
+                      } text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`
+                    }
+                  >
                     Contact
                   </span>
                 </div>
               </NavLink>
               <NavLink to="/history">
                 <div
-                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2"
+                  className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] hover:text-lime-600 flex items-center gap-2 pl-4 duration-300 cursor-pointer mt-1 ml-2"
                   onClick={showHistory}
                 >
                   <img src={pickup_icon} alt="pickup-icon" />
-                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
+                  <span
+                    className={({ isActive }) =>
+                      `text-center ${
+                        isActive ? "text-lime-600" : "text-neutral-500"
+                      }  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`
+                    }
+                  >
                     Pickup History
                   </span>
                 </div>
               </NavLink>
               <NavLink to="/Settings">
-                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2">
+                <div className=" w-[90%] h-[3.25rem] hover:bg-lime-200 hover:rounded-[9px] hover:text-lime-600 flex items-center gap-2 pl-4 duration-300 cursor-pointer mt-1 ml-2">
                   <img src={setting_icon} alt="setting-icon" />
-                  <span className= {({isActive})=>`text-center ${isActive?"text-lime-600":"text-neutral-500"}  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`}>
+                  <span
+                    className={({ isActive }) =>
+                      `text-center ${
+                        isActive ? "text-lime-600" : "text-neutral-500"
+                      }  text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3`
+                    }
+                  >
                     Settings
                   </span>
                 </div>
@@ -153,7 +189,7 @@ const VendorDashboardNav = ({
           <section>
             <div
               onClick={handleLogOut}
-              className=" w-[90%] h-[3.25rem] hover:bg-red-300 mb-3 hover:rounded-[9px] flex items-center pl-4 duration-300 cursor-pointer mt-1 ml-2 text-neutral-500 hover:text-neutral-800"
+              className=" w-[90%] h-[3.25rem] hover:bg-red-300 mb-3 hover:rounded-[9px] hover:text-lime-600 flex items-center gap-2 pl-4 duration-300 cursor-pointer mt-1 ml-2 text-neutral-500 "
             >
               <img src={logout_icon} alt="logout-icon" />
               <span className="text-center   text-base font-normal font-['Gilroy-Medium'] tracking-tight ml-3">
@@ -165,7 +201,7 @@ const VendorDashboardNav = ({
       </nav>
 
       {/* Mobile Nav */}
-      <main className="lg:hidden relative">
+      <main className="lg:hidden relative ">
         <section>
           <aside
             className={
@@ -174,29 +210,33 @@ const VendorDashboardNav = ({
                 : "fixed top-[-100%] left-0 w-screen h-screen bg-white z-50 duration-700 overflow-y-scroll opacity-0 overflow"
             }
           >
-            <div className="py-10 pl-2 md:pl-10 bg-lime-600 rounded-br-[40px] w-full">
+            <div className="py-10 pl-2 md:pl-10 bg-[#3CB043] rounded-br-[40px] w-full">
               <img
                 src={cancel_icon}
                 alt="close-icon"
-                className="absolute right-4 w-7 md:w-10 top-3 cursor-pointer"
+                className="absolute right-4 w-7 md:w-10 top-3 cursor-pointer "
                 onClick={hideNav}
               />
               <aside className="flex items-center ">
                 <img
                   src={profile.profileUrl}
                   alt="useImg"
-                  className="mr-2 w-16 md:w-20"
+                  className="mr-2 w-14 h-14 md:w-14 rounded-full"
                 />
                 <aside>
-                  <h1 className="text-white text-lg md:text-2xl font-bold leading-tight">
+                  <h1 className="text-white  text-[16px] md:text-2xl font-bold leading-tight">
                     {profile.firstName} {profile.lastName}
                   </h1>
-                  <p className="text-white text-sm md:text-xl font-bold leading-tight">
+                  <p className="text-white mt-[3px] sm:mt-0 text-[12px] md:text-xl font-bold leading-tight">
                     {profile.dialCode} {profile.phoneNumber}
                   </p>
-                  <span className="flex mr-1">
-                    <img src={location_icon} alt="location_icon" />
-                    <p className="text-white text-sm md:text-xl font-bold leading-tight">
+                  <span className="flex justify-start mr-1 mt-[3px] sm:mt-0 ">
+                    <img
+                      src={location_icon}
+                      alt="location_icon"
+                      className="w-fit"
+                    />
+                    <p className="text-white text-[12px] md:text-xl font-bold leading-tight">
                       {profile.countryName}
                     </p>
                   </span>
@@ -207,10 +247,37 @@ const VendorDashboardNav = ({
             <nav className="font-['Gilroy-Regular'] h-full">
               <div className="flex justify-between flex-col h-3/4 ">
                 <ul className="flex flex-col px-1 py-4 text-gray-800 font-semibold mt-1">
+                  <Link to="/vendor-dashboard-order">
+                    <li
+                      onClick={() => {
+                        hideNav();
+                      }}
+                      className={`font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400 duration-500 ${
+                        pathname == "/vendor-dashboard-order"
+                          ? "bg-[#EBFFDD] rounded-lg mr-[4px] ml-[4px]"
+                          : ""
+                      }`}
+                    >
+                      <img
+                        src={orders}
+                        alt="home-icon"
+                        className="mx-3 mr-3 w-7 md:w-12"
+                      />
+                      <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-loose">
+                        Orders
+                      </span>
+                    </li>
+                  </Link>
                   <Link to="/vendor-dashboard">
                     <li
-                      onClick={hideNav}
-                      className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                      onClick={() => {
+                        hideNav();
+                      }}
+                      className={`font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 ${
+                        pathname == "/vendor-dashboard"
+                          ? "bg-[#EBFFDD] rounded-lg mr-[4px] ml-[4px]"
+                          : ""
+                      } `}
                     >
                       <img
                         src={home_icon}
@@ -226,7 +293,11 @@ const VendorDashboardNav = ({
                   <Link to={"/aboutUs"}>
                     <li
                       onClick={hideNav}
-                      className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                      className={`font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 ${
+                        pathname == "/aboutUs"
+                          ? "bg-[#EBFFDD] rounded-lg mr-[4px] ml-[4px]"
+                          : ""
+                      } `}
                     >
                       <img
                         src={about_icon}
@@ -242,7 +313,11 @@ const VendorDashboardNav = ({
                   <Link to="/contactUs">
                     <li
                       onClick={hideNav}
-                      className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                      className={`font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 ${
+                        pathname == "/contactUs"
+                          ? "bg-[#EBFFDD] rounded-lg mr-[4px] ml-[4px]"
+                          : ""
+                      } `}
                     >
                       {/* <TfiHeadphoneAlt
                         className="mx-3 mr-3 w-7 md:w-12"
@@ -258,10 +333,33 @@ const VendorDashboardNav = ({
                       </span>
                     </li>
                   </Link>
+                  <Link to="/history">
+                    <li
+                      onClick={hideNav}
+                      className={`font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 ${
+                        pathname == "/history"
+                          ? "bg-[#EBFFDD] rounded-lg mr-[4px] ml-[4px]"
+                          : ""
+                      } `}
+                    >
+                      <img
+                        src={pickup_icon}
+                        alt="pickup-icon"
+                        className="mx-3 mr-3 w-7 md:w-12"
+                      />
+                      <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-loose">
+                        Pickup History
+                      </span>
+                    </li>
+                  </Link>
                   <Link to="/Settings">
                     <li
                       onClick={hideNav}
-                      className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                      className={`font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 ${
+                        pathname == "/Settings"
+                          ? "bg-[#EBFFDD] rounded-lg mr-[4px] ml-[4px]"
+                          : ""
+                      } `}
                     >
                       <img
                         src={setting_icon}

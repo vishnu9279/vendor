@@ -13,6 +13,9 @@ const History = () => {
   const [filterOrderStatus, setFilterOrderStatus] = useState("all");
   const [page, setPage] = useState(1);
   const [totalPageCount, setTotalPageCount] = useState(0);
+  const [vendorNav, setVendorNav] = useState(false);
+  const handleVendorNav = () => setVendorNav(true);
+  const closeVendorNav = () => setVendorNav(false);
   const perPageCount = 10;
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,9 +24,14 @@ const History = () => {
   }, [page]);
 
   const fullname = localStorage.getItem("fullname");
-  const scraps = async (queryString,obj) => {
+  const scraps = async (queryString, obj) => {
     try {
-      const scrapOrders = await scrapOrdersService(queryString,obj,(page - 1),perPageCount);
+      const scrapOrders = await scrapOrdersService(
+        queryString,
+        obj,
+        page - 1,
+        perPageCount
+      );
       console.log("vendor orders", scrapOrders);
       setUserOrder(scrapOrders.orders);
       setTotalPageCount(Math.ceil(scrapOrders.totalScrapCount / perPageCount));
@@ -38,15 +46,15 @@ const History = () => {
       ? filterStatus.target.value
       : filterOrderStatus;
 
-      let queryString = "";
-      try {
-        if (filterValue.toLowerCase() === "all") {
-          queryString += "0,1,2,3,4";
-        } else {
-          queryString += filterValue;
-        }
-        
-        setFilterOrderStatus(queryString);
+    let queryString = "";
+    try {
+      if (filterValue.toLowerCase() === "all") {
+        queryString += "0,1,2,3,4";
+      } else {
+        queryString += filterValue;
+      }
+
+      setFilterOrderStatus(queryString);
       await scraps(queryString);
       console.log("queryString", queryString);
     } catch (error) {
@@ -57,11 +65,11 @@ const History = () => {
   const filetrOrderBySearch = async (event) => {
     console.log("serach event", event.target.value);
     // setSearchFilter(event.target.value);
-    let obj = {}
+    let obj = {};
     try {
-      obj.key = event.target.value
-      console.log("searchFilter", obj,filterOrderStatus);
-      await scraps(filterOrderStatus,obj);
+      obj.key = event.target.value;
+      console.log("searchFilter", obj, filterOrderStatus);
+      await scraps(filterOrderStatus, obj);
     } catch (error) {
       console.error("Search Error", error);
     }
@@ -187,8 +195,11 @@ const History = () => {
 
   return (
     <div>
-      <VendorDashboardNav />
-      <VendorDashboardHead />
+      <VendorDashboardNav showNav={vendorNav} hideNav={closeVendorNav} />
+      <VendorDashboardHead
+        handleNavClick={handleVendorNav}
+        showNav={vendorNav}
+      />
       <div className="relative flex grid grid-cols-2 gap-4 lg:ml-[18%] pt-[43%] md:pt-[23%] lg:pt-[10%] sm-[10%] h-full">
         <div className="col-span-1">
           <p className="pt-5 pl-5 relative right-0 lg:max-w-sm">Order Status</p>
@@ -207,7 +218,8 @@ const History = () => {
           </select>
         </div>
         <div className="col-span-1">
-         / <div className="w-7/12">
+          /{" "}
+          <div className="w-7/12">
             <label className="block py-3 text-black">Search</label>
             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
               <input

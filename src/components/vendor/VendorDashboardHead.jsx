@@ -66,7 +66,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
             <img
               src={user.profileUrl}
               alt="user_img"
-              className="w-12 mr-2 cursor-pointer rounded-full"
+              className="w-14 h-14 mr-2 cursor-pointer rounded-full"
             />
             <span className="text-neutral-700 font-normal font-['Gilroy-Regular']">
               {user.firstName} {}
@@ -104,7 +104,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
               <img
                 src={user.profileUrl}
                 alt="user_img"
-                className="mr-1 md:mr-4 w-12 md:w-[4.5rem] cursor-pointer rounded-full"
+                className="mr-1 md:mr-4 w-14 h-14 md:w-[4.5rem] cursor-pointer rounded-full"
               />
               <span>
                 <p className="font-semibold text-lg md:text-2xl md:mb-.5">

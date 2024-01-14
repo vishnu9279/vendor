@@ -5,7 +5,7 @@ import "./App.css";
 import VendorDashboard from "./components/vendor/VendorDashboard";
 
 import VendorDashboardOrder from "./components/vendor/VendorDashboardOrder";
-import AddDocuments from "./components/vendor/Vendor_Auth/AddDocuments";
+import AddDocuments from "./assets/AddDocuments";
 
 import VendorRegister from "./components/vendor/Vendor_Auth/VendorRegister";
 import VendorOtpRegister from "./components/vendor/Vendor_Auth/VendorOtpVerify";

@@ -38,7 +38,7 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
       const data = JSON.parse(response.data.data);
       setProfileData(data);
       console.log("get Profile of user ", data);
-      localStorage.setItem("fullname", profile.firstName);
+      localStorage.setItem("fullname", profile?.firstName);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -73,7 +73,7 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
       <nav className="fixed h-screen w-[18%] shadow-xl left-0 bg-white hidden lg:block">
         <main className="flex flex-col justify-between h-full">
           <section className=" ">
-            <div className="flex justify-center items-center h-[15%]">
+            <div className="flex justify-center items-center h-[20.5%]">
               <img
                 src={logo}
                 alt="bazar-logo"

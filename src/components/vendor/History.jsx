@@ -85,6 +85,29 @@ const History = () => {
       setPage(selectedPage);
     }
   };
+  const dateTimeCalculate = (dateTime) => {
+    // const dateString = '2024-01-17T17:52:39.640Z';
+    const dateInUTC = new Date(dateTime);
+    // Convert to IST (Indian Standard Time)
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    };
+    const dateInIST = dateInUTC
+      .toLocaleDateString("en-IN", options)
+      .replace(/-/g, "/");
+    const options2 = {
+      timeZone: "Asia/Kolkata",
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+    const istTime = dateInUTC.toLocaleTimeString("en-IN", options2);
+    return `${dateInIST}, ${istTime}`;
+  };
   const renderData = () => {
     return (
       <main className="">
@@ -94,56 +117,68 @@ const History = () => {
             className="flex flex-col w-full shadow bg-white"
           >
             <div className="flex-grow overflow-x-auto">
-              <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="overflow-hidden">
+              <div className="py-2 inline-block w-full sm:px-6 lg:px-8">
+                <div className="">
                   <table className="min-w-full">
                     <thead className="rounded-xl">
-                      <tr className="bg-[#EBFFDD]">
+                      <tr className="bg-[#EBFFDD] flex flex-row">
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left rounded-l-xl"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[80px] flex justify-center items-center"
                         >
                           SN. No
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
                         >
                           Date
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
                         >
                           Order ID
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
                         >
                           Name
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
                         >
                           Phone
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[110px] flex justify-center items-center"
                         >
                           Amount
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
                         >
                           Order Status
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-6 py-4 text-left rounded-r-xl"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                        >
+                          Address
+                        </th>
+                        <th
+                          scope="col"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                        >
+                          Pincode
+                        </th>
+                        <th
+                          scope="col"
+                          className="text-[16px] font-medium text-[#707070] px-3 py-4 text-left rounded-r-xl w-[110px]"
                         >
                           View Detail
                         </th>
@@ -153,30 +188,31 @@ const History = () => {
                       {userOrder?.map((item, index) => (
                         <tr
                           key={index}
-                          className={`${
+                          className={` flex flex-row ${
                             index % 2 != 0 ? "bg-[#FAFAFA]" : "bg-white"
                           }`}
                         >
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070] rounded-l-xl">
+                          <td className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[80px] flex justify-center items-center">
                             {index + 1}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070]">
-                            {item.createdAt}
+                          <td className="text-[16px] font-medium text-[#707070] text-left w-[150px] flex justify-center items-center">
+                            {/* {item.createdAt} */}
+                            {dateTimeCalculate(item?.createdAt)}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070]">
+                          <td className="text-[16px] font-medium text-[#707070] text-left w-[110px] flex justify-center items-center">
                             {item.orderId}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070]">
+                          <td className="text-[16px] font-medium text-[#707070] text-left w-[110px] flex justify-center items-center">
                             {item.fullName}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070]">
+                          <td className="text-[16px] font-medium text-[#707070] text-left w-[150px] flex justify-center items-center">
                             {item.dialCode} {item.phoneNumber}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070]">
+                          <td className="text-[16px] font-medium text-[#707070] text-left w-[110px] flex justify-center items-center">
                             {item.finalAmount}
                           </td>
                           <td
-                            className={`px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070] ${
+                            className={`text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center ${
                               OrdersRespEnum[item.orderStatus] ==
                               "Orders Accepted"
                                 ? "text-green-500"
@@ -185,7 +221,13 @@ const History = () => {
                           >
                             {OrdersRespEnum[item.orderStatus]}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal text-[#707070] rounded-r-xl">
+                          <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
+                            {item?.addressInfo?.address}
+                          </td>
+                          <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
+                          {item?.addressInfo?.pincode}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal w-[120px] text-[#707070] rounded-r-xl">
                             <Link to={`/order-history-detail/${item.orderId}`}>
                               <button className="bg-lime-600 text-white px-3 py-1 rounded">
                                 Details
@@ -212,16 +254,16 @@ const History = () => {
         handleNavClick={handleVendorNav}
         showNav={vendorNav}
       />
-      <div className="bg-[#F7FFF1] p-4">
-        <div className="bg-[#F7FFF1] ml-10 ">
-          <div className="relative flex justify-between items-center lg:ml-[18%] pb-10 pt-5  pr-8 sm-[10%] h-full bg-white mt-24">
-            <div className="pl-10">
+      <div className="bg-[#F7FFF1] py-4 pl-4 pr-4 lg:pr-6">
+        <div className="bg-[#F7FFF1] lg:ml-5">
+          <div className="relative flex flex-col sm:flex-row justify-between items-center lg:ml-[18%] pb-10 pt-10 sm:pt-20  lg:pt-5 sm:pr-8 sm-[10%] h-full bg-white mt-24">
+            <div className=" pb-3 sm:pb-0 min-md:pl-10">
               <p className="text-[24px]">Scrap Transaction History</p>
             </div>
-            <div className="flex">
-              <div className=" flex justify-center items-center gap-4">
-                <label className="block py-3 text-black">Search</label>
-                <div className="flex items-center p-2 border w-[250px] rounded-md bg-[#80d7421c]">
+            <div className="flex flex-col min-md:flex-row w-full min-md:w-fit">
+              <div className=" flex flex-col min-md:flex-row min-md:justify-center min-md:items-center min-md:gap-4 w-full">
+                <label className=" py-1 min-md:py-3 text-black hidden lg:block">Search</label>
+                <div className="flex items-center p-2 border w-full min-md:w-[250px] rounded-md bg-[#80d7421c]">
                   <input
                     onChange={(e) => {
                       filetrOrderBySearch(e);
@@ -231,7 +273,7 @@ const History = () => {
                   />
                 </div>
               </div>
-              <div className=" flex justify-center items-center gap-4">
+              <div className=" flex justify-center items-center gap-4 mt-4 min-md:mt-0">
                 <p className="pl-5 relative right-0 lg:max-w-sm">
                   Order Status
                 </p>
@@ -288,9 +330,8 @@ const History = () => {
               </section>
             </div>
           )}
-          <div>
-            {console.log("pagination ", userOrder.length)}
-            {userOrder && userOrder.length > 0 && (
+          <div className="lg:ml-[18%]">
+            {userOrder && userOrder?.length > 0 && (
               <div className="pagination">
                 <span
                   onClick={() => selectPageHandler(page - 1)}

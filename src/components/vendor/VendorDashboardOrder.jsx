@@ -258,7 +258,7 @@ const VendorDashboardOrder = () => {
                         </span> */}
                         <div className="flex justify-between items-center">
                           <span className="text-black text-[20px]">
-                            A New Order
+                            A New Order from {item?.fullName}
                           </span>
                           <div className="text-[#E33629] text-[17px] flex flex-row gap-1">
                             <p>Countdown:</p>
@@ -270,7 +270,7 @@ const VendorDashboardOrder = () => {
                         <div className="mt-4 flex flex-col gap-4">
                           <div className="flex flex-col justify-start">
                             <div className="flex items-center">
-                              <img
+                              {/* <img
                                 src={location_icon}
                                 alt="location_icon"
                                 className="w-7 mr-.5 cursor-pointer"
@@ -278,16 +278,16 @@ const VendorDashboardOrder = () => {
 
                               <span className="text-black text-[17px]">
                                 Delhi, Groove Estate
-                              </span>
+                              </span> */}
                             </div>
-                            <div className="ml-7">
+                            {/* <div className="ml-7">
                               <span className="text-black text-[14px]">
                                 {item?.addressInfo?.city},{" "}
                                 {item?.addressInfo?.address}
                               </span>
-                            </div>
+                            </div> */}
                           </div>
-                          <div className="flex items-center ">
+                          <div className="flex items-center mt-5">
                             <div className="flex flex-col justify-start">
                               <div className="flex items-center">
                                 <img
@@ -410,9 +410,8 @@ const VendorDashboardOrder = () => {
               </section>
             </div>
           )}
-          <div>
-            {console.log("pagination ", userOrder.length)}
-            {userOrder && userOrder.length > 0 && (
+          <div className="lg:ml-[18%]">
+            {userOrder && userOrder?.length > 0 && (
               <div className="pagination">
                 <span
                   onClick={() => selectPageHandler(page - 1)}

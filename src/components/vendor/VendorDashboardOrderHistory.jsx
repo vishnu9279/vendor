@@ -79,12 +79,15 @@ const VendorDashboardOrderHistory = () => {
           <div className="px-4 py-6 sm:px-8 sm:py-10">
             <div className="flow-root">
               <span className="h-1 w-full bg-slate-400 lg:w-1/3"></span>
-              <ul className="-my-8">
-                <span className="mt-10 font-bold text-slate-400 text-sm">
-                  Order ID:- #{userOrder?.orderId}
-                </span>
+              <div className="-my-8">
+                <div className="flex flex-col gap-2 justify-start items-start ">
+                  <span className="mt-2 font-bold text-slate-400 text-sm">
+                    Order ID:- #{userOrder?.orderId}
+                  </span>
+                  <span className="mt-2 font-bold text-black text-sm">Platform Fees: {userOrder?.markupFee}</span>
+                </div>
                 <div>
-                  <div className="flex mt-2  mb-5">
+                  <div className="flex mt-6 mb-5">
                     <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
                       Product Details
                     </h3>
@@ -133,7 +136,7 @@ const VendorDashboardOrderHistory = () => {
                     </div>
                   ))}
                 </div>
-              </ul>
+              </div>
             </div>
             <div className="mt-6 mb-6 flex text-center justify-end  space-x-4 border-t border-b">
               <p className="flex text-center absolute right-30  space-x-2">

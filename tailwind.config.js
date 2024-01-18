@@ -25,6 +25,7 @@ module.exports = {
         "max-sm": { max: "320px" },
         "max-lg": { max: "375px" },
         "max-md": { max: "425px" },
+        "min-md": { min: "475px" },
         "max-er": { max: "768px" },
         "min-er": { min: "768px" },
       },

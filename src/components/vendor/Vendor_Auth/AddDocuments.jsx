@@ -24,6 +24,7 @@ const AddDocuments = () => {
   const [lastName, setLastName] = useState("");
   const [panCard, setPanCard] = useState("");
   const [address, setAddress] = useState("");
+  const [pincode, setPincode] = useState("")
   const [countriesAndStates, setcountriesAndStates] = useState([]);
 
   const fetchData = async () => {
@@ -31,7 +32,7 @@ const AddDocuments = () => {
       const userIdResp = location.state.userId;
       console.log("userId", userIdResp);
       setUserId(userIdResp);
-      const response = await axiosInstance.get("/getCountries");
+      const response = await axiosInstance.get("/vendor/getCountries");
 
       const countriesAndStatesData = JSON.parse(response.data.data);
 
@@ -94,7 +95,7 @@ const AddDocuments = () => {
       };
       console.log("generateSignedUrl function work", payload);
       const signedUrl = await axiosInstance.post(
-        "/generateS3UploadSignedUrl",
+        "/vendor/generateS3UploadSignedUrl",
         payload
       );
       return JSON.parse(signedUrl.data.data);
@@ -216,11 +217,12 @@ const AddDocuments = () => {
       countryCode: selectedCountry,
       stateCode: selectedState,
       address: address,
+      pincode
     };
 
     try {
       console.log("upload Documents", payload);
-      const resp = await axiosInstance.post("/uploadDocument", payload);
+      const resp = await axiosInstance.post("/vendor/uploadDocument", payload);
       const dataObject = resp.data;
       const tokenDataParsing = JSON.parse(dataObject.data);
       localStorage.setItem("token", tokenDataParsing.token);
@@ -264,7 +266,7 @@ const AddDocuments = () => {
                         onChange={(e) => {
                           setFirstName(e.target.value);
                         }}
-                        placeholder="Enter Address"
+                        placeholder="First Name"
                         className="w-full p-1 ml-3 text-black outline-none bg-transparent"
                       />
                     </div>
@@ -278,7 +280,7 @@ const AddDocuments = () => {
                         onChange={(e) => {
                           setLastName(e.target.value);
                         }}
-                        placeholder="Enter Address"
+                        placeholder="Last Name"
                         className="w-full p-1 ml-3 text-black outline-none bg-transparent"
                       />
                     </div>
@@ -441,7 +443,23 @@ const AddDocuments = () => {
                     </div>
                   </div>
                 </div>
-
+                <div className="col-span-6 sm:col-span-3">
+                  <div>
+                    <label className="block py-3 text-black">
+                      Enter Pincode
+                    </label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        required
+                        onChange={(e) => {
+                          setPincode(e.target.value);
+                        }}
+                        placeholder="Enter PinCode"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
                   <Input
                     type="checkbox"

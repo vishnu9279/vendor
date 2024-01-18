@@ -17,8 +17,8 @@ import AboutUs from "./pages/AboutUsPage";
 import Protected from "./components/protected/protectedForComponent";
 import Loader from "./components/Loader";
 import axiosInstance from "./api-config/axiosInstance";
-import {messaging} from "./services/fireBaseInit";
-import { onMessage} from "firebase/messaging";
+// import {messaging} from "./services/fireBaseInit";
+// import { onMessage} from "firebase/messaging";
 import VendorDashboardOrderDetail from "./components/vendor/VendorDashboardOrderDetail";
 import VendorDashboardOrderHistory from "./components/vendor/VendorDashboardOrderHistory";
 
@@ -26,9 +26,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   
   useEffect(() => {
-    onMessage(messaging,(payload)=>{
-      console.log("fcm payload", payload);
-    })
+    // onMessage(messaging,(payload)=>{
+    //   console.log("fcm payload", payload);
+    // })
     axiosInstance.interceptors.request.use(
       (config) => {
         setLoading(true);

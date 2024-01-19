@@ -130,25 +130,25 @@ const History = () => {
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[150px] flex justify-center items-center"
                         >
                           Date
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[110px] flex justify-center items-center"
                         >
                           Order ID
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[110px] flex justify-center items-center"
                         >
                           Name
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Phone
                         </th>
@@ -160,25 +160,25 @@ const History = () => {
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px]  flex justify-center items-center"
                         >
                           Order Status
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Address
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  flex justify-center items-center"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Pincode
                         </th>
                         <th
                           scope="col"
-                          className="text-[16px] font-medium text-[#707070] px-3 py-4 text-left rounded-r-xl w-[110px]"
+                          className="text-[16px] font-medium text-[#707070] px-3 py-4 text-left rounded-r-xl w-[120px]"
                         >
                           View Detail
                         </th>
@@ -260,7 +260,7 @@ const History = () => {
             <div className=" pb-3 sm:pb-0 min-md:pl-10">
               <p className="text-[24px]">Scrap Transaction History</p>
             </div>
-            <div className="flex flex-col min-md:flex-row w-full min-md:w-fit">
+            <div className="flex flex-col min-md:flex-row w-full min-md:w-auto">
               <div className=" flex flex-col min-md:flex-row min-md:justify-center min-md:items-center min-md:gap-4 w-full">
                 <label className=" py-1 min-md:py-3 text-black hidden lg:block">Search</label>
                 <div className="flex items-center p-2 border w-full min-md:w-[250px] rounded-md bg-[#80d7421c]">
@@ -273,8 +273,8 @@ const History = () => {
                   />
                 </div>
               </div>
-              <div className=" flex justify-center items-center gap-4 mt-4 min-md:mt-0">
-                <p className="pl-5 relative right-0 lg:max-w-sm">
+              <div className=" flex items-center justify-center gap-4 mt-4 min-md:mt-0 w-full">
+                <p className="pl-5 relative w-fit ">
                   Order Status
                 </p>
                 <select

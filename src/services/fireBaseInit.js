@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import axiosInstance from "../api-config/axiosInstance";
 import { getMessaging, getToken } from "firebase/messaging";
 import {
   FIREBASE_CONFIG_JSON,
@@ -9,7 +10,6 @@ const firebaseApp = initializeApp(FIREBASE_CONFIG_JSON);
 
 export const messaging = getMessaging(firebaseApp);
 const publicKey = FIREBASE_CONFIG_PUBLIC_KEY;
-import axiosInstance from "../api-config/axiosInstance";
 
 function generateDeviceId() {
   const navigatorInfo = navigator.userAgent || navigator.vendor || window.opera;

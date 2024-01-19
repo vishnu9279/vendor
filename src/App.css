@@ -18,3 +18,4 @@
   .pagination__selected{
     background-color: rgb(220, 220, 220);
   }
+  iframe#webpack-dev-server-client-overlay{display:none!important}

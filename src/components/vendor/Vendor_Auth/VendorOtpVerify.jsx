@@ -44,12 +44,11 @@ const VendorOtpRegister = () => {
         showSuccessMessage("Select Term And Condition", "error");
         return;
       }
-      const otpVerifyResp = await otpVerifyService(
+      const userResp = await otpVerifyService(
         location.state.phoneNumber,
         otp
       );
 
-      const userResp = JSON.parse(otpVerifyResp.data);
       console.log("userResp", userResp);
       console.log("otpVerifyResp from Service File", userResp);
 
@@ -62,7 +61,7 @@ const VendorOtpRegister = () => {
       } else {
         console.log("token", userResp.token);
         localStorage.setItem("token", userResp.token);
-        showSuccessMessage(otpVerifyResp.message, "success");
+        showSuccessMessage(userResp.message, "success");
         navigate("/vendor-dashboard", {});
       }
     } catch (error) {

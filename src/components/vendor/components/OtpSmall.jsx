@@ -17,7 +17,7 @@ const OtpSmall = () => {
 
   const location = useLocation();
 
-  console.log("phoneNumberObj", location.state.mobile);
+  console.log("phoneNumberObj", location.state.phoneNumber);
 
   const handleOTPChange = (e) => {
     console.log("events", e);
@@ -34,7 +34,7 @@ const OtpSmall = () => {
         return;
       }
 
-      const otpVerifyResp = await otpVerifyService(location.state.mobile, otp);
+      const otpVerifyResp = await otpVerifyService(location.state.phoneNumber, otp);
       console.log("otpVerifyResp from Service File", otpVerifyResp);
 
       if (!otpVerifyResp.isDocumentUploaded) {

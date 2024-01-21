@@ -40,7 +40,7 @@ const VendorDashboardOrder = () => {
   //  console.log("finalOrderList",finalOrderList)
 
   const filterByOrderStatus = async (filterStatus) => {
-    console.log("filterByOrderStatus", filterOrderStatus, filterStatus);
+    // console.log("filterByOrderStatus", filterOrderStatus, filterStatus);
     const filterValue = filterStatus
       ? filterStatus.target.value
       : filterOrderStatus;
@@ -55,7 +55,7 @@ const VendorDashboardOrder = () => {
 
       setFilterOrderStatus(queryString);
       await scraps(queryString);
-      console.log("queryString", queryString);
+      // console.log("queryString", queryString);
     } catch (error) {
       console.error("Error during select payment method");
     }
@@ -98,9 +98,9 @@ const VendorDashboardOrder = () => {
 
       const differences = finalOrderList?.map((item) => {
         const createdTime = new Date(item.createdAt);
-        console.log("createdTimedifferences", createdTime);
+        // console.log("createdTimedifferences", createdTime);
         const timeDiffInMillis = currentTime - createdTime;
-        console.log("createdtimeDiffInMillis", timeDiffInMillis);
+        // console.log("createdtimeDiffInMillis", timeDiffInMillis);
         // Convert time difference to hours, minutes, and seconds
         const hours = Math.floor(timeDiffInMillis / (1000 * 60 * 60));
         const minutes = Math.floor(
@@ -125,7 +125,7 @@ const VendorDashboardOrder = () => {
     // Cleanup the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, [finalOrderList]);
-  console.log("finalOrderListArray", finalOrderListArray);
+  // console.log("finalOrderListArray", finalOrderListArray);
   const renderData = () => {
     return (
       <main>

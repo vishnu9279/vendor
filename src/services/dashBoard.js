@@ -62,9 +62,18 @@ const updatePaymentMethodService = async (payment,orderId)=>{
       console.error("Error while Updating order Status", error);
   }
 }
+const vendorScrapOrderConfirmation=async(scrapInfo)=>{
+  try {
+    console.log("updatePaymentMethodService working", scrapInfo);
+    const response = await axiosInstance.post("/vendor/vendorScrapOrderConfirmation", scrapInfo);
+    return response;
+  } catch (error) {
+      console.error("Error while Updating order Status", error);
+  }
+}
 
 export { scrapOrdersService,
   updateScrapOrderStatusService,
   scrapOrdersInfoService,
   getPaymentModeService,
-  updatePaymentMethodService};
+  updatePaymentMethodService,vendorScrapOrderConfirmation};

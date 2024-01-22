@@ -44,7 +44,7 @@ const otpVerifyService = async (phoneNumber, otp) => {
   try {
     console.log("payload", payload);
     const resp = await axiosInstance.post("/vendor/otpVerify", payload);
-    const dataObject = resp.data;
+    const dataObject = JSON.parse(resp.data.data);
     console.log("response from api", dataObject);
 
     return dataObject;

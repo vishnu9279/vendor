@@ -94,6 +94,11 @@ const VendorDashboardOrderDetail = () => {
   };
   const updateQuantity = (id, newQuantity = 1) => {
     console.log("newQuantity", newQuantity);
+    if (isNaN(newQuantity) || newQuantity < 1) {
+      // Handle the case where the input is not a valid number or less than 1
+      console.log("Invalid quantity input");
+      return;
+    }
       setOrderDetailsData((prevData) =>
         prevData?.map((item) =>
           item.scrapId === id
@@ -229,7 +234,7 @@ const VendorDashboardOrderDetail = () => {
                         </div>
                         <div className="flex justify-center w-1/5">
                           <input
-                            type="number"
+                            type="text"
                             className="flex justify-center items-center text-center w-full "
                             min={1}
                             onChange={(e) =>
@@ -250,6 +255,7 @@ const VendorDashboardOrderDetail = () => {
                         <span className="w-1/5 flex justify-center items-center">
                           <input
                             type="checkbox"
+                            // checked={scrapDetail.isVendorUpdatedStatus}
                             className="w-[50px] h-[17px] ordersettlementcheckbox"
                             onChange={() => {
                               finalScrapSettlement(
@@ -257,6 +263,7 @@ const VendorDashboardOrderDetail = () => {
                                 scrapDetail?.quantity,
                                 scrapDetail?.price
                               );
+                              
                             }}
                           />
                         </span>

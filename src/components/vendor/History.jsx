@@ -178,6 +178,12 @@ const History = () => {
                         </th>
                         <th
                           scope="col"
+                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                        >
+                          Platform Fee
+                        </th>
+                        <th
+                          scope="col"
                           className="text-[16px] font-medium text-[#707070] px-3 py-4 text-left rounded-r-xl w-[120px]"
                         >
                           View Detail
@@ -226,6 +232,9 @@ const History = () => {
                           </td>
                           <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
                           {item?.addressInfo?.pincode}
+                          </td>
+                          <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
+                          {item?.markupFee}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal w-[120px] text-[#707070] rounded-r-xl">
                             <Link to={`/order-history-detail/${item.orderId}`}>

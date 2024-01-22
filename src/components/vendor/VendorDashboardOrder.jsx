@@ -47,11 +47,13 @@ const VendorDashboardOrder = () => {
 
     let queryString = "";
     try {
-      if (filterValue.toLowerCase() === "all") {
-        queryString += "0,1,2,3,4";
-      } else {
-        queryString += filterValue;
-      }
+      queryString += filterValue;
+
+      // if (filterValue.toLowerCase() === "all") {
+      //   queryString += "0,1,2,3,4";
+      // } else {
+      //   queryString += filterValue;
+      // }
 
       setFilterOrderStatus(queryString);
       await scraps(queryString);
@@ -352,7 +354,7 @@ const VendorDashboardOrder = () => {
                 >
                   <option value="0">Pending Order</option>
 
-                  <option value="all">All</option>
+                  {/* <option value="all">All</option> */}
                   <option value="1">Accpted Order</option>
                   <option value="2">On the Way</option>
                   <option value="3">Arrived</option>

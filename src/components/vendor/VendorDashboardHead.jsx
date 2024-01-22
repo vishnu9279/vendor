@@ -7,31 +7,37 @@ import location_icon from "../../assets/SVG/dashboard/location.svg";
 import menu from "../../assets/SVG/dashboard/jam_menu.svg";
 import { useEffect, useState } from "react";
 import Switch from "react-switch";
-import {getCurrentUser,changeUserActiveStatusTogggleButtonService} from "../../services/user"
+import {
+  getCurrentUser,
+  changeUserActiveStatusTogggleButtonService,
+} from "../../services/user";
+
+import {Link} from "react-router-dom"
 const VendorDashboardHead = ({ showNav, handleNavClick }) => {
   const [user, setUser] = useState({});
-  const [userActiveStatus, setUserActiveStatus] = useState(true)
+  const [userActiveStatus, setUserActiveStatus] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const getCurrentUserService = async ()=>{
-      const user =  await getCurrentUser();
+    const getCurrentUserService = async () => {
+      const user = await getCurrentUser();
       setUserActiveStatus(user.isActive);
       setUser(user);
-    }
+    };
     getCurrentUserService();
   }, []);
 
   const changeUserActiveStatusTogggleButton = async (userActiveStatus) => {
-    console.log("userActiveStatus",userActiveStatus);
+    console.log("userActiveStatus", userActiveStatus);
     try {
-      const response = await changeUserActiveStatusTogggleButtonService(userActiveStatus);
+      const response = await changeUserActiveStatusTogggleButtonService(
+        userActiveStatus
+      );
       console.log("update isActive Status", response);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
+  };
 
   return (
     <nav>
@@ -49,12 +55,31 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
                 Hi, {user.firstName} {user.lastName}
               </h1>
               <p className="text-center text-neutral-500 text-sm font-normal font-['Gilroy-Regular'] tracking-tight">
-                You are {userActiveStatus ? 'online' : 'offline'}
+                You are {userActiveStatus ? "online" : "offline"}
               </p>
             </span>
           </div>
         </section>
         <section className="flex px-2 items-center h-full justify-center w-1/4">
+          <aside className="mr-2">
+          <Link to="/history">
+            <span className="text-sm font-semibold ml-7">{user.balance}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-7 h-6 mr-4 cursor-pointer"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
+              />
+            </svg>
+            </Link>
+          </aside>
           <aside className="mr-2">
             <img
               src={bell_icon}
@@ -62,6 +87,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
               className="w-10 cursor-pointer"
             />
           </aside>
+
           <aside className="flex mr-1 items-center ml-1">
             <img
               src={user.profileUrl}
@@ -116,7 +142,9 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
                     alt="location_icon"
                     className="w-4 md:w-7 cursor-pointer"
                   />
-                  <p className="font-semibold text-base md:text-xl">{user?.countryName}</p>
+                  <p className="font-semibold text-base md:text-xl">
+                    {user?.countryName}
+                  </p>
                 </div>
               </span>
             </div>
@@ -141,8 +169,12 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
         <aside className="bg-zinc-600 rounded-lg mt-20 md:mt-28 mx-3 p-3 absolute left-0 right-0 -z-30">
           <div className="flex justify-between items-center">
             <section>
-              <h1 className="text-lg text-white font-bold">{user.firstName} {user.lastName}</h1>
-              <p className="text-white text-sm leading-none">You are {userActiveStatus ? 'online' : 'offline'}</p>
+              <h1 className="text-lg text-white font-bold">
+                {user.firstName} {user.lastName}
+              </h1>
+              <p className="text-white text-sm leading-none">
+                You are {userActiveStatus ? "online" : "offline"}
+              </p>
             </section>
             <section>
               <Switch

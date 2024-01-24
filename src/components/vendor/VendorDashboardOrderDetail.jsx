@@ -25,26 +25,25 @@ const VendorDashboardOrderDetail = () => {
   const [selectPayment, setSelectedPayent] = useState();
   const [payment, setPaymentMode] = useState();
   const [orderDetailsData, setOrderDetailsData] = useState();
+  const [quantityItem, setQuantityItem] = useState({});
   // const [orderTotalPrice,setOrderTotalPrice]=useState(0);
 
   console.log("GETTING ORDER ID ", orderId);
-
+  const orderInfo = async () => {
+    console.log("API Call started");
+    try {
+      const orderInfo = await scrapOrdersInfoService(orderId);
+      console.log("vendor orders Info", orderInfo);
+      console.log("API Call successful", JSON.parse(orderInfo.data.data));
+      setUserOrder(JSON.parse(orderInfo?.data?.data));
+      const orderItems = JSON.parse(orderInfo?.data?.data);
+      setOrderDetailsData(orderItems?.items);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    const orderInfo = async () => {
-      console.log("API Call started");
-      try {
-        const orderInfo = await scrapOrdersInfoService(orderId);
-        console.log("vendor orders Info", orderInfo);
-        console.log("API Call successful", JSON.parse(orderInfo.data.data));
-        setUserOrder(JSON.parse(orderInfo?.data?.data));
-        const orderItems = JSON.parse(orderInfo?.data?.data);
-        setOrderDetailsData(orderItems?.items);
-      } catch (error) {
-        console.error("error", error);
-      }
-    };
     orderInfo();
     fetchPayemtMethod();
   }, [orderId]);
@@ -93,41 +92,45 @@ const VendorDashboardOrderDetail = () => {
     }
   };
   const updateQuantity = (id, newQuantity = 1) => {
-    console.log("newQuantity", newQuantity);
-    if (isNaN(newQuantity) || newQuantity < 1) {
-      // Handle the case where the input is not a valid number or less than 1
-      console.log("Invalid quantity input");
-      return;
+    console.log("............", quantityItem);
+    if (quantityItem[id]) {
+      console.log("if block.........");
+      setQuantityItem({ ...quantityItem, [id]: false });
+    } else {
+      console.log("else block......");
     }
-      setOrderDetailsData((prevData) =>
-        prevData?.map((item) =>
-          item.scrapId === id
-            ? {
-                ...item,
-                quantity: parseInt(newQuantity, 10),
-                amount: parseInt(newQuantity * item.price),
-              }
-            : item
-        )
-      );
-
-    console.log("id", id, newQuantity);
+    setOrderDetailsData((prevData) =>
+      prevData?.map((item) =>
+        item.scrapId === id
+          ? {
+              ...item,
+              quantity: parseFloat(newQuantity),
+              amount: parseFloat(newQuantity * item.price),
+            }
+          : item
+      )
+    );
+    // console.log("id", id, newQuantity);
   };
   console.log("orderDetailsData", orderDetailsData);
   let totalVendorFinalAmount = 0;
   let totalVendorScrapQuantity = 0;
   const calculateTotalPrice = () => {
-    const totalPrice = orderDetailsData?.reduce(
-      (acc, item) => acc + item.quantity * item.price,
-      0
-    );
+    // const totalPrice = orderDetailsData?.reduce(
+    //   (acc, item) => acc + item.quantity * item.price,
+    //   0
+    // );
+    let pricePerQuantity = 0;
+    const totalPrice = orderDetailsData?.map((item) => {
+      pricePerQuantity = pricePerQuantity + item.amount;
+    });
     const scrapQuantity = orderDetailsData?.reduce(
       (acc, item) => acc + item.quantity,
       0
     );
-    totalVendorFinalAmount = totalPrice;
+    totalVendorFinalAmount = pricePerQuantity;
     totalVendorScrapQuantity = scrapQuantity;
-    return totalPrice;
+    return pricePerQuantity;
   };
   // const calculateTotalQuantity = () => {
   //   const scrapQuantity = orderDetailsData.reduce(
@@ -138,9 +141,19 @@ const VendorDashboardOrderDetail = () => {
   // };
 
   const finalScrapSettlement = async (scrap_id, scrapQuantity, scrapPrice) => {
+    console.log("scrapQuantity", scrapQuantity);
     try {
+      if (scrapQuantity === "" || scrapQuantity === null) {
+        showSuccessMessage("Please fill the quantity", "error");
+        return;
+      }
+      if (quantityItem[scrap_id]) {
+        setQuantityItem({ ...quantityItem, [scrap_id]: false });
+      } else {
+        setQuantityItem({ ...quantityItem, [scrap_id]: true });
+      }
       const scrapInfo = {
-        quantity: scrapQuantity,
+        quantity: scrapQuantity.toString(),
         price: scrapPrice,
         orderId: userOrder?.orderId,
         scrapId: scrap_id,
@@ -149,11 +162,16 @@ const VendorDashboardOrderDetail = () => {
       };
       console.log("scrapInfo", scrapInfo);
       const response = await vendorScrapOrderConfirmation(scrapInfo);
+      if (response.data.success) {
+        orderInfo();
+        showSuccessMessage("Quantity updated successfully", "success");
+      }
       console.log("payment mode", response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  console.log("............", quantityItem);
   console.log("calculateTotalPrice", calculateTotalPrice());
   return (
     <div>
@@ -234,9 +252,10 @@ const VendorDashboardOrderDetail = () => {
                         </div>
                         <div className="flex justify-center w-1/5">
                           <input
-                            type="text"
+                            type="number"
+                            step="0.5"
                             className="flex justify-center items-center text-center w-full "
-                            min={1}
+                            // min={1}
                             onChange={(e) =>
                               updateQuantity(
                                 scrapDetail.scrapId,
@@ -255,15 +274,22 @@ const VendorDashboardOrderDetail = () => {
                         <span className="w-1/5 flex justify-center items-center">
                           <input
                             type="checkbox"
-                            // checked={scrapDetail.isVendorUpdatedStatus}
-                            className="w-[50px] h-[17px] ordersettlementcheckbox"
+                            checked={quantityItem[scrapDetail.scrapId]}
+                            className={`w-[50px] h-[17px] ordersettlementcheckbox ${
+                              scrapDetail?.quantity > 0 &&
+                              !quantityItem[scrapDetail.scrapId]
+                                ? "cursor-pointer"
+                                : scrapDetail?.quantity > 0 &&
+                                  quantityItem[scrapDetail.scrapId]
+                                ? "pointer-events-none"
+                                : ""
+                            }`}
                             onChange={() => {
                               finalScrapSettlement(
                                 scrapDetail.scrapId,
                                 scrapDetail?.quantity,
                                 scrapDetail?.price
                               );
-                              
                             }}
                           />
                         </span>

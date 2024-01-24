@@ -121,9 +121,9 @@ const VendorDashboardOrderDetail = () => {
     //   0
     // );
     let pricePerQuantity = 0;
-    const totalPrice = orderDetailsData?.map((item) => {
-      pricePerQuantity = pricePerQuantity + item.amount;
-    });
+    // const totalPrice = orderDetailsData?.map((item) => {
+    //   pricePerQuantity = pricePerQuantity + item.amount;
+    // });
     const scrapQuantity = orderDetailsData?.reduce(
       (acc, item) => acc + item.quantity,
       0

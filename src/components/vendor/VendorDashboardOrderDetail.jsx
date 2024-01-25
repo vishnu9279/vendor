@@ -59,6 +59,7 @@ const VendorDashboardOrderDetail = () => {
       console.log("get User data", response);
 
       showSuccessMessage(OrdersRespEnum[orderStatus], "success");
+      window.location.reload();
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -121,6 +122,7 @@ const VendorDashboardOrderDetail = () => {
     //   0
     // );
     let pricePerQuantity = 0;
+    // eslint-disable-next-line no-unused-vars
     const totalPrice = orderDetailsData?.map((item) => {
       pricePerQuantity = pricePerQuantity + item.amount;
     });

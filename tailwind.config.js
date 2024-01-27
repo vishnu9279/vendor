@@ -28,6 +28,7 @@ module.exports = {
         "min-md": { min: "475px" },
         "max-er": { max: "768px" },
         "min-er": { min: "768px" },
+        "min-large":{min:"1280px"}
       },
     },
   },

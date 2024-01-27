@@ -16,9 +16,6 @@ const OtpSmall = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-
-  console.log("phoneNumberObj", location.state.phoneNumber);
-
   const handleOTPChange = (e) => {
     console.log("events", e);
     const value = e.target.value;

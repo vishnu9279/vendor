@@ -74,7 +74,7 @@ const VendorRegister = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
-          countryCode
+          countryCode,
         },
       });
     } catch (error) {
@@ -105,7 +105,7 @@ const VendorRegister = () => {
         </div>
         <div className="form-data-content width pl-12 pr-12 p-6 mr-5 w-full max-w-[772px] bg-white">
           <h2 className="text-[#333333] font-semibold text-[24px] mt-6 mb-2 xs:text-[28px]">
-            Sign up now
+            Sign up now 
           </h2>
           <p className="text-[#707070] text-[16px] font-medium mt-0 xs:text-[19px]">
             Create a new account in three simple steps
@@ -172,11 +172,29 @@ const VendorRegister = () => {
                   handleChange={() => setChecked((prevState) => !prevState)}
                 />{" "}
                 By creating an account, I agree to our
-                <span className="underline cursor-pointer">
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    navigate("/terms-condition", {
+                      state: {
+                        from_page: "VendorRegister",
+                      },
+                    });
+                  }}
+                >
                   Terms of use
                 </span>{" "}
                 and{" "}
-                <span className="underline cursor-pointer">
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    navigate("/terms-condition", {
+                      state: {
+                        from_page: "VendorRegister",
+                      },
+                    });
+                  }}
+                >
                   Privacy Policy{" "}
                 </span>
               </p>

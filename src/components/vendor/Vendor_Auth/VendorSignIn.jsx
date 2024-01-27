@@ -33,7 +33,7 @@ const VendorSignIn = () => {
     };
     countries();
   }, []);
-  
+
   const handlePhoneNumberChange = (e) => {
     console.log("handlePhoneNumberChange", e);
     const value = e.target.value;
@@ -59,7 +59,7 @@ const VendorSignIn = () => {
       setIsValidCountryCode(false);
     }
   };
-  
+
   const signInService = async () => {
     try {
       console.log("checked", checked);
@@ -73,7 +73,7 @@ const VendorSignIn = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
-          countryCode
+          countryCode,
         },
       });
     } catch (error) {
@@ -173,11 +173,29 @@ const VendorSignIn = () => {
                   handleChange={() => setChecked((prevState) => !prevState)}
                 />{" "}
                 By creating an account, I agree to our
-                <span className="underline cursor-pointer">
+                <span
+                  className="underline cursor-pointer "
+                  onClick={() => {
+                    navigate("/terms-condition", {
+                      state: {
+                        from_page: "VendorSignIn",
+                      },
+                    });
+                  }}
+                >
                   Terms of use
                 </span>{" "}
                 and{" "}
-                <span className="underline cursor-pointer">
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    navigate("/terms-condition", {
+                      state: {
+                        from_page: "VendorSignIn",
+                      },
+                    });
+                  }}
+                >
                   Privacy Policy{" "}
                 </span>
               </p>

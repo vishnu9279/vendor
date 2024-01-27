@@ -26,6 +26,7 @@ const VendorDashboardOrderDetail = () => {
   const [payment, setPaymentMode] = useState();
   const [orderDetailsData, setOrderDetailsData] = useState();
   const [quantityItem, setQuantityItem] = useState({});
+  const [totalCheckedQuanity, setTotalCheckedQuantity] = useState([]);
   // const [orderTotalPrice,setOrderTotalPrice]=useState(0);
 
   console.log("GETTING ORDER ID ", orderId);
@@ -99,6 +100,17 @@ const VendorDashboardOrderDetail = () => {
     } else {
       console.log("else block......");
     }
+    const resultCheck = totalCheckedQuanity.some((data) => {
+      return data == id;
+    });
+    if (resultCheck) {
+      console.log("totalCheckedQuanity",totalCheckedQuanity,id)
+      const filterResult = totalCheckedQuanity?.filter((data) => {
+       return data != id;
+      });
+      console.log("filter result",filterResult)
+      setTotalCheckedQuantity(filterResult);
+    }
     setOrderDetailsData((prevData) =>
       prevData?.map((item) =>
         item.scrapId === id
@@ -121,9 +133,10 @@ const VendorDashboardOrderDetail = () => {
     //   0
     // );
     let pricePerQuantity = 0;
-    // const totalPrice = orderDetailsData?.map((item) => {
-    //   pricePerQuantity = pricePerQuantity + item.amount;
-    // });
+    const totalPrice = orderDetailsData?.map((item) => {
+      pricePerQuantity = pricePerQuantity + item.amount;
+    });
+    console.log("totalPrice", totalPrice);
     const scrapQuantity = orderDetailsData?.reduce(
       (acc, item) => acc + item.quantity,
       0
@@ -152,6 +165,18 @@ const VendorDashboardOrderDetail = () => {
       } else {
         setQuantityItem({ ...quantityItem, [scrap_id]: true });
       }
+      const resultCheck = totalCheckedQuanity.some((id) => {
+        return id == scrap_id;
+      });
+      if (resultCheck) {
+        const filterResult = totalCheckedQuanity.filter((id) => {
+          id != scrap_id;
+        });
+        setTotalCheckedQuantity(filterResult);
+      } else {
+        setTotalCheckedQuantity([...totalCheckedQuanity, scrap_id]);
+      }
+      console.log("resultCheck", resultCheck);
       const scrapInfo = {
         quantity: scrapQuantity.toString(),
         price: scrapPrice,
@@ -172,6 +197,7 @@ const VendorDashboardOrderDetail = () => {
     }
   };
   console.log("............", quantityItem);
+  console.log("...........totalCheckedQuanity", totalCheckedQuanity);
   console.log("calculateTotalPrice", calculateTotalPrice());
   return (
     <div>
@@ -298,11 +324,12 @@ const VendorDashboardOrderDetail = () => {
                   </div>
                 </ul>
                 {userOrder?.orderStatus === OrdersEnum.ARRVIED && (
-                  <div className="pt-5 pl-5 relative right-0 lg:max-w-sm ">
+                  <div className="mt-8 pl-16 relative flex items-center gap-4">
+                    <p>Select your payment type</p>
                     <select
                       value={selectPayment}
                       onChange={handlePayment}
-                      className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+                      className="w-[50%] p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
                     >
                       <option value="">Select State</option>
                       {payment?.map((option) => {

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -21,10 +21,11 @@ import axiosInstance from "./api-config/axiosInstance";
 // import { onMessage} from "firebase/messaging";
 import VendorDashboardOrderDetail from "./components/vendor/VendorDashboardOrderDetail";
 import VendorDashboardOrderHistory from "./components/vendor/VendorDashboardOrderHistory";
+import TermsCondition from "./components/vendor/Vendor_Auth/TermsCondition";
 
 function App() {
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     // onMessage(messaging,(payload)=>{
     //   console.log("fcm payload", payload);
@@ -32,7 +33,7 @@ function App() {
     axiosInstance.interceptors.request.use(
       (config) => {
         setLoading(true);
-        
+
         return config;
       },
       (error) => {
@@ -40,22 +41,22 @@ function App() {
         setLoading(false);
         return Promise.reject(error);
       }
-      );
-      
-      axiosInstance.interceptors.response.use(
-        (response) => {
-          console.log("axios response ", response);
-          setLoading(false);
-          return response;
-        },
-        (error) => {
-          console.log("axiosInstance response error", error);
-          setLoading(false);
-          
-          return Promise.reject(error);
-        }
-        );
-      }, []);
+    );
+
+    axiosInstance.interceptors.response.use(
+      (response) => {
+        console.log("axios response ", response);
+        setLoading(false);
+        return response;
+      },
+      (error) => {
+        console.log("axiosInstance response error", error);
+        setLoading(false);
+
+        return Promise.reject(error);
+      }
+    );
+  }, []);
 
   return (
     <div className="App">
@@ -68,20 +69,21 @@ function App() {
         <Route path="/vendor-otp" element={<VendorOtpRegister />} />
         <Route path="/vendor-signIn" element={<VendorSignIn />} />
 
+        <Route path="/terms-condition" element={<TermsCondition />} />
         {/* Vendor Dashboard */}
         <Route
           path="/vendor-dashboard"
           element={<Protected Component={VendorDashboard} />}
         />
-          <Route
-            path="/vendor-dashboard-order"
-            element={<Protected Component={VendorDashboardOrder} />}
-          />
-           <Route
-            path="/order-detail/:orderId"
-            element={<Protected Component={VendorDashboardOrderDetail} />}
-          />
-           <Route path="/Settings" element={<Protected Component={Settings} />} />
+        <Route
+          path="/vendor-dashboard-order"
+          element={<Protected Component={VendorDashboardOrder} />}
+        />
+        <Route
+          path="/order-detail/:orderId"
+          element={<Protected Component={VendorDashboardOrderDetail} />}
+        />
+        <Route path="/Settings" element={<Protected Component={Settings} />} />
         <Route
           path="/contactUs"
           element={<Protected Component={ContactScreen} />}
@@ -89,8 +91,10 @@ function App() {
         <Route path="/aboutUs" element={<Protected Component={AboutUs} />} />
 
         <Route path="/history" element={<Protected Component={History} />} />
-        <Route path="/order-history-detail/:orderId" element={<Protected Component={VendorDashboardOrderHistory} />} />
-       
+        <Route
+          path="/order-history-detail/:orderId"
+          element={<Protected Component={VendorDashboardOrderHistory} />}
+        />
       </Routes>
     </div>
   );

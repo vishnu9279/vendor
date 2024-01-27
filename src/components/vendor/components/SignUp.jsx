@@ -160,10 +160,26 @@ const SignUpSmall = () => {
                 handleChange={() => setChecked((prevState) => !prevState)}
               />{" "}
               By creating an account, I agree to our
-              <span className="underline cursor-pointer">
+              <span className="underline cursor-pointer"
+              onClick={() => {
+                navigate("/terms-condition", {
+                  state: {
+                    from_page: "VendorRegister",
+                  },
+                });
+              }}
+              >
                 Terms of use
               </span> and{" "}
-              <span className="underline cursor-pointer">Privacy Policy </span>
+              <span className="underline cursor-pointer"
+              onClick={() => {
+                navigate("/terms-condition", {
+                  state: {
+                    from_page: "VendorRegister",
+                  },
+                });
+              }}
+              >Privacy Policy </span>
             </p>
             <Button
               label="Continue"

@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../auth/Button";
 import { useNavigate } from "react-router-dom";
-import 'react-phone-number-input/style.css'
-import scrapBus from '../../../assets/PNG/scrapbus.png'
+import "react-phone-number-input/style.css";
+import scrapBus from "../../../assets/PNG/scrapbus.png";
 import {
   getCountries,
   loginUser,
@@ -54,13 +54,12 @@ const SignInSmall = () => {
     }
   };
   const signInService = async () => {
-    
     try {
-      console.log("checked",checked);
+      console.log("checked", checked);
       if (!checked) {
-        showSuccessMessage("Select Term And Condition", "error")
-        return
-    }
+        showSuccessMessage("Select Term And Condition", "error");
+        return;
+      }
       const userResp = await loginUser(countryCode, phoneNumber);
       console.log("user login from Service File", userResp);
 
@@ -68,7 +67,7 @@ const SignInSmall = () => {
       navigate("/vendor-otp", {
         state: {
           phoneNumber,
-          countryCode
+          countryCode,
         },
       });
     } catch (error) {
@@ -88,9 +87,7 @@ const SignInSmall = () => {
       </div>
       <div className="bg-white -mt-12 p-3 rounded-t-lg">
         <div className="mt-5">
-          <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">
-            Sign In now
-          </h2>
+          <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">Sign In now small</h2>
         </div>
         <form className="mt-5">
           <p className="text-[#666666] text-[16px]">Phone Number</p>
@@ -154,10 +151,31 @@ const SignInSmall = () => {
                 handleChange={() => setChecked((prevState) => !prevState)}
               />{" "}
               By creating an account, I agree to our
-              <span className="underline cursor-pointer">
+              <span
+                className="underline cursor-pointer"
+                onClick={() => {
+                  navigate("/terms-condition", {
+                    state: {
+                      from_page: "VendorSignIn",
+                    },
+                  });
+                }}
+              >
                 Terms of use
-              </span> and{" "}
-              <span className="underline cursor-pointer">Privacy Policy </span>
+              </span>{" "}
+              and{" "}
+              <span
+                className="underline cursor-pointer"
+                onClick={() => {
+                  navigate("/terms-condition", {
+                    state: {
+                      from_page: "VendorSignIn",
+                    },
+                  });
+                }}
+              >
+                Privacy Policy{" "}
+              </span>
             </p>
             <Button
               label="Continue"
@@ -176,9 +194,7 @@ const SignInSmall = () => {
           </div>
         </form>
       </div>
-
     </div>
-
   );
 };
 

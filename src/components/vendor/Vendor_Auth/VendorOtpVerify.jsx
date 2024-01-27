@@ -59,16 +59,15 @@ const VendorOtpRegister = () => {
           },
         });
       } else {
-        console.log("token", userResp.token);
         localStorage.setItem("token", userResp.token);
         showSuccessMessage(userResp.message, "success");
         navigate("/vendor-dashboard", {});
       }
     } catch (error) {
       console.error("Error", error);
-      const errorMessage = !error.response.data.error.message
-        ? error.response.data.error?._message
-        : error.response.data.error.message;
+      const errorMessage = !error?.response?.data.error.message
+        ? error?.response?.data.error?._message
+        : error?.response?.data.error.message;
 
       showSuccessMessage(errorMessage, "error");
     }
@@ -151,10 +150,26 @@ const VendorOtpRegister = () => {
                 handleChange={() => setChecked((prevState) => !prevState)}
               />{" "}
               By creating an account, I agree to our
-              <span className="underline cursor-pointer">
+              <span className="underline cursor-pointer"
+              onClick={() => {
+                navigate("/terms-condition", {
+                  state: {
+                    from_page: "OtpVerify",
+                  },
+                });
+              }}
+              >
                 Terms of use
               </span> and{" "}
-              <span className="underline cursor-pointer">Privacy Policy </span>
+              <span className="underline cursor-pointer"
+              onClick={() => {
+                navigate("/terms-condition", {
+                  state: {
+                    from_page: "OtpVerify",
+                  },
+                });
+              }}
+              >Privacy Policy </span>
             </p>
             <Button
               label="Continue"

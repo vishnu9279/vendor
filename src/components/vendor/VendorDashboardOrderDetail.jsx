@@ -60,6 +60,7 @@ const VendorDashboardOrderDetail = () => {
       console.log("get User data", response);
 
       showSuccessMessage(OrdersRespEnum[orderStatus], "success");
+      window.location.reload();
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -331,7 +332,7 @@ const VendorDashboardOrderDetail = () => {
                       onChange={handlePayment}
                       className="w-[50%] p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
                     >
-                      <option value="">Select State</option>
+                      <option value="">Select payment method</option>
                       {payment?.map((option) => {
                         return (
                           <option

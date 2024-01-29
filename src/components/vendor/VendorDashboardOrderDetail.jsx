@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { OrdersEnum, OrdersRespEnum } from "../../api-config/common";
 import showSuccessMessage from "../../utils/SwalPopup";
+import axiosInstance from "../../api-config/axiosInstance";
+import QRIMAGE from "../../assets/PNG/QRCODE.png"
 import {
   scrapOrdersInfoService,
   updateScrapOrderStatusService,
@@ -27,6 +29,10 @@ const VendorDashboardOrderDetail = () => {
   const [orderDetailsData, setOrderDetailsData] = useState();
   const [quantityItem, setQuantityItem] = useState({});
   const [totalCheckedQuanity, setTotalCheckedQuantity] = useState([]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isTranscationNumber, setIsTranscationNumber] = useState(0);
+  const [isTranscationFile, setIsTranscationFile] = useState("");
+  const [isSignedURL, setIsSignedURL] = useState("");
   // const [orderTotalPrice,setOrderTotalPrice]=useState(0);
 
   console.log("GETTING ORDER ID ", orderId);
@@ -93,8 +99,8 @@ const VendorDashboardOrderDetail = () => {
       console.error("Error fetching data:", error);
     }
   };
-  const updateQuantity = (id, newQuantity = 1) => {
-    console.log("............", quantityItem);
+  const updateQuantity = (id, newQuantity = 1, quantityType) => {
+    console.log("............", quantityItem, newQuantity);
     if (quantityItem[id]) {
       console.log("if block.........");
       setQuantityItem({ ...quantityItem, [id]: false });
@@ -105,20 +111,25 @@ const VendorDashboardOrderDetail = () => {
       return data == id;
     });
     if (resultCheck) {
-      console.log("totalCheckedQuanity",totalCheckedQuanity,id)
+      console.log("totalCheckedQuanity", totalCheckedQuanity, id);
       const filterResult = totalCheckedQuanity?.filter((data) => {
-       return data != id;
+        return data != id;
       });
-      console.log("filter result",filterResult)
+      console.log("filter result", filterResult);
       setTotalCheckedQuantity(filterResult);
+    }
+    if (quantityType == "per/piece") {
+      newQuantity = parseInt(newQuantity);
+    } else {
+      newQuantity = parseFloat(newQuantity);
     }
     setOrderDetailsData((prevData) =>
       prevData?.map((item) =>
         item.scrapId === id
           ? {
               ...item,
-              quantity: parseFloat(newQuantity),
-              amount: parseFloat(newQuantity * item.price),
+              quantity: newQuantity,
+              amount: newQuantity * item.price,
             }
           : item
       )
@@ -128,6 +139,7 @@ const VendorDashboardOrderDetail = () => {
   console.log("orderDetailsData", orderDetailsData);
   let totalVendorFinalAmount = 0;
   let totalVendorScrapQuantity = 0;
+  let platFormFees = 0;
   const calculateTotalPrice = () => {
     // const totalPrice = orderDetailsData?.reduce(
     //   (acc, item) => acc + item.quantity * item.price,
@@ -143,6 +155,7 @@ const VendorDashboardOrderDetail = () => {
       0
     );
     totalVendorFinalAmount = pricePerQuantity;
+    platFormFees = pricePerQuantity / 100;
     totalVendorScrapQuantity = scrapQuantity;
     return pricePerQuantity;
   };
@@ -197,15 +210,132 @@ const VendorDashboardOrderDetail = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+  const openPlatformModal = () => {
+    setIsOpenModal(true);
+  };
+  const handleQRCodeUpload = async () => {
+    if (!isTranscationFile || !isTranscationNumber) {
+      showSuccessMessage("Please fill both the fields", "error");
+      return;
+    } else {
+      setIsOpenModal(false);
+      const payload={
+        orderId: userOrder?.orderId,
+        paymentScreenShotImageKey:isSignedURL,
+        transactionOrUtrNumber: isTranscationNumber
+      }
+      const addPaymentDetails = await axiosInstance.post(
+        "/vendor/addPaymentDetail",
+        payload
+      );
+      if(addPaymentDetails?.data.success){
+        showSuccessMessage("You have successfully added your payment details", "success");
+      }
+      console.log("addPaymentDetails",addPaymentDetails)
+    }
+  };
+  const handleFileChange = async (e) => {
+    console.log("file ", e.target.files[0]);
+    const file = e.target.files[0];
+    const fileName = file.name;
+    const userId = userOrder?.userId;
+    const payload = {
+      ContentType: file.type,
+      fileName,
+      uploadType: "PAYMENT_SCREEN_SHOT",
+      userId,
+    };
+    console.log("generateSignedUrl function work", payload);
+    setIsTranscationFile(file);
+    const signedUrl = await axiosInstance.post(
+      "/vendor/generateS3UploadSignedUrl",
+      payload
+    );
+    if (signedUrl.data.success) {
+      const result = JSON.parse(signedUrl?.data?.data);
+      setIsSignedURL(result.key);
+      const uploadResponseFromS3 = await uploadFileOnS3(file, result.signedUrl);
+      console.log(
+        "uploadResponseFromS3",
+        uploadResponseFromS3,
+        JSON.parse(signedUrl.data.data)
+      );
+      return JSON.parse(signedUrl.data.data);
+    } else {
+      console.log("error");
+    }
+  };
+  const uploadFileOnS3 = async (file, signedUrl) => {
+    try {
+      const uploadResponse = await fetch(signedUrl, {
+        body: file,
+        headers: {
+          "Content-Type": file.type, // Set the Content-Type header based on the image type
+        },
+        method: "PUT",
+      });
+      console.log("uploadFileOnS3 work", uploadFileOnS3);
+      return uploadResponse;
+    } catch (error) {
+      showSuccessMessage("Error While Uploading Image", "error");
+    }
+  };
+  console.log("setIsTranscationNumber", isTranscationNumber);
+  console.log("isSignedURL", isSignedURL);
+  const openModa = () => {
+    console.log("hello open mocal");
+    return (
+      <div className=" bg-[#0000004d] absolute top-0 left-0 right-0 bottom-0 h-screen z-10 flex justify-center items-center">
+        <div className="bg-white w-[45%] relative z-50 flex p-10">
+          <div className="w-[50%] h-[250px]">
+            <img
+              src={QRIMAGE}
+              alt="QR_CODE"
+              className="w-[80%] h-full"
+            />
+          </div>
+          <div className="flex flex-col gap-6 w-[50%]">
+            <div className="flex items-center p-2 w-full border rounded-md bg-[#80d7421c]">
+              <input type="file" onChange={handleFileChange} />
+            </div>
+            <div className="flex items-center p-2 border  w-full rounded-md bg-[#80d7421c]">
+              <input
+                type="text"
+                required
+                placeholder="Enter your transaction number"
+                className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                onChange={(e) => {
+                  setIsTranscationNumber(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <button
+                type="button"
+                className="font-semibold text-[17px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[47px] hover:opacity-80"
+                onClick={() => {
+                  handleQRCodeUpload();
+                }}
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
   console.log("............", quantityItem);
   console.log("...........totalCheckedQuanity", totalCheckedQuanity);
   console.log("calculateTotalPrice", calculateTotalPrice());
   return (
-    <div>
+    <div className="relative">
       <VendorDashboardNav />
       <VendorDashboardHead />
       <br />
       <br />
+      {isOpenModal && openModa()}
       <div className="mx-auto mt-8 max-w-2xl md:mt-12">
         {userOrder?.orderStatus == 3 ? (
           <div className="bg-white shadow-lg">
@@ -280,13 +410,14 @@ const VendorDashboardOrderDetail = () => {
                         <div className="flex justify-center w-1/5">
                           <input
                             type="number"
-                            step="0.5"
+                            // step="0.5"
                             className="flex justify-center items-center text-center w-full "
                             // min={1}
                             onChange={(e) =>
                               updateQuantity(
                                 scrapDetail.scrapId,
-                                e.target.value
+                                e.target.value,
+                                scrapDetail?.scrapInfo.quantityType
                               )
                             }
                             value={scrapDetail?.quantity}
@@ -347,11 +478,27 @@ const VendorDashboardOrderDetail = () => {
                   </div>
                 )}
               </div>
-              <div className="mt-6 mb-6 flex text-center justify-end  space-x-4 border-t border-b">
-                <p className="flex text-center absolute right-30  space-x-2">
+              <div className="mt-6 mb-6 flex flex-col text-center justify-end  space-x-4 border-t border-b">
+                <p className="flex justify-end mt-1">
                   Total - ₹ {calculateTotalPrice() ? calculateTotalPrice() : 0}
                 </p>
-                <div className="my-7 flex space-x-4">
+                <div className="flex justify-between mt-2">
+                  <div className="flex items-center ">
+                    <div>
+                      <input
+                        type="checkbox"
+                        // checked={quantityItem[scrapDetail.scrapId]}
+                        className={`w-[50px] h-[17px] mt-1 cursor-pointer`}
+                        onChange={() => {
+                          openPlatformModal();
+                        }}
+                      />
+                    </div>
+                    <p>Select your platform fee (1%)</p>
+                  </div>
+                  <div>Total platform fee - ₹ {platFormFees}</div>
+                </div>
+                <div className="my-5 flex justify-end">
                   {userOrder?.orderStatus !== OrdersEnum.SCRAP_PICKED ? (
                     <button
                       onClick={() =>
@@ -381,7 +528,9 @@ const VendorDashboardOrderDetail = () => {
                     }
                     className={`${
                       userOrder?.orderStatus === OrdersEnum.ARRVIED
-                        ? selectPayment
+                        ? selectPayment &&
+                          Object.keys(quantityItem)?.length ==
+                            totalCheckedQuanity?.length
                           ? " duration-200 bg-lime-600 flex items-center justify-center shadow-inner rounded-full mt-5 px-7 py-[.65rem] border-2 border-lime-600 tracking-wide"
                           : "bg-gray-400 cursor-not-allowed shadow-inner rounded-full mt-5 px-7 py-[.65rem] border-2"
                         : "duration-200 bg-lime-600 flex items-center justify-center shadow-inner rounded-full mt-5 px-7 py-[.65rem] border-2 border-lime-600 tracking-wide"

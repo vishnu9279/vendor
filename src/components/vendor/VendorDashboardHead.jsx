@@ -33,6 +33,7 @@ const VendorDashboardHead = ({ showNav, handleNavClick }) => {
       const response = await changeUserActiveStatusTogggleButtonService(
         userActiveStatus
       );
+      window.location.reload();
       console.log("update isActive Status", response);
     } catch (error) {
       console.error("Error fetching data:", error);

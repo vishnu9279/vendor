@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../auth/Button";
 import { useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
@@ -8,11 +8,9 @@ import {
   loginUser,
   handlePhoneNumberValidation,
 } from "../../../services/user";
-import Input from "../../auth/Input";
 import showSuccessMessage from "../../../utils/SwalPopup";
 
 const SignInSmall = () => {
-  const [checked, setChecked] = React.useState(false);
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [isValidCountryCode, setIsValidCountryCode] = useState(false);
   const [countryCode, setCountryCode] = useState("");
@@ -55,11 +53,6 @@ const SignInSmall = () => {
   };
   const signInService = async () => {
     try {
-      console.log("checked", checked);
-      if (!checked) {
-        showSuccessMessage("Select Term And Condition", "error");
-        return;
-      }
       const userResp = await loginUser(countryCode, phoneNumber);
       console.log("user login from Service File", userResp);
 
@@ -142,41 +135,6 @@ const SignInSmall = () => {
           <div className="mt-40 text-start text-xl leading-[25.3px] text-[#707070]"></div>
 
           <div className="">
-            <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
-              <Input
-                type="checkbox"
-                classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
-                value={checked}
-                checked={checked}
-                handleChange={() => setChecked((prevState) => !prevState)}
-              />{" "}
-              By creating an account, I agree to our
-              <span
-                className="underline cursor-pointer"
-                onClick={() => {
-                  navigate("/terms-condition", {
-                    state: {
-                      from_page: "VendorSignIn",
-                    },
-                  });
-                }}
-              >
-                Terms of use
-              </span>{" "}
-              and{" "}
-              <span
-                className="underline cursor-pointer"
-                onClick={() => {
-                  navigate("/terms-condition", {
-                    state: {
-                      from_page: "VendorSignIn",
-                    },
-                  });
-                }}
-              >
-                Privacy Policy{" "}
-              </span>
-            </p>
             <Button
               label="Continue"
               classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"

@@ -9,7 +9,6 @@ import { scrapOrdersService } from "../../services/dashBoard";
 import location_icon from "../../assets/SVG/dashboard/location.svg";
 import { Link } from "react-router-dom";
 const VendorDashboardOrder = () => {
-  console.log("VendorDashboardOrder");
   const [userOrder, setUserOrder] = useState([]);
   const [filterOrderStatus, setFilterOrderStatus] = useState("0");
   const [page, setPage] = useState(1);
@@ -424,9 +423,6 @@ const VendorDashboardOrder = () => {
 
                 {Array.isArray(userOrder) &&
                   [...Array(Math.ceil(totalPageCount))].map((_, i) => {
-                    {
-                      console.log("pagination 178", userOrder.length);
-                    }
                     return (
                       <span
                         key={i}

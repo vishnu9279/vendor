@@ -40,8 +40,6 @@ const VendorDashboardOrderDetail = () => {
     console.log("API Call started");
     try {
       const orderInfo = await scrapOrdersInfoService(orderId);
-      console.log("vendor orders Info", orderInfo);
-      console.log("API Call successful", JSON.parse(orderInfo.data.data));
       setUserOrder(JSON.parse(orderInfo?.data?.data));
       const orderItems = JSON.parse(orderInfo?.data?.data);
       setOrderDetailsData(orderItems?.items);
@@ -77,7 +75,6 @@ const VendorDashboardOrderDetail = () => {
       console.log("payment mode", response);
       const data = JSON.parse(response.data.data);
       setPaymentMode(data);
-      console.log("get Profile of user ", data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

@@ -35,7 +35,6 @@ const AcceptedOrder = () => {
     };
     try {
       const response = await axiosInstance.post("/updateOrderStatus", payload);
-      console.log("get User data", response);
       const data = response.data;
       if (data.statusCode === 200) {
         Swal.fire({
@@ -62,11 +61,8 @@ const AcceptedOrder = () => {
       const response = await axiosInstance.get(
         "/getVendorOrder?page=0&limit=10&orderStatus=1,2,3,4"
       );
-      console.log("get User data", response);
       const res = JSON.parse(response.data.data);
-      console.log("order data", res);
       setUserOrder(res.orders);
-      // console.log("get user order", userOrder)
     } catch (error) {
       console.error("Error fetching data:", error);
     }

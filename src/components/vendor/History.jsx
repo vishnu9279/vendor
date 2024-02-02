@@ -32,7 +32,6 @@ const History = () => {
         page - 1,
         perPageCount
       );
-      console.log("vendor orders", scrapOrders);
       setUserOrder(scrapOrders.orders);
       setTotalPageCount(Math.ceil(scrapOrders.totalScrapCount / perPageCount));
     } catch (error) {
@@ -41,7 +40,6 @@ const History = () => {
   };
 
   const filterByOrderStatus = async (filterStatus) => {
-    console.log("filterByOrderStatus", filterOrderStatus, filterStatus);
     const filterValue = filterStatus
       ? filterStatus.target.value
       : filterOrderStatus;
@@ -56,14 +54,12 @@ const History = () => {
 
       setFilterOrderStatus(queryString);
       await scraps(queryString);
-      console.log("queryString", queryString);
     } catch (error) {
       console.error("Error during select payment method");
     }
   };
 
   const filetrOrderBySearch = async (event) => {
-    console.log("serach event", event.target.value);
     // setSearchFilter(event.target.value);
     let obj = {};
     try {
@@ -75,13 +71,11 @@ const History = () => {
     }
   };
   const selectPageHandler = (selectedPage) => {
-    console.log("selectPageHandler", userOrder);
     if (
       selectedPage >= 1 &&
       selectedPage <= totalPageCount &&
       selectedPage !== page
     ) {
-      console.log("selectedPage", selectedPage);
       setPage(selectedPage);
     }
   };
@@ -351,9 +345,6 @@ const History = () => {
 
                 {Array.isArray(userOrder) &&
                   [...Array(Math.ceil(totalPageCount))].map((_, i) => {
-                    {
-                      console.log("pagination 178", userOrder.length);
-                    }
                     return (
                       <span
                         key={i}

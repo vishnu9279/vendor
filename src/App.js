@@ -45,7 +45,6 @@ function App() {
 
     axiosInstance.interceptors.response.use(
       (response) => {
-        console.log("axios response ", response);
         setLoading(false);
         return response;
       },

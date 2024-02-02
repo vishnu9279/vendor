@@ -18,8 +18,6 @@ import { useLocation } from 'react-router-dom';
 import showSuccessMessage from "../../utils/SwalPopup";
 const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   const navigate = useNavigate();
-  console.log("showNav", showNav);
-  console.log("hello VendorDashboardNav");
 
   const [profile, setProfileData] = useState({});
 
@@ -31,10 +29,8 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get("/vendor/getCurrentUser");
-      console.log("get User data", response);
       const data = JSON.parse(response.data.data);
       setProfileData(data);
-      console.log("get Profile of user ", data);
       localStorage.setItem("fullname", profile?.firstName);
     } catch (error) {
       console.error("error", error);
@@ -49,7 +45,6 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   const handleLogOut = async () => {
     try {
       const response = await axiosInstance.get("/vendor/logout");
-      console.log("logout", response);
       localStorage.clear();
       navigate("/vendor-signIn");
       showSuccessMessage(response.message, "success");
@@ -64,7 +59,6 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   };
   const location = useLocation();
   const { pathname } = location;
-  console.log("pathname",pathname)
 
   return (
     <div>

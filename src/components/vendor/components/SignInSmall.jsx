@@ -87,7 +87,7 @@ const SignInSmall = () => {
       </div>
       <div className="bg-white -mt-12 p-3 rounded-t-lg">
         <div className="mt-5">
-          <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">Sign In now small</h2>
+          <h2 className="text-[#303030]  text-[32px] mt-2 mb-0">Sign In now</h2>
         </div>
         <form className="mt-5">
           <p className="text-[#666666] text-[16px]">Phone Number</p>

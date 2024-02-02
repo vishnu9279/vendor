@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../../auth/Button";
-import Input from "../../auth/Input";
 import { useLocation, useNavigate } from "react-router-dom";
 import scrapBus from "../../../assets/PNG/scrapbus.png";
 import showSuccessMessage from "../../../utils/SwalPopup";
@@ -9,7 +8,6 @@ import LabeledInput from "../../auth/LabeledInput";
 import { otpVerifyService, handleOTP,resendOtpService } from "../../../services/user";
 
 const OtpSmall = () => {
-  const [checked, setChecked] = React.useState(false);
   const [otp, setOtp] = useState("");
   const [isValidPhoneNumber, setIsValidOTP] = useState(false);
 
@@ -26,11 +24,6 @@ const OtpSmall = () => {
 
   const otpVerify = async () => {
     try {
-      if (!checked) {
-        showSuccessMessage("Select Term And Condition", "error");
-        return;
-      }
-
       const otpVerifyResp = await otpVerifyService(location.state.phoneNumber, otp);
       console.log("otpVerifyResp from Service File", otpVerifyResp);
 
@@ -108,20 +101,6 @@ const OtpSmall = () => {
               </span>
             </div>
           <div className="mt-40 text-start text-xl  leading-[25.3px] text-[#707070] "></div>
-          <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
-            <Input
-              type="checkbox"
-              classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
-              value={checked}
-              checked={checked}
-              handleChange={() => setChecked((prevState) => !prevState)}
-            />{" "}
-            By creating an account, I agree to our
-            <span className="underline cursor-pointer">
-              Terms of use
-            </span> and{" "}
-            <span className="underline cursor-pointer">Privacy Policy </span>
-          </p>
           <Button
             label="Continue"
             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"

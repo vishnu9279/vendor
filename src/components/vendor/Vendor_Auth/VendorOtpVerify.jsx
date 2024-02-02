@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../auth/Button";
 import customer from "../../../assets/PNG/tractor 2.png";
-import Input from "../../auth/Input";
 import { useLocation, useNavigate } from "react-router-dom";
 import LabeledInput from "../../auth/LabeledInput";
 import showSuccessMessage from "../../../utils/SwalPopup";
@@ -20,7 +19,6 @@ const VendorOtpRegister = () => {
     }
   }, []);
 
-  const [checked, setChecked] = React.useState(false);
   const [otp, setOtp] = useState("");
   const [isValidOTP, setIsValidOTP] = useState(false);
 
@@ -40,10 +38,6 @@ const VendorOtpRegister = () => {
 
   const otpVerify = async () => {
     try {
-      if (!checked) {
-        showSuccessMessage("Select Term And Condition", "error");
-        return;
-      }
       const userResp = await otpVerifyService(
         location.state.phoneNumber,
         otp
@@ -140,37 +134,6 @@ const VendorOtpRegister = () => {
               </span>
             </div>
             <div className="mt-20 text-start text-xl  leading-[25.3px] text-[#707070] "></div>
-
-            <p className="text-[14px] text-[#666666] font-semibold mt-20 mb-5 max-w-2xl">
-              <Input
-                type="checkbox"
-                classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
-                value={checked}
-                checked={checked}
-                handleChange={() => setChecked((prevState) => !prevState)}
-              />{" "}
-              By creating an account, I agree to our
-              <span className="underline cursor-pointer"
-              onClick={() => {
-                navigate("/terms-condition", {
-                  state: {
-                    from_page: "OtpVerify",
-                  },
-                });
-              }}
-              >
-                Terms of use
-              </span> and{" "}
-              <span className="underline cursor-pointer"
-              onClick={() => {
-                navigate("/terms-condition", {
-                  state: {
-                    from_page: "OtpVerify",
-                  },
-                });
-              }}
-              >Privacy Policy </span>
-            </p>
             <Button
               label="Continue"
               classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"

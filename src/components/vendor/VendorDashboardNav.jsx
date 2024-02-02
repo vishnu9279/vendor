@@ -4,21 +4,18 @@ import orders from "../../assets/SVG/dashboard/solar_bag-check-bold.svg";
 import home_icon from "../../assets/SVG/dashboard/Home.svg";
 import about_icon from "../../assets/SVG/dashboard/About.svg";
 import contact_icon from "../../assets/SVG/dashboard/Contact.svg";
-// import price_list_icon from "../../assets/SVG/dashboard/Price list.svg";
 import pickup_icon from "../../assets/SVG/dashboard/Pickup history.svg";
 import setting_icon from "../../assets/SVG/dashboard/Settings.svg";
 import logout_icon from "../../assets/SVG/dashboard/logout.svg";
 import cancel_icon from "../../assets/SVG/dashboard/cancel.svg";
-// import user_img from "../../assets/SVG/dashboard/User Img.svg";
 import location_icon from "../../assets/SVG/dashboard/location.svg";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
-import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
-
+import showSuccessMessage from "../../utils/SwalPopup";
 const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   const navigate = useNavigate();
   console.log("showNav", showNav);
@@ -40,7 +37,12 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
       console.log("get Profile of user ", data);
       localStorage.setItem("fullname", profile?.firstName);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("error", error);
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+
+      showSuccessMessage(errorMessage, "error");
     }
   };
 
@@ -48,20 +50,16 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
     try {
       const response = await axiosInstance.get("/vendor/logout");
       console.log("logout", response);
-      const data = response.data;
-      if (data.statusCode === 200) {
-        Swal.fire({
-          icon: "success",
-          position: "center",
-          showConfirmButton: true,
-          timer: 2500,
-          title: "Successfully Logout",
-        });
-        localStorage.clear();
-        navigate("/vendor-signIn");
-      }
+      localStorage.clear();
+      navigate("/vendor-signIn");
+      showSuccessMessage(response.message, "success");
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("error", error);
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+
+      showSuccessMessage(errorMessage, "error");
     }
   };
   const location = useLocation();

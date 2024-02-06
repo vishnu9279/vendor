@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { OrdersEnum, OrdersRespEnum } from "../../api-config/common";
 import showSuccessMessage from "../../utils/SwalPopup";
 import axiosInstance from "../../api-config/axiosInstance";
-import QRIMAGE from "../../assets/PNG/QRCODE.png"
+import QRIMAGE from "../../assets/PNG/QRCODE.png";
 import {
   scrapOrdersInfoService,
   updateScrapOrderStatusService,
@@ -40,6 +40,10 @@ const VendorDashboardOrderDetail = () => {
     console.log("API Call started");
     try {
       const orderInfo = await scrapOrdersInfoService(orderId);
+      console.log(
+        "JSON.parse(orderInfo?.data?.data)",
+        JSON.parse(orderInfo?.data?.data)
+      );
       setUserOrder(JSON.parse(orderInfo?.data?.data));
       const orderItems = JSON.parse(orderInfo?.data?.data);
       setOrderDetailsData(orderItems?.items);
@@ -217,19 +221,22 @@ const VendorDashboardOrderDetail = () => {
       return;
     } else {
       setIsOpenModal(false);
-      const payload={
+      const payload = {
         orderId: userOrder?.orderId,
-        paymentScreenShotImageKey:isSignedURL,
-        transactionOrUtrNumber: isTranscationNumber
-      }
+        paymentScreenShotImageKey: isSignedURL,
+        transactionOrUtrNumber: isTranscationNumber,
+      };
       const addPaymentDetails = await axiosInstance.post(
         "/vendor/addPaymentDetail",
         payload
       );
-      if(addPaymentDetails?.data.success){
-        showSuccessMessage("You have successfully added your payment details", "success");
+      if (addPaymentDetails?.data.success) {
+        showSuccessMessage(
+          "You have successfully added your payment details",
+          "success"
+        );
       }
-      console.log("addPaymentDetails",addPaymentDetails)
+      console.log("addPaymentDetails", addPaymentDetails);
     }
   };
   const handleFileChange = async (e) => {
@@ -284,39 +291,47 @@ const VendorDashboardOrderDetail = () => {
     console.log("hello open mocal");
     return (
       <div className=" bg-[#0000004d] absolute top-0 left-0 right-0 bottom-0 h-screen z-10 flex justify-center items-center">
-        <div className="bg-white w-[45%] relative z-50 flex p-10">
-          <div className="w-[50%] h-[250px]">
-            <img
-              src={QRIMAGE}
-              alt="QR_CODE"
-              className="w-[80%] h-full"
-            />
+        <div className="bg-white w-[45%] relative z-50 flex px-10 pb-10 pt-3 flex-col">
+          <div>
+            <p
+              className="text-[22px] text-[#5AB344] flex justify-end cursor-pointer"
+              onClick={() => {
+                setIsOpenModal(false);
+              }}
+            >
+              X
+            </p>
           </div>
-          <div className="flex flex-col gap-6 w-[50%]">
-            <div className="flex items-center p-2 w-full border rounded-md bg-[#80d7421c]">
-              <input type="file" onChange={handleFileChange} />
+          <div className="flex mt-2">
+            <div className="w-[50%] h-[250px]">
+              <img src={QRIMAGE} alt="QR_CODE" className="w-[80%] h-full" />
             </div>
-            <div className="flex items-center p-2 border  w-full rounded-md bg-[#80d7421c]">
-              <input
-                type="text"
-                required
-                placeholder="Enter your transaction number"
-                className="w-full p-1 ml-3 text-black outline-none bg-transparent"
-                onChange={(e) => {
-                  setIsTranscationNumber(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <button
-                type="button"
-                className="font-semibold text-[17px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[47px] hover:opacity-80"
-                onClick={() => {
-                  handleQRCodeUpload();
-                }}
-              >
-                Upload
-              </button>
+            <div className="flex flex-col gap-6 w-[50%]">
+              <div className="flex items-center p-2 w-full border rounded-md bg-[#80d7421c]">
+                <input type="file" onChange={handleFileChange} />
+              </div>
+              <div className="flex items-center p-2 border  w-full rounded-md bg-[#80d7421c]">
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter your transaction number"
+                  className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                  onChange={(e) => {
+                    setIsTranscationNumber(e.target.value);
+                  }}
+                />
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="font-semibold text-[17px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[47px] hover:opacity-80"
+                  onClick={() => {
+                    handleQRCodeUpload();
+                  }}
+                >
+                  Upload
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -489,6 +504,7 @@ const VendorDashboardOrderDetail = () => {
                         onChange={() => {
                           openPlatformModal();
                         }}
+                        checked={isOpenModal ? true : false}
                       />
                     </div>
                     <p>Select your platform fee (1%)</p>
@@ -568,8 +584,23 @@ const VendorDashboardOrderDetail = () => {
                   <span className="mt-10 font-bold text-slate-400 text-sm">
                     Order ID:- #{userOrder?.orderId}
                   </span>
+                  {userOrder?.orderStatus == 4 && (
+                    <span className="font-bold my-2 text-slate-400 text-sm flex gap-0 items-center">
+                      <p>Pay your platform fees:</p>
+                      <input
+                        type="checkbox"
+                        // checked={quantityItem[scrapDetail.scrapId]}
+                        className={`w-[50px] h-[17px] mt-1 cursor-pointer`}
+                        onChange={() => {
+                          openPlatformModal();
+                        }}
+                        checked={isOpenModal ? true : false}
+                      />
+                    </span>
+                  )}
+
                   <div>
-                    <div className="flex mt-2  mb-5">
+                    <div className="flex mt-3  mb-5">
                       <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
                         Product Details
                       </h3>

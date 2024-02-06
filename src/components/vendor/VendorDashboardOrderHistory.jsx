@@ -105,6 +105,7 @@ const VendorDashboardOrderHistory = () => {
           "You have successfully added your payment details",
           "success"
         );
+        window.location.reload()
       }
       else{
         showSuccessMessage(
@@ -295,16 +296,13 @@ const VendorDashboardOrderHistory = () => {
                       }`}
                     >
                       {userOrder?.isAdminApprovedPaymentStatus
-                        ? userOrder?.isAdminApprovedPaymentStatus
-                          ? "Yes"
-                          : "No"
-                        : "No"}
+                        ? userOrder?.isAdminApprovedPaymentStatus: "____"}
                     </p>
                   </span>
                   <span
                     className={`mt-2 font-bold text-black text-sm flex gap-2 ${
-                      userOrder?.isAdminApprovedPaymentStatus
-                        ? userOrder?.isAdminApprovedPaymentStatus
+                      userOrder?.isPaid
+                        ? userOrder?.isPaid
                           ? "hidden"
                           : "block"
                         : "block"

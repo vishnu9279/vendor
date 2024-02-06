@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import {
   scrapOrdersInfoService,
   getPaymentModeService,
+  downloadPdfService
 } from "../../services/dashBoard";
+import pdfImage from "../../assets/PNG/pdf.png";
 
 const VendorDashboardOrderHistory = () => {
   const [userOrder, setUserOrder] = useState();
@@ -40,7 +42,34 @@ const VendorDashboardOrderHistory = () => {
       console.error("Error fetching data:", error);
     }
   };
+  const downloadPdf = async (orderId) => {
+    console.log("orderId", orderId);
 
+    try {
+      const pdf = await downloadPdfService(orderId);
+      console.log("pdf", pdf);
+      const pdfResponse = JSON.parse(pdf.data.data);
+      console.log("pdfResponse", pdfResponse);
+      const pdfBuffer = new Uint8Array(pdfResponse.data);
+
+    // Create a Blob from the Uint8Array
+    const blob = new Blob([pdfBuffer], { type: 'application/pdf' });
+
+    // Create a download link
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `invoice_${orderId}.pdf`;
+
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
   return (
     <div>
       <VendorDashboardNav showNav={vendorNav} hideNav={closeVendorNav} />
@@ -52,6 +81,14 @@ const VendorDashboardOrderHistory = () => {
       <br />
       <div className="mx-auto mt-8 max-w-2xl md:mt-12">
         <div className="bg-white shadow-lg">
+        <div className="flex justify-end pr-5">
+            <img className="w-7 cursor-pointer"
+          onClick={() => downloadPdf(userOrder?.orderId)}
+             
+              src={pdfImage}
+            >
+            </img>
+          </div>
           <div className="flex flex-col justify-between ml-4 flex-grow">
             <span className="font-bold text-sm">{userOrder?.fullName}</span>
             <span className="text-red-500 text-sm">

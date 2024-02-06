@@ -71,9 +71,18 @@ const vendorScrapOrderConfirmation=async(scrapInfo)=>{
       console.error("Error while Updating order Status", error);
   }
 }
-
+const downloadPdfService=async(orderId)=>{
+  try {
+    console.log("downloadPdfService working", orderId);
+    const response = await axiosInstance.get(`/vendor/downloadInvoice?orderId=${orderId}`);
+    return response;
+  } catch (error) {
+      console.error("Error while Updating order Status", error);
+  }
+}
 export { scrapOrdersService,
   updateScrapOrderStatusService,
   scrapOrdersInfoService,
   getPaymentModeService,
-  updatePaymentMethodService,vendorScrapOrderConfirmation};
+  updatePaymentMethodService,vendorScrapOrderConfirmation,
+  downloadPdfService};

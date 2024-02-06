@@ -33,6 +33,7 @@ const History = () => {
         perPageCount
       );
       setUserOrder(scrapOrders.orders);
+      console.log("scrapOrders.orders", scrapOrders.orders);
       setTotalPageCount(Math.ceil(scrapOrders.totalScrapCount / perPageCount));
     } catch (error) {
       console.error("error", error);
@@ -130,51 +131,63 @@ const History = () => {
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[110px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[110px] flex justify-center items-center"
                         >
                           Order ID
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[110px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[110px] flex justify-center items-center"
                         >
                           Name
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Phone
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[110px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl  w-[110px] flex justify-center items-center"
                         >
                           Amount
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px]  flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px]  flex justify-center items-center"
                         >
                           Order Status
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Address
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Pincode
                         </th>
                         <th
                           scope="col"
-                         className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
                         >
                           Platform Fee
+                        </th>
+                        <th
+                          scope="col"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                        >
+                          Vendor Payment Status
+                        </th>
+                        <th
+                          scope="col"
+                          className="text-[16px] font-medium text-[#707070] text-left rounded-l-xl w-[150px] flex justify-center items-center"
+                        >
+                          Admin Approved Status
                         </th>
                         <th
                           scope="col"
@@ -225,11 +238,27 @@ const History = () => {
                             {item?.addressInfo?.address}
                           </td>
                           <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
-                          {item?.addressInfo?.pincode}
+                            {item?.addressInfo?.pincode}
                           </td>
                           <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
-                          {item?.markupFee}
+                            {item?.markupFee}
                           </td>
+                          <td className="text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center">
+                            {/* {item?.markupFee} */}
+                            {item?.isPaid ? (item?.isPaid ? "Yes" : "No") : ""}
+                          </td>
+                          <td
+                            className={`text-[16px] font-medium text-[#707070] text-left  w-[150px] flex justify-center items-center ${
+                              !item?.isAdminApprovedPaymentStatus
+                                ? "text-red-500"
+                                : item?.isAdminApprovedPaymentStatus ===
+                                    "pending" ||
+                                  item?.isAdminApprovedPaymentStatus ===
+                                    "rejected"
+                                ? "text-red-500"
+                                : "text-green-500"
+                            }`}
+                          ></td>
                           <td className="px-6 py-4 whitespace-nowrap text-[14px] font-normal w-[120px] text-[#707070] rounded-r-xl">
                             <Link to={`/order-history-detail/${item.orderId}`}>
                               <button className="bg-lime-600 text-white px-3 py-1 rounded">
@@ -265,7 +294,9 @@ const History = () => {
             </div>
             <div className="flex flex-col min-md:flex-row w-full min-md:w-auto">
               <div className=" flex flex-col min-md:flex-row min-md:justify-center min-md:items-center min-md:gap-4 w-full">
-                <label className=" py-1 min-md:py-3 text-black hidden lg:block">Search</label>
+                <label className=" py-1 min-md:py-3 text-black hidden lg:block">
+                  Search
+                </label>
                 <div className="flex items-center p-2 border w-full min-md:w-[250px] rounded-md bg-[#80d7421c]">
                   <input
                     onChange={(e) => {
@@ -277,9 +308,7 @@ const History = () => {
                 </div>
               </div>
               <div className=" flex items-center justify-center gap-4 mt-4 min-md:mt-0 w-full">
-                <p className="pl-5 relative w-fit ">
-                  Order Status
-                </p>
+                <p className="pl-5 relative w-fit ">Order Status</p>
                 <select
                   value={filterOrderStatus}
                   onChange={filterByOrderStatus}

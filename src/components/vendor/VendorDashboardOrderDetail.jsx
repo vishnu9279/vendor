@@ -204,7 +204,7 @@ const VendorDashboardOrderDetail = () => {
       const response = await vendorScrapOrderConfirmation(scrapInfo);
       if (response.data.success) {
         orderInfo();
-        showSuccessMessage("Quantity updated successfully", "success");
+        // showSuccessMessage("Quantity updated successfully", "success");
       }
       console.log("payment mode", response);
     } catch (error) {
@@ -235,6 +235,7 @@ const VendorDashboardOrderDetail = () => {
           "You have successfully added your payment details",
           "success"
         );
+        window.location.reload()
       }
       console.log("addPaymentDetails", addPaymentDetails);
     }
@@ -584,20 +585,26 @@ const VendorDashboardOrderDetail = () => {
                   <span className="mt-10 font-bold text-slate-400 text-sm">
                     Order ID:- #{userOrder?.orderId}
                   </span>
-                  {userOrder?.orderStatus == 4 && (
-                    <span className="font-bold my-2 text-slate-400 text-sm flex gap-0 items-center">
-                      <p>Pay your platform fees:</p>
-                      <input
-                        type="checkbox"
-                        // checked={quantityItem[scrapDetail.scrapId]}
-                        className={`w-[50px] h-[17px] mt-1 cursor-pointer`}
-                        onChange={() => {
-                          openPlatformModal();
-                        }}
-                        checked={isOpenModal ? true : false}
-                      />
-                    </span>
-                  )}
+                  <span
+                    className={`mt-2 font-bold text-black text-sm flex gap-2 ${
+                      userOrder?.isPaid
+                        ? userOrder?.isPaid
+                          ? "hidden"
+                          : "block"
+                        : "block"
+                    }`}
+                  >
+                    <p>Pay your platform fees:</p>
+                    <input
+                      type="checkbox"
+                      // checked={quantityItem[scrapDetail.scrapId]}
+                      className={`w-[50px] h-[17px] mt-1 cursor-pointer`}
+                      onChange={() => {
+                        openPlatformModal();
+                      }}
+                      checked={isOpenModal ? true : false}
+                    />
+                  </span>
 
                   <div>
                     <div className="flex mt-3  mb-5">

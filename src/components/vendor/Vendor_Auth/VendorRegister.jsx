@@ -69,8 +69,6 @@ const VendorRegister = () => {
       }
       const userResp = await signUpUser(countryCode, phoneNumber);
       console.log("user login from Service File", userResp);
-
-      showSuccessMessage(userResp.message, "success");
       navigate("/vendor-otp", {
         state: {
           phoneNumber,

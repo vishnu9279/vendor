@@ -118,6 +118,7 @@ const signUpUser = async(dialCode,phoneNumber)=>{
     console.log("response from api", dataObject);
 
     const userResp = JSON.parse(dataObject.data);
+    showSuccessMessage(dataObject.message, "success");
     console.log("userResp", userResp);
     return userResp;
   } catch (error) {

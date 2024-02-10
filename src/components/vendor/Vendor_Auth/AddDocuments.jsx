@@ -5,6 +5,7 @@ import Input from "../../auth/Input";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api-config/axiosInstance";
 import showSuccessMessage from "../../../utils/SwalPopup";
+import {generateSignedUrl,uploadFileOnS3} from "../../../services/dashBoard"
 
 const AddDocuments = () => {
   const location = useLocation();
@@ -85,41 +86,6 @@ const AddDocuments = () => {
     setSelectedCity(citySelected);
   };
 
-  const generateSignedUrl = async (fileName, contentType) => {
-    try {
-      const payload = {
-        ContentType: contentType,
-        fileName,
-        uploadType: "DOCUMENTS",
-        userId,
-      };
-      console.log("generateSignedUrl function work", payload);
-      const signedUrl = await axiosInstance.post(
-        "/vendor/generateS3UploadSignedUrl",
-        payload
-      );
-      return JSON.parse(signedUrl.data.data);
-    } catch (error) {
-      console.error("Error While Uploading File", error);
-      showSuccessMessage(error.response.data.error._message, "error");
-    }
-  };
-
-  const uploadFileOnS3 = async (file, signedUrl) => {
-    try {
-      const uploadResponse = await fetch(signedUrl, {
-        body: file,
-        headers: {
-          "Content-Type": file.type, // Set the Content-Type header based on the image type
-        },
-        method: "PUT",
-      });
-      console.log("uploadFileOnS3 work", uploadFileOnS3);
-      return uploadResponse;
-    } catch (error) {
-      showSuccessMessage("Error While Uploading Image", "error");
-    }
-  };
   const uploadAdhar = async (e) => {
     console.log("file ", e.target.files[0]);
     const file = e.target.files[0];
@@ -127,7 +93,7 @@ const AddDocuments = () => {
 
     setPreviewAdhar(previewUrl);
     try {
-      const imageSignedObj = await generateSignedUrl(file.name, file.type);
+      const imageSignedObj = await generateSignedUrl(file.name, file.type,userId);
       setAdharCard(imageSignedObj.key);
 
       const uploadResponseFromS3 = await uploadFileOnS3(
@@ -156,7 +122,7 @@ const AddDocuments = () => {
     setPreviewPanCard(previewUrl);
 
     try {
-      const imageSignedObj = await generateSignedUrl(file.name, file.type);
+      const imageSignedObj = await generateSignedUrl(file.name, file.type,userId);
       setPanCard(imageSignedObj.key);
       const uploadResponseFromS3 = await uploadFileOnS3(
         file,
@@ -182,7 +148,7 @@ const AddDocuments = () => {
     const previewUrl = file.name;
     setPreviewPhoto(previewUrl);
     try {
-      const imageSignedObj = await generateSignedUrl(file.name, file.type);
+      const imageSignedObj = await generateSignedUrl(file.name, file.type,userId);
       setProfilePhoto(imageSignedObj.key);
 
       const uploadResponseFromS3 = await uploadFileOnS3(

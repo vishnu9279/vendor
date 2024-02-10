@@ -16,6 +16,8 @@ import axiosInstance from "../../api-config/axiosInstance";
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import showSuccessMessage from "../../utils/SwalPopup";
+import { logOutService } from "../../services/dashBoard";
+
 const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
   const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ const VendorDashboardNav = ({ showNav, hideNav, onScrap, showHistory }) => {
 
   const handleLogOut = async () => {
     try {
-      const response = await axiosInstance.get("/vendor/logout");
+      const response = await logOutService();
       localStorage.clear();
       navigate("/vendor-signIn");
       showSuccessMessage(response.message, "success");

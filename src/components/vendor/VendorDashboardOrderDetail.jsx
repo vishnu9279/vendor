@@ -235,7 +235,6 @@ const VendorDashboardOrderDetail = () => {
           "You have successfully added your payment details",
           "success"
         );
-        window.location.reload()
       }
       console.log("addPaymentDetails", addPaymentDetails);
     }
@@ -505,7 +504,7 @@ const VendorDashboardOrderDetail = () => {
                         onChange={() => {
                           openPlatformModal();
                         }}
-                        checked={isOpenModal ? true : false}
+                        // checked={isOpenModal ? true : false}
                       />
                     </div>
                     <p>Select your platform fee (1%)</p>
